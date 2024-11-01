@@ -1,0 +1,160 @@
+/***
+ * @description 유기산 리포트 생성 js
+ * @author jisoo
+ * @date 24-11-01
+ */
+
+const print_mode = ()=>{
+    document.body.classList.add('print-mode');
+        window.print();
+        setTimeout(() => {
+            document.body.classList.remove('print-mode');
+        }, 1000);
+}
+
+const PDF_CONFIG = {
+    // A4포맷
+    format: { width: 210, height: 297 },
+    margin: { top: 0, right: 0, bottom: 0, left: 0 },
+    canvas: {
+        scale: 3,  // 해상도를 위한 스케일
+        dpi: 1200,
+        useCORS: true,
+        logging: false,
+        allowTaint: true,
+        backgroundColor: '#ffffff',
+        imageTimeout: 0,
+        removeContainer: true,
+        letterRendering: true,  // 텍스트 렌더링 품질 향상
+        foreignObjectRendering: true  // 외부 객체 렌더링 품질 향상
+    }
+};
+
+const pdf_mode = async () => {
+    const loadingDiv = createLoadingElement();
+    try {
+        document.body.classList.add('print-mode');
+        document.body.appendChild(loadingDiv);
+
+        // 모든 .page 요소를 선택
+        const title = getElAll('.title-page');
+        const pages = title.concat(getElAll('.page'));
+        if (!pages.length) throw new Error('페이지 요소를 찾을 수 없습니다.');
+
+        const pdf = new jsPDF({
+            orientation: 'portrait',
+            unit: 'mm',
+            format: 'a4'
+        });
+        // 배열메소드 내부에서 await가 안먹어서 일부로 for문으로 바꿈 힝ㅠ
+        for (let i = 0; i < pages.length; i++) {
+            if (i > 0) {
+                pdf.addPage();
+            }
+            const canvas = await html2canvas(pages[i], {
+                ...PDF_CONFIG.canvas,
+                width: pages[i].offsetWidth,
+                height: pages[i].offsetHeight
+            });
+            const imgData = canvas.toDataURL('image/png');
+            pdf.addImage(imgData, 'PNG', 0, 0, PDF_CONFIG.format.width, PDF_CONFIG.format.height);
+        }
+
+        const username = document.getElementById('hiddenUsername')?.value || 'unknown';
+        pdf.save(`유기산 결과지_${username}_${getFormattedDate()}.pdf`);
+
+    } catch (error) {
+        console.error('PDF 생성 중 오류 발생:', error);
+        alert(`PDF 생성 중 오류가 발생했습니다: ${error.message}`);
+    } finally {
+        document.body.classList.remove('print-mode');
+        loadingDiv.remove();
+    }
+};
+
+const createLoadingElement = () => {
+    const div = document.createElement('div');
+    div.className = 'pdf-loading';
+    div.innerHTML = 'PDF 생성 중...';
+    Object.assign(div.style, {
+        position: 'fixed',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        padding: '20px',
+        background: 'rgba(0,0,0,0.5)',
+        color: 'white',
+        borderRadius: '5px',
+        zIndex: '9999'
+    });
+    return div;
+};
+const generateMultiPagePDF = async (canvas) => {
+    const { width: pdfWidth, height: pdfHeight } = PDF_CONFIG.format;
+    
+    // 캔버스와 PDF의 비율 계산
+    const ratio = canvas.width / pdfWidth;
+    const scaledHeight = canvas.height / ratio;
+    
+    // PDF 인스턴스 생성
+    const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: 'a4'
+    });
+
+    // 페이지 수 계산
+    const pageCount = Math.ceil(scaledHeight / pdfHeight);
+    
+    for (let i = 0; i < pageCount; i++) {
+        // 첫 페이지가 아니면 새 페이지 추가
+        if (i > 0) {
+            pdf.addPage();
+        }
+
+        // 현재 페이지에 해당하는 캔버스 영역 계산
+        const sourceY = i * pdfHeight * ratio;
+        const sourceHeight = Math.min(pdfHeight * ratio, canvas.height - sourceY);
+        
+        // 캔버스를 이미지로 변환
+        const pageCanvas = document.createElement('canvas');
+        pageCanvas.width = canvas.width;
+        pageCanvas.height = sourceHeight;
+        
+        const ctx = pageCanvas.getContext('2d');
+        ctx.drawImage( canvas,  0, sourceY,  canvas.width, sourceHeight, 0, 0, pageCanvas.width, pageCanvas.height );
+
+        // PDF에 이미지 추가
+        const imgData = pageCanvas.toDataURL('image/png');
+        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+    }
+
+    // PDF 저장
+    const username = document.getElementById('hiddenUsername')?.value || 'unknown';
+    const nowDt = new Date();
+    pdf.save(`UGI_Report_${username}_${getFormattedDate(nowDt)}.pdf`);
+};
+
+const load = async () => {
+    // 데이터 로드
+    try {
+        const username = document.getElementById('hiddenUsername').value;
+        const data = await jsonProvider(`/api/UGIReport?username=${encodeURIComponent(username)}`);
+        if (data.error) throw new Error(data.error);
+        console.log(data);
+        
+    } catch (error) {
+        console.error('데이터 로딩 실패:', error);
+    }
+    // 프린트...
+    document.querySelector('.header-btn').addEventListener('click',async ({target})=>{
+        if(target.classList == 'print'){
+            print_mode();
+        }
+        if(target.classList == 'pdf-save'){
+            window.scrollTo({ top: 0,}); 
+            pdf_mode();
+        }
+    })
+}
+window.addEventListener('load', load);

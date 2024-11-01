@@ -1,0 +1,4 @@
+miribio
+
+openssl pkcs12 -export -out miribio.kr.pfx -inkey miribio.kr_key_decrypt.pem -in miribio.kr_cert.p
+em -nodes

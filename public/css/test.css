@@ -1,0 +1,33 @@
+* {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .page {
+    width: 21cm;
+    min-height: 29.7cm;
+    padding: 1.5cm 1.5cm 2cm 1.5cm;
+  }
+  
+  @page {
+    size: A4;
+    margin: 0;
+  }
+  
+  @media print {
+    .page {
+      margin: 0;
+      border: initial;
+      border-radius: initial;
+      width: initial;
+      min-height: initial;
+      box-shadow: initial;
+      background: initial;
+      page-break-after: always;
+    }
+  }
