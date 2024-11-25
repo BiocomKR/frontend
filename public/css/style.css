@@ -16,7 +16,7 @@ table {
 colgroup col {
     width: 25%;
 }
-th, td {
+th{
     text-align: center;
     word-break: keep-all;
     font-size: clamp(1px, 2.8vw, 16px);
@@ -28,4 +28,11 @@ th , .datas .title{
     color: #4171ab;
     font-weight: normal;
     font-weight: bold;
+}
+td{
+    text-align: center;
+    
+}
+.hide{
+    display: none;
 }

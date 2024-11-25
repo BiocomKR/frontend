@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>유기산 리포트 뷰어</title>
+    <title>유기산 리포트 뷰어 <%= username %></title>
     <link href="/css/report/UGIReport.css" rel="stylesheet">
     <link href="/css/font.css" rel="stylesheet">
     <link href="/css/xeicon.min.css" rel="stylesheet">
@@ -32,25 +32,26 @@
                 <div>프린터 선택에서 <br>"PDF로 저장"을 <br>선택 후 저장하세요.</div>
             </div>
         </div>
+        <span class='back' style="align-self: end;">뒤로가기</span>
         <span style="align-self: end;">by.연구개발팀</span>
     </div>
     <div class="report-area">
         <div class="title-page">
             <div class="title-area">
                 <div class="title-header s-core5">
-                    <div class="report-title"><img src="/images/report/UGI/ugi_title_header.png"></div>
                     <div class="report-name"><%= username %> 님</div>
                 </div>
                 <div class="title-content spoqa">
-                    <span><img src="/images/report/UGI/ugi_title_content_1.png"></span><span class="user-gender"><span>sample</span></span>
-                    <span><img src="/images/report/UGI/ugi_title_content_2.png"></span><span class="user-birth"><span>sample</span></span>
-                    <span><img src="/images/report/UGI/ugi_title_content_3.png"></span><span class="user-pk"><span>sample</span></span>
-                    <span><img src="/images/report/UGI/ugi_title_content_4.png"></span><span class="user-test-dt"><span>sample</span></span>
-                    <span><img src="/images/report/UGI/ugi_title_content_5.png"></span><span class="user-report-dt"><span>1234123499</span></span>
+                    <span class="user-gender"><span>sample</span></span>
+                    <span class="user-birth"><span>sample</span></span>
+                    <span class="user-pk"><span>sample</span></span>
+                    <span class="user-dt"><span>sample</span></span>
+                    <span class="user-report-dt"><span>1234123499</span></span>
                 </div>
             </div>
         </div>
         <div class="page hide">
+            <div class="page-area"></div>
         </div>
     </div>
 
@@ -58,6 +59,7 @@
     <script src="/js/lib/html2canvas.min.js"></script>
     <script src="/js/lib/jspdf.min.js"></script>
     <script src="/js/lib/bluebird.min.js"></script>
-    <script src="/js/report/UGIReport.js"></script>
+    <script src="/js/lib/echarts.min.js"></script>
+    <script src="/js/report/UGIReport.js?V=2415"></script>
 </body>
 </html>

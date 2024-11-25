@@ -4,7 +4,7 @@ import * as UGIReportSql from '../../sql/reports/UGIReportSql.js'
 
 const logger = new ServiceLogger('UGIReportService');
 
-async function getUGIReportData(param) {
+export async function getAllData(param) {
     try {
         logger.info(`[UGI Report] 조회 시작 - 사용자: ${param}`);
         
@@ -23,5 +23,20 @@ async function getUGIReportData(param) {
         throw error;
     }
 }
-
-export { getUGIReportData as getAllData };
+export async function getAllList() {
+    try {
+        logger.info(`[UGI Report] 전체 리스트 조회!`);
+        
+        const query = UGIReportSql.selectListUGIquery;
+        const params = [ ];
+    
+        SqlService.queryLogging(query, params);
+        const res = await SqlService.selectList(query, params);
+    
+        logger.info('조회 완료', { res });
+        return res;
+    } catch (error) {
+        logger.error(`Error in getAllList: ${error.message}`);
+        throw error;
+    }
+}

@@ -2,26 +2,52 @@
 <html>
 <head>
     <title>리포트 선택 페이지</title>
+    
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/font.css" rel="stylesheet">
+    <link href="/css/xeicon.min.css" rel="stylesheet">
+    <style>
+        body *{font-family: S-Core5;}
+        .user-list th{border-bottom: 1px solid;}
+        .user-list td{padding-top: 1em;}
+        .user-list td:nth-child(3){font-size: 1.3em;}
+        .user-list span{
+            padding: 0.3em 1.5em; 
+            background-color: #ffeaea;
+            cursor: pointer;
+        }
+        .user-list span:hover{
+            font-weight: bold;
+            background-color: #ffbaba;
+        }
+    </style>
 </head>
 <body>
-    <h1>insert infos!!</h1>
-    <div wrap></div>
     <select class="analysis">
         <option value="cmfa">유기산 검사</option>
     </select>
-    <form action='/report/UGI' name='userInfo' method="POST">
+    <div class="table-container">
+        <table class="user-list">
+            <tr>
+                <th>차트 번호</th>
+                <th>검사 일자</th>
+                <th>성 명</th>
+                <th>성 별</th>
+                <th>생 년 월 일</th>
+                <th>조 회</th>
+            </tr>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <form action='/report/UGI' name='userInfo' method="POST" class="hide">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username">
-        
-        <!-- <label for="password">Password:</label>
-        <input type="password" id="password" name="password"> -->
-        
-        <button type="submit">Login</button>
+        <button type="submit">submit</button>
     </form>
 
-    <script src="js/Common.js"></script>
-    <script>
-
-    </script>
+    <script src="/js/Common.js"></script>
+    
+    <script src="/js/report/report.js?V=2415"></script>
 </body>
 </html>

@@ -1,8 +1,15 @@
 @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
 .spoqa { font-family: 'Spoqa Han Sans Neo', 'sans-serif'; }
+.s-core9 { font-family: 'S-Core9', 'sans-serif';}
+.s-core8 { font-family: 'S-Core8', 'sans-serif';}
+.s-core7 { font-family: 'S-Core7', 'sans-serif';}
+.s-core6 { font-family: 'S-Core6', 'sans-serif';}
 .s-core5 { font-family: 'S-Core5', 'sans-serif';}
+.s-core4 { font-family: 'S-Core4', 'sans-serif';}
+.s-core3 { font-family: 'S-Core3', 'sans-serif';}
+.s-core2 { font-family: 'S-Core2', 'sans-serif';}
 .s-core1 { font-family: 'S-Core1', 'sans-serif';}
-body{margin: 0; background: #666;}
+body{margin: 0; }
 table { width: 100%; border-collapse: collapse; margin: 20px 0;}
 th, td { border: 1px solid #ddd; padding: 8px; text-align: left;}
 img {
@@ -15,7 +22,7 @@ img {
 .no-print {
     position: fixed;
     top: 0;
-    background-color: #ffff;
+    background-color: #f6f6f6;
     height: 100%;
     text-align: center;
     z-index: 1000;
@@ -55,10 +62,15 @@ img {
 .report-area{
     margin-left: 10em;
 }
+.title-page{
+    padding: 1cm;
+}
+.page{
+    padding: 0.5cm;
+}
 .title-page, .page {
     width: 21cm;
     min-height: 29.7cm;
-    padding: 1cm;
     margin: 1cm auto;
     background: white;
     box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
@@ -80,52 +92,255 @@ img {
     page-break-inside: avoid !important;
     break-inside: avoid !important;
 }
-/* 첫 장 */
-.title-page{
-    background: url('../../images/report/UGI/ugi_title_background.png') center/cover no-repeat;
-}
+
 .title-area{
     padding: 1.5em 3.8em;
     display: grid;
     height: 62.4em;
     justify-content: start;
-    grid-gap: 31.5em;
-}
-.report-title img{
-    width: 33em;
+    grid-gap:  29em;
 }
 .report-name{
     font-size: 2.5em;
-    margin-top: 0.35em;
+    margin-top: 5.5em;
 }
 .title-content{
     display: grid;
-    grid-template-columns: 5fr 3fr;
     justify-self: start;
-    align-items: end
+    align-items: end;
+    margin-left: 8em;
 }
-.title-content img{
-    position:absolute;
-    top: -26px;
-    width: 7.1em;
-    padding: 0 0 0 3px;
-}
-.title-content span{
-    position: relative;
-}
-.title-content span:nth-child(even){
-    height: 2em;
-}
-.title-content span:nth-child(even) > span{
-    position: absolute;
-    top: 0.45em;
-    left: 8em;
-}
-.title-content span:nth-child(odd){
-    /* position: relative; */
+.title-content span> span{
+    width: max-content;
 }
 
 
+
+
+/* 페이지 이미지 정의 */
+.title-page{ background: url('../../images/report/UGI/page/page-1.png') #fff center/cover no-repeat;}
+.page-2 {background: url('../../images/report/UGI/page/page-2.png')  #fff center/cover no-repeat;}
+.page-3{background: url('../../images/report/UGI/page/page-3.png') #fff center/cover no-repeat;}
+.page-4{background: url('../../images/report/UGI/page/page-4.png') #fff center/cover no-repeat;}
+.page-5{background: url('../../images/report/UGI/page/page-5.png') #fff center/cover no-repeat;}
+.page-6{background: url('../../images/report/UGI/page/page-6.png') #fff center/cover no-repeat;}
+.page-7{background: url('../../images/report/UGI/page/page-7.png') #fff center/cover no-repeat;}
+.page-8{background: url('../../images/report/UGI/page/page-8.png') #fff center/cover no-repeat;}
+.page-9{background: url('../../images/report/UGI/page/page-9.png') #fff center/cover no-repeat;}
+.page-10{background: url('../../images/report/UGI/page/page-10.png') #fff center/cover no-repeat;}
+.page-11{background: url('../../images/report/UGI/page/page-11.png') #fff center/cover no-repeat;}
+.page-12{background: url('../../images/report/UGI/page/page-12.png') #fff center/cover no-repeat;}
+.page-13{background: url('../../images/report/UGI/page/page-13.png') #fff center/cover no-repeat;}
+.page-14{background: url('../../images/report/UGI/page/page-14.png') #fff center/cover no-repeat;}
+.page-15{background: url('../../images/report/UGI/page/page-15.png') #fff center/cover no-repeat;}
+.page-16{background: url('../../images/report/UGI/page/page-16.png') #fff center/cover no-repeat;}
+.page-17{background: url('../../images/report/UGI/page/page-17.png') #fff center/cover no-repeat;}
+.page-18{background: url('../../images/report/UGI/page/page-18.png') #fff center/cover no-repeat;}
+.page-19{background: url('../../images/report/UGI/page/page-19.png') #fff center/cover no-repeat;}
+.page-20{background: url('../../images/report/UGI/page/page-20.png') #fff center/cover no-repeat;}
+.page-21{background: url('../../images/report/UGI/page/page-21.png') #fff center/cover no-repeat;}
+.page-22{background: url('../../images/report/UGI/page/page-22.png') #fff center/cover no-repeat;}
+.page-23{background: url('../../images/report/UGI/page/page-23.png') #fff center/cover no-repeat;}
+.page-24{background: url('../../images/report/UGI/page/page-24.png') #fff center/cover no-repeat;}
+.page-25{background: url('../../images/report/UGI/page/page-25.png') #fff center/cover no-repeat;}
+.page-26{background: url('../../images/report/UGI/page/page-26.png') #fff center/cover no-repeat;}
+.page-27{background: url('../../images/report/UGI/page/page-27.png') #fff center/cover no-repeat;}
+.page-28{background: url('../../images/report/UGI/page/page-28.png') #fff center/cover no-repeat;}
+.page-29{background: url('../../images/report/UGI/page/page-29.png') #fff center/cover no-repeat;}
+.page-30{background: url('../../images/report/UGI/page/page-30.png') #fff center/cover no-repeat;}
+.page-31{background: url('../../images/report/UGI/page/page-31.png') #fff center/cover no-repeat;}
+.page-32{background: url('../../images/report/UGI/page/page-32.png') #fff center/cover no-repeat;}
+.page-33{background: url('../../images/report/UGI/page/page-33.png') #fff center/cover no-repeat;}
+.page-34{background: url('../../images/report/UGI/page/page-34.png') #fff center/cover no-repeat;}
+.page-35{background: url('../../images/report/UGI/page/page-35.png') #fff center/cover no-repeat;}
+.page-area{ padding: 0.3em 1.7em; display: grid; height: 62.4em;
+}
+.page-area.block {display: block;}
+.page-3 .page-area{ grid-template-rows: 8em 24em auto; width: 43.5em; position: relative;}
+.page-3 .title3 { width: 43.5em; display: grid; justify-items: center;}
+.page-3 .name3 {font-size: 35pt; color: #ffff;}
+.page-3 .span3 {grid-gap: 0.85em; position: absolute; top: 21.6%; left: 50.3%; display: grid; color: #15b3ac; z-index: 100; font-size: 9pt;}
+.page-3 .table3{ font-family: 'Spoqa Han Sans Neo' ; font-size: 14pt; color: #000;margin: 0.8em 0 0 11em; width: 26.5em;}
+.page-3 .table3 tr{ margin-bottom: 2em; }
+.page-3 .table3 td{ border: none; height: 3.4em;}
+.page-3 .table3 td:nth-child(odd){ width: 21em; }
+.page-3 .table3 td:nth-child(even){background-size: 72%; background-position: center;}
+
+.graph-area .page-rank > div{height: 39mm; background-size: 25mm; background-position: 37em 3em;}
+.graph-area .desc > div{font-size: 22pt; font-family: 'S-Core4'; margin-bottom: 1.5em; padding-top: 0.9em;}
+
+.graph-area .tables {font-size: 11pt; margin-bottom: 2em;}
+.graph-area .tables td:nth-child(2){width: 5em; text-align: right; background-position: 8pt 7pt;}
+.graph-area .tables td:nth-child(2) > div{padding-right: 3px;}
+.graph-area .tables td:nth-child(3){background-size: 98mm 2.8em; width: 23.5em; background-position: -0.3em center;}
+.graph-area .tables tr:nth-child(2) td:nth-child(3){background-size: 98mm; }
+.graph-area .tables tr th{height: 2em; background-color: #eaeaea; border: 1px solid #838486; text-align: center; font-family: 'Spoqa Han Sans Neo';}
+.graph-area .tables tr td{height: 2.2em; border: 1px solid #838486; font-family: 'Spoqa Han Sans Neo'; font-weight: 400;}
+.graph-area .tables tr th:first-child,
+.graph-area .tables tr td:first-child{border-left: none;}
+.graph-area .tables tr th:nth-child(3),
+.graph-area .tables tr td:nth-child(3){border-right: none;}
+
+.graph-area .n1{background-repeat: no-repeat; background-image: url('../../images/report/UGI/o_graph/digra_1.png');}
+.graph-area .n2{background-repeat: no-repeat; background-image: url('../../images/report/UGI/o_graph/digra_2.png');}
+.graph-area .n3{background-repeat: no-repeat; background-image: url('../../images/report/UGI/o_graph/digra_3.png');}
+.graph-area .n4{background-repeat: no-repeat; background-image: url('../../images/report/UGI/o_graph/digra_4.png');}
+.graph-area .n5{background-repeat: no-repeat; background-image: url('../../images/report/UGI/o_graph/digra_5.png');}
+.graph-area .n6{background-repeat: no-repeat; background-image: url('../../images/report/UGI/o_graph/digra_6.png');}
+.graph-area .n7{background-repeat: no-repeat; background-image: url('../../images/report/UGI/o_graph/digra_7.png');}
+.graph-area .n8{background-repeat: no-repeat; background-image: url('../../images/report/UGI/o_graph/digra_8.png');}
+.graph-area .n9{background-repeat: no-repeat; background-image: url('../../images/report/UGI/o_graph/digra_9.png');}
+.graph-area .n10{background-repeat: no-repeat; background-image: url('../../images/report/UGI/o_graph/digra_10.png');}
+.graph-area .m1{background-repeat: no-repeat; background-image: url('../../images/report/UGI/t_graph/undigra_5.png');}
+.graph-area .m2{background-repeat: no-repeat; background-image: url('../../images/report/UGI/t_graph/undigra_4.png');}
+.graph-area .m3{background-repeat: no-repeat; background-image: url('../../images/report/UGI/t_graph/undigra_4.png');}
+.graph-area .m4{background-repeat: no-repeat; background-image: url('../../images/report/UGI/t_graph/undigra_2.png');}
+.graph-area .m5{background-repeat: no-repeat; background-image: url('../../images/report/UGI/t_graph/undigra_1.png');}
+.graph-area .p1{background-repeat: no-repeat; background-image: url('../../images/report/UGI/t_graph/undigra_6.png');}
+.graph-area .p2{background-repeat: no-repeat; background-image: url('../../images/report/UGI/t_graph/undigra_7.png');}
+.graph-area .p3{background-repeat: no-repeat; background-image: url('../../images/report/UGI/t_graph/undigra_8.png');}
+.graph-area .p4{background-repeat: no-repeat; background-image: url('../../images/report/UGI/t_graph/undigra_9.png');}
+.graph-area .p5{background-repeat: no-repeat; background-image: url('../../images/report/UGI/t_graph/undigra_10.png');}
+
+.graph-area tr:nth-child(2) .n1{background-repeat: no-repeat; background-image: url('../../images/report/UGI/o_graph/digra_top1.png');}
+.graph-area tr:nth-child(2) .n2{background-repeat: no-repeat; background-image: url('../../images/report/UGI/o_graph/digra_top2.png');}
+.graph-area tr:nth-child(2) .n3{background-repeat: no-repeat; background-image: url('../../images/report/UGI/o_graph/digra_top3.png');}
+.graph-area tr:nth-child(2) .n4{background-repeat: no-repeat; background-image: url('../../images/report/UGI/o_graph/digra_top4.png');}
+.graph-area tr:nth-child(2) .n5{background-repeat: no-repeat; background-image: url('../../images/report/UGI/o_graph/digra_top5.png');}
+.graph-area tr:nth-child(2) .n6{background-repeat: no-repeat; background-image: url('../../images/report/UGI/o_graph/digra_top6.png');}
+.graph-area tr:nth-child(2) .n7{background-repeat: no-repeat; background-image: url('../../images/report/UGI/o_graph/digra_top7.png');}
+.graph-area tr:nth-child(2) .n8{background-repeat: no-repeat; background-image: url('../../images/report/UGI/o_graph/digra_top8.png');}
+.graph-area tr:nth-child(2) .n9{background-repeat: no-repeat; background-image: url('../../images/report/UGI/o_graph/digra_top9.png');}
+.graph-area tr:nth-child(2) .n10{background-repeat: no-repeat; background-image: url('../../images/report/UGI/o_graph/digra_top10.png');}
+.graph-area tr:nth-child(2) .m1{background-repeat: no-repeat; background-image: url('../../images/report/UGI/t_graph/undigra_top5.png');}
+.graph-area tr:nth-child(2) .m2{background-repeat: no-repeat; background-image: url('../../images/report/UGI/t_graph/undigra_top4.png');}
+.graph-area tr:nth-child(2) .m3{background-repeat: no-repeat; background-image: url('../../images/report/UGI/t_graph/undigra_top4.png');}
+.graph-area tr:nth-child(2) .m4{background-repeat: no-repeat; background-image: url('../../images/report/UGI/t_graph/undigra_top2.png');}
+.graph-area tr:nth-child(2) .m5{background-repeat: no-repeat; background-image: url('../../images/report/UGI/t_graph/undigra_top1.png');}
+.graph-area tr:nth-child(2) .p1{background-repeat: no-repeat; background-image: url('../../images/report/UGI/t_graph/undigra_top6.png');}
+.graph-area tr:nth-child(2) .p2{background-repeat: no-repeat; background-image: url('../../images/report/UGI/t_graph/undigra_top7.png');}
+.graph-area tr:nth-child(2) .p3{background-repeat: no-repeat; background-image: url('../../images/report/UGI/t_graph/undigra_top8.png');}
+.graph-area tr:nth-child(2) .p4{background-repeat: no-repeat; background-image: url('../../images/report/UGI/t_graph/undigra_top9.png');}
+.graph-area tr:nth-child(2) .p5{background-repeat: no-repeat; background-image: url('../../images/report/UGI/t_graph/undigra_top10.png');}
+
+.desc-area .desc-block{height: 7em;}
+.desc-area .desc-title{display: flex; margin-bottom: 0.5em;}
+.desc-area .desc-title div:nth-child(1){width: 2.5em;}
+.desc-area .desc-title div:nth-child(2){font-family: 'S-Core3';background: #d9e8e2; padding:7px 1em;border-radius: 1.5em; font-weight: 600;}
+.desc-area .desc-detail{font-size: 11pt;}
+
+.desc-blank{height: 8em;}
+
+.king-rank {position: relative;}
+.king-rank > div{position: absolute; width: 20em; height: 20em; top: 17em; left: 24em; background-position: center; background-size: 57mm;}
+
+.small-rank {display: grid; grid-template-rows: repeat(4, 1fr); height: 91%; padding-top: 14px;}
+.small-rank > div{background-position: 69% 97%; background-size: 13mm;}
+
+.rank-graph {display: grid; grid-template-columns: repeat(13, 1fr); width: 30.5em; padding: 0 0 0 1em;}
+.rank-graph > .check { background: no-repeat center 70%/5.7mm url('../../images/report/UGI/tri.png'); z-index: 1000;}
+/*king alpabet*/
+.Ap{background-repeat: no-repeat; background-image: url('../../images/report/UGI/king_apl/alp_king_a+.png');}
+.A0{background-repeat: no-repeat; background-image: url('../../images/report/UGI/king_apl/alp_king_a.png');}
+.A-{background-repeat: no-repeat; background-image: url('../../images/report/UGI/king_apl/alp_king_a-.png');}
+.Bp{background-repeat: no-repeat; background-image: url('../../images/report/UGI/king_apl/alp_king_b+.png');}
+.B0{background-repeat: no-repeat; background-image: url('../../images/report/UGI/king_apl/alp_king_b.png');}
+.B-{background-repeat: no-repeat; background-image: url('../../images/report/UGI/king_apl/alp_king_b-.png');}
+.Cp{background-repeat: no-repeat; background-image: url('../../images/report/UGI/king_apl/alp_king_c+.png');}
+.C0{background-repeat: no-repeat; background-image: url('../../images/report/UGI/king_apl/alp_king_c.png');}
+.C-{background-repeat: no-repeat; background-image: url('../../images/report/UGI/king_apl/alp_king_c-.png');}
+.Dp{background-repeat: no-repeat; background-image: url('../../images/report/UGI/king_apl/alp_king_d+.png');}
+.D0{background-repeat: no-repeat; background-image: url('../../images/report/UGI/king_apl/alp_king_d.png');}
+.D-{background-repeat: no-repeat; background-image: url('../../images/report/UGI/king_apl/alp_king_d-.png');}
+.F0{background-repeat: no-repeat; background-image: url('../../images/report/UGI/king_apl/alp_king_f.png');}
+/*alpabet*/
+.A{background-repeat: no-repeat; background-image: url('../../images/report/UGI/apl/alp_a.png');}
+.B{background-repeat: no-repeat; background-image: url('../../images/report/UGI/apl/alp_b.png');}
+.C{background-repeat: no-repeat; background-image: url('../../images/report/UGI/apl/alp_c.png');}
+.D{background-repeat: no-repeat; background-image: url('../../images/report/UGI/apl/alp_d.png');}
+.F{background-repeat: no-repeat; background-image: url('../../images/report/UGI/apl/alp_f.png');}
+/*face*/
+.red{background-size: 23pt;  background-repeat: no-repeat; background-image: url('../../images/report/UGI/face_red.png');}
+.yell{background-size: 23pt;  background-repeat: no-repeat; background-image: url('../../images/report/UGI/face_yell.png');}
+.blue{background-size: 23pt;  background-repeat: no-repeat; background-image: url('../../images/report/UGI/face_blue.png');}
+/* 프린트 설정 */
+@media print {
+    @page {
+        size: A4 portrait;
+        margin: 0mm;
+    }
+    body {
+        margin: 0;
+        padding: 0;
+        padding-top: 0px;
+        counter-reset: pageNumber; 
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+     /* 페이지마다 카운터 증가 */
+    .page-break {
+        page-break-before: always;
+    }
+    .title-page {
+        counter-increment: none;
+        counter-increment: pageNumber; 
+    }
+    .page {
+        counter-increment: pageNumber; 
+    }
+    .page::after {
+        content: counter(pageNumber);
+        counter-increment: page;
+        position: absolute;
+        bottom: 10mm;        /* 아래에서의 거리 */
+        left: 0;            /* 왼쪽 끝 */
+        right: 0;           /* 오른쪽 끝 */
+        text-align: center; /* 텍스트 중앙 정렬 */
+        font-size: 12pt;    /* 글자 크기 */
+        color: #666;        /* 글자 색상 */
+         /* 검정 줄 문제 해결을 위해 아래 속성 추가 */
+         border: none; /* 테두리 제거 */
+         /*background: #fff; /* 배경 제거 */
+    }
+    .no-print {
+        display: none !important;
+    }
+    .report-area{
+        margin-left: 0;
+        margin-top: 0;
+    }
+    
+    .title-page, .page {
+        /* width: 210mm;
+        height: 299mm; */
+        width: 21cm;
+        height: 29.7cm;
+        margin: 0 0;
+        box-shadow: none;
+        page-break-after: always;
+        box-sizing: border-box;
+        /*pdf 출력용*/
+        display: block;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+    }
+    
+    .title-page {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+    
+    .page:last-child {
+        page-break-after: avoid;
+    }
+    
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        image-rendering: -webkit-optimize-contrast !important;
+        image-rendering: crisp-edges !important;
+    }
+}
 
 
 
@@ -141,80 +356,5 @@ img {
     100% {
         color: #0cb6af;
         text-shadow: none;
-    }
-}
-
-
-/* 프린트 설정 */
-@media print {
-    @page {
-        size: A4 portrait;
-        margin: 0mm;
-    }
-    body {
-        margin: 0;
-        padding: 0;
-        counter-reset: pageNumber; 
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-    }
-     /* 페이지마다 카운터 증가 */
-    .page-break {
-        page-break-before: always;
-    }
-    .title-page {
-        counter-increment: none;
-    }
-    .page {
-        counter-increment: none;
-        counter-increment: pageNumber; 
-    }
-    .page::after {
-        content: counter(pageNumber);
-        counter-increment: page;
-        position: absolute;
-        bottom: 10mm;        /* 아래에서의 거리 */
-        left: 0;            /* 왼쪽 끝 */
-        right: 0;           /* 오른쪽 끝 */
-        text-align: center; /* 텍스트 중앙 정렬 */
-        font-size: 12pt;    /* 글자 크기 */
-        color: #666;        /* 글자 색상 */
-    }
-    .no-print {
-        display: none !important;
-    }
-    .report-area{
-        margin-left: 0;
-        margin-top: 0;
-    }
-    
-    .title-page, .page {
-        width: 210mm;
-        height: 297mm;
-        margin: 0;
-        box-shadow: none;
-        page-break-after: always;
-        box-sizing: border-box;
-        /*pdf 출력용*/
-        display: block;
-        page-break-inside: avoid !important;
-        break-inside: avoid !important;
-    }
-    
-    .title-page {
-        background: url('../../images/report/UGI/ugi_title_background.png') center/cover no-repeat !important;
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-    }
-    
-    .page:last-child {
-        page-break-after: avoid;
-    }
-    
-    * {
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-        image-rendering: -webkit-optimize-contrast !important;
-        image-rendering: crisp-edges !important;
     }
 }

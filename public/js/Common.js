@@ -48,6 +48,7 @@ const jsonProvider = (url, options = {}) => {
  * @returns 
  */
 const setAttr = (el, op) => {
+    if(!op) return el;
     Object.entries(op).forEach(([k, v]) => {
         if (k == 'textContent') {
             el[k] = v;
@@ -73,17 +74,23 @@ const DateReplace4Safari = (date)=>{
 
 /** 날짜포매터
  * @author jisoo
- * @param {String} date 
+ * @param {String} dt 
  * @returns {Date} 
  */
-const getFormattedDate = (dt, date) => {
-    if (dt instanceof Date)  date = dt;
-    else if (typeof dt === 'string')  date = DateReplace4Safari(dt);
-    else  date = new Date();
+const getFormattedDate = (dt, _date) => {
+    if (dt instanceof Date)  _date = dt;
+    else if (typeof dt === 'string')  _date = DateReplace4Safari(dt);
+    else  _date = new Date();
     
-    if(date == 'Invalid Date') throw new Error('날짜형식을 입력해야해요.....')
-    return `${date.getFullYear()}${String(date.getMonth() + 1).padStart(2, '0')}${String(date.getDate()).padStart(2, '0')}`;
-};
+    if(_date == 'Invalid Date') throw new Error('날짜형식을 입력해야해요.....')
+    return `${_date.getFullYear()}-${String(_date.getMonth() + 1).padStart(2, '0')}-${String(_date.getDate()).padStart(2, '0')}`;
+}; 
+
+const birthFormatt = (dt, f='-')=>{
+    if(!dt) throw new error('값이 없음')
+    if (dt.substring(0,1) < 4) return `20${dt.substring(0,2)}${f}${dt.substring(2,4)}${f}${dt.substring(4-6)}`;
+    else return `19${dt.substring(0,2)}${f}${dt.substring(2,4)}${f}${dt.substring(4,6)}`;
+}
 
 /** 시작기간과 종료기간간의 모든 날짜 반환 - default: yyyy.mm.dd
  * @author jisoo

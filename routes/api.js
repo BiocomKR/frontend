@@ -1,6 +1,7 @@
 import express from 'express';
 import { logger } from "../config/winston.js";
 import * as UGI from '../controllers/reports/UGIReportController.js';
+import * as report from '../controllers/reports/ReportController.js';
 
 const router = express.Router();
 
@@ -11,5 +12,6 @@ const asyncHandler = (fn) => (req, res, next) =>
 
 // 유기산 리포트 api
 router.get('/UGIReport', asyncHandler(UGI.getReportData));
-router.post('/UGIReport/pdf', asyncHandler(UGI.generatePDF));
+// router.post('/UGIReport/pdf', asyncHandler(UGI.generatePDF));
+router.get('/UGIReport/list', asyncHandler(report.getUgiList));
 export default router

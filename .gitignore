@@ -2,3 +2,5 @@ node_modules/
 .env
 logs/
 *.log
+test/
+server.js_잘못
