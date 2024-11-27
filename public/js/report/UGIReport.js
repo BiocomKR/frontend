@@ -61,23 +61,23 @@ const fn_kingScoring = (score)=>{
     score = Math.round(score)
     if(score >= 98) return 'Ap';
     else if(score >=94) return 'A0';
-    else if(score >=90) return 'A-';
-    else if(score >=87) return 'Bp';
-    else if(score >=84) return 'B0';
-    else if(score >=80) return 'B-';
-    else if(score >=77) return 'Cp';
-    else if(score >=74) return 'C0';
-    else if(score >=70) return 'C-';
-    else if(score >=67) return 'Dp';
-    else if(score >=64) return 'D0';
-    else if(score >=60) return 'D-';
+    else if(score >=89) return 'A-';
+    else if(score >=85) return 'Bp';
+    else if(score >=80) return 'B0';
+    else if(score >=75) return 'B-';
+    else if(score >=65) return 'Cp';
+    else if(score >=60) return 'C0';
+    else if(score >=55) return 'C-';
+    else if(score >=50) return 'Dp';
+    else if(score >=45) return 'D0';
+    else if(score >=40) return 'D-';
     else return 'F0';
 }
 const fn_scoring = (score)=>{
-    if(score >= 91) return 'A';
-    else if(score >=81) return 'B';
-    else if(score >=71) return 'C';
-    else if(score >=61) return 'D';
+    if(score >= 89) return 'A';
+    else if(score >=75) return 'B';
+    else if(score >=55) return 'C';
+    else if(score >=40) return 'D';
     else return 'F';
 }
 
@@ -108,7 +108,7 @@ const calcScore = (map, weights)=> {
     const res = Object.values(map).reduce((result, { fst, scd, value, score, name  }) => {
         result[fst] ??= { '합계': 0 };
         const _score = score*10;
-        const valueToAdd = (_score - _score * value * 0.4) < -10? -10 : (_score - _score * value * 0.4);
+        const valueToAdd = (_score - _score * value * 0.4) < -5? -5 : (_score - _score * value * 0.4);
         result[fst][scd] = (result[fst][scd] ?? 0) + valueToAdd;
         result[fst]['합계'] += (valueToAdd * (weights[scd] ?? 1) / 10);
         return result;
@@ -209,13 +209,15 @@ const createBlank =(page)=>{
  * @description 페이지별 js
  * @param {*} data 
  */
-const createPage = (data, map) =>{
+const createPage = (data, map, sol) =>{
     // code : 요소별 정보, word : 랭크 문구, desc : 요소별 문구
     const {code, word, desc} = map;
     // 사용자 정보
     const {userPk, userDt, userName, userBirth, userGender, userAge} = data;
     UGISAN.forEach(m=>{code[m].value = data[`${m}_rank`]; code[m].rank = data[m].trim();});
-    const scoreMap = fn_setRanking(calcScore(code, weights))
+    const scores = calcScore(code, weights);
+    console.log(scores);
+    const scoreMap = fn_setRanking(calcScore(code, weights));
     const nowDt = new Date();
     document.title = `바이오 종합 대사기능 분석_${userName}님`;
 
@@ -325,7 +327,34 @@ const createPage = (data, map) =>{
     createDesc(page33, [UGI621, UGI622, UGI623], desc)
     /**페이지34 */
     /**페이지35 */
+
+    /* 솔루션 페잊*/
+    INDICATOR3
+    INDICATOR2
+    
+    scores, scoreMap
+
+    const solp = getEl('.page.hide').cloneNode(true);
+    solp.classList.remove('hide');
+    solp.classList.add('solution');
+    const majList = Object.entries(scores).map(e=>[e[0],e[1]['합계']]).sort((x,y)=>x[1]<y[1]?-1:1);;
+    const subList = Object.entries(scores).reduce((arr,i)=>{
+        const obj = Object.entries(i[1]).filter(e=>e[0]!='합계');
+        arr = arr.concat(obj);
+        return arr;
+    },[]).sort((x,y)=>x[1]<y[1]?-1:1);
+    
+    console.log(majList)
+    console.log(subList)
+    console.log(scoreMap)
+    
+    const sol_1 = solp.cloneNode(true);
+    getEl('.page-area',sol_1).appendChild(createEl('div',{'textContent':userName}));
+    getEl('.report-area').appendChild(sol_1)
+
+    const sol_2 = ''
 }
+
 
 
 const load = async () => {
@@ -333,6 +362,7 @@ const load = async () => {
     for(idx=2;idx<=35;idx++){
         const page = getEl('.page.hide').cloneNode(true);
         page.classList.remove('hide');
+        page.classList.add('result');
         page.classList.add(`page-${idx}`);
         getEl('.report-area').appendChild(page);
     }
@@ -342,8 +372,9 @@ const load = async () => {
         const username = document.getElementById('hiddenUsername').value;
         const data = await jsonProvider(`/api/UGIReport?username=${encodeURIComponent(username)}`);
         const dataEl = await jsonProvider(`/json/Ugisan.json`);
+        const sol = await jsonProvider(`/json/supplement.json`);
         if (data.error) throw new Error(data.error);
-        createPage(data.results[0], dataEl);
+        createPage(data.results[0], dataEl, sol);
     } catch (error) {
         console.error('데이터 로딩 실패:', error);
     }

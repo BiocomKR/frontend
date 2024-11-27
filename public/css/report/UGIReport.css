@@ -62,13 +62,14 @@ img {
 .report-area{
     margin-left: 10em;
 }
+/* 결과지 영역 */
 .title-page{
     padding: 1cm;
 }
-.page{
+.page, .sol-page{
     padding: 0.5cm;
 }
-.title-page, .page {
+.title-page, .page ,.sol-page{
     width: 21cm;
     min-height: 29.7cm;
     margin: 1cm auto;
@@ -87,7 +88,7 @@ img {
     image-rendering: crisp-edges;
 }
 .title-page > *,
-.page > * {
+.page > * , .sol-page > *{
     /*pdf-출력용*/
     page-break-inside: avoid !important;
     break-inside: avoid !important;
@@ -113,9 +114,6 @@ img {
 .title-content span> span{
     width: max-content;
 }
-
-
-
 
 /* 페이지 이미지 정의 */
 .title-page{ background: url('../../images/report/UGI/page/page-1.png') #fff center/cover no-repeat;}
@@ -263,86 +261,6 @@ img {
 .red{background-size: 23pt;  background-repeat: no-repeat; background-image: url('../../images/report/UGI/face_red.png');}
 .yell{background-size: 23pt;  background-repeat: no-repeat; background-image: url('../../images/report/UGI/face_yell.png');}
 .blue{background-size: 23pt;  background-repeat: no-repeat; background-image: url('../../images/report/UGI/face_blue.png');}
-/* 프린트 설정 */
-@media print {
-    @page {
-        size: A4 portrait;
-        margin: 0mm;
-    }
-    body {
-        margin: 0;
-        padding: 0;
-        padding-top: 0px;
-        counter-reset: pageNumber; 
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-    }
-     /* 페이지마다 카운터 증가 */
-    .page-break {
-        page-break-before: always;
-    }
-    .title-page {
-        counter-increment: none;
-        counter-increment: pageNumber; 
-    }
-    .page {
-        counter-increment: pageNumber; 
-    }
-    .page::after {
-        content: counter(pageNumber);
-        counter-increment: page;
-        position: absolute;
-        bottom: 10mm;        /* 아래에서의 거리 */
-        left: 0;            /* 왼쪽 끝 */
-        right: 0;           /* 오른쪽 끝 */
-        text-align: center; /* 텍스트 중앙 정렬 */
-        font-size: 12pt;    /* 글자 크기 */
-        color: #666;        /* 글자 색상 */
-         /* 검정 줄 문제 해결을 위해 아래 속성 추가 */
-         border: none; /* 테두리 제거 */
-         /*background: #fff; /* 배경 제거 */
-    }
-    .no-print {
-        display: none !important;
-    }
-    .report-area{
-        margin-left: 0;
-        margin-top: 0;
-    }
-    
-    .title-page, .page {
-        /* width: 210mm;
-        height: 299mm; */
-        width: 21cm;
-        height: 29.7cm;
-        margin: 0 0;
-        box-shadow: none;
-        page-break-after: always;
-        box-sizing: border-box;
-        /*pdf 출력용*/
-        display: block;
-        page-break-inside: avoid !important;
-        break-inside: avoid !important;
-    }
-    
-    .title-page {
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-    }
-    
-    .page:last-child {
-        page-break-after: avoid;
-    }
-    
-    * {
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-        image-rendering: -webkit-optimize-contrast !important;
-        image-rendering: crisp-edges !important;
-    }
-}
-
-
 
 @keyframes sparkle {
     0% {
@@ -358,3 +276,6 @@ img {
         text-shadow: none;
     }
 }
+
+/* 솔루션 영역 */
+/* .result{display:none;} */
