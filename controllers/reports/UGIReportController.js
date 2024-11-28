@@ -39,3 +39,21 @@ export async function getReportData(req, res){
         res.status(500).json({ error: error.message });
     }
 }
+// get mapping = report/suppl
+export async function getSuppleData(req, res){
+    try{
+        const {supple} = req.query;
+        if(!supple) return res.status(400).json({error:'전달된 성분이 없습니다.'});
+        
+        const result = await service.getSuppleList(supple);
+
+        if (!result) return res.status(404).json({ error: '데이터를 찾을 수 없습니다.' });
+
+        res.json({
+            results: result,
+        });
+    } catch(error){
+        logger.error(`Error in getReportData: ${error.message}`);
+        res.status(500).json({ error: error.message });
+    }
+}

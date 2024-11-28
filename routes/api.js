@@ -14,4 +14,5 @@ const asyncHandler = (fn) => (req, res, next) =>
 router.get('/UGIReport', asyncHandler(UGI.getReportData));
 // router.post('/UGIReport/pdf', asyncHandler(UGI.generatePDF));
 router.get('/UGIReport/list', asyncHandler(report.getUgiList));
+router.get('/UGIReport/suppl', asyncHandler(UGI.getSuppleData));
 export default router

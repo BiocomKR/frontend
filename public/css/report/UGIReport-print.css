@@ -68,6 +68,14 @@
     .page:last-child, .sol-page:first-child {
         page-break-after: avoid;
     }
+
+    /* 이건 생각좀 해보자*/
+    .result .page.solution{
+        display: none;
+    }
+    .solution .page.result{
+        display: none;
+    }
     
     * {
         -webkit-print-color-adjust: exact !important;

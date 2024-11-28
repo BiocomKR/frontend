@@ -40,3 +40,24 @@ export async function getAllList() {
         throw error;
     }
 }
+
+
+export async function getSuppleList(param) {
+    try {
+        logger.info(`[UGI Report] ${param} 영양제 리스트 조회!`);
+        
+        const query = UGIReportSql.selectSupplementquery;
+        const params = [
+            { name: 'supple', type: SqlService.sql.NVarChar(400), value: param }
+        ];
+
+        SqlService.queryLogging(query, params);
+        const res = await SqlService.selectList(query, params);
+    
+        logger.info('조회 완료', { res });
+        return res;
+    } catch (error) {
+        logger.error(`Error in getAllList: ${error.message}`);
+        throw error;
+    }
+}
