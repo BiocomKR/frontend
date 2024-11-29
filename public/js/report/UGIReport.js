@@ -123,12 +123,13 @@ const fn_kingScoring = (score)=>{
  * @returns 
  */
 const fn_scoring = (score)=>{
-    if(score >= 87) return 'A';
-    else if(score >=73) return 'B';
+    if(score >= 85) return 'A';
+    else if(score >=70) return 'B';
     else if(score >=55) return 'C';
     else if(score >=40) return 'D';
     else return 'F';
 }
+
 
 /**
  * 그래프 등급 기반 얼굴 보여주기
@@ -183,11 +184,16 @@ const calcScore = (map, weights)=> {
 }
 
 const fn_setRanking = (map) =>{
-    INDICATOR.forEach((el)=>{
-        Object.keys(map).forEach((key)=>{
-            if(el == key) Object.keys(map[el]).forEach((k)=>map[el][k] = k == '합계'? fn_kingScoring(map[el][k]) : fn_scoring(map[el][k]))
-        });
+    Object.keys(map).forEach((key)=>{
+        Object.keys(map[key]).forEach(k=>{
+            console.log(k, map[key][k])
+            map[key][k] = k == '합계'? fn_kingScoring(map[key][k]) : fn_scoring(map[key][k])});
     })
+    // INDICATOR.forEach((el)=>{
+    //     Object.keys(map).forEach((key)=>{
+    //         if(el == key) Object.keys(map[el]).forEach((k)=>map[el][k] = k == '합계'? fn_kingScoring(map[el][k]) : fn_scoring(map[el][k]))
+    //     });
+    // })
     return map;
 }
 
@@ -493,7 +499,7 @@ const createPage = async (data, map, sol) =>{
     if(suppResult.length){ // 영양제 하나라도 있으면
         const type3_tbl = suppResult.reduce((_f, {name, detail, ingr, link, ingrs})=>{
             const grouping = '도움이 되는 대사 기능 :'+ fn_grouping(ingrs, type3);
-            const div1 = createEl('div',{'class':'left-sup', 'children':[name, detail, '성분 :'+ingr, grouping].map(e=>createEl('div',{'textContent': e}))})
+            const div1 = createEl('div',{'class':'left-sup', 'children':[name, detail, '성분 : '+ingr, grouping].map(e=>createEl('div',{'textContent': e}))})
             const div2 = createEl('div',{'class':'right-sup', 'children':['제품 확인하기', link ].map(e=>createEl('div',{'textContent': e}))})
             const div = createEl('div',{'class':'supple-detail '+suppl_match[name],'children':[div1, div2]});
             _f.appendChild(div);
@@ -502,7 +508,15 @@ const createPage = async (data, map, sol) =>{
         getEl('.page-area',sol_4).appendChild(createEl('div',{'children':[createEl('div',{'textContent':userName+'님에 필요한 성분을 '+suppResult.length+'개로 압축했어요'})]}));
         getEl('.page-area',sol_4).appendChild(createEl('div',{'class':'sol-type1','children':[type3_tbl]}));
         getEl('.report-area').appendChild(sol_4);
+    }else{
+        //d영양제 암거도 없을떼
+        sol_4.classList.add('a-supple');
+        getEl('.report-area').appendChild(sol_4);
     }
+    /**상담 */
+    const counsle = solp.cloneNode(true);
+    counsle.classList.add('counsel');
+    getEl('.report-area').appendChild(counsle);
     
     /** 솔루션 페이지 동적 생성 */
     const sol_list = Object.entries(scoreMap).reduce((acc, [k, v]) => {
@@ -514,32 +528,37 @@ const createPage = async (data, map, sol) =>{
         return acc;
     }, {});
     
-    const pages = type1.reduce((_f, t)=>{
-        if(!sol_list[t]) return _f;
-        const title_p = solp.cloneNode(true);
-        title_p.classList.add(solp_match[t]);
-        getEl('.page-area',title_p).appendChild(createEl('div',{'class': sol_list[t]['합계']}));
-        getEl('.page-area',title_p).appendChild(createEl('div',{'class':'min-sol','children':groups[t].map(e=>createEl('div',{'class':scoreMap[t][e]}))}));
-        
-        const sol_pages = Object.entries(sol_list[t]).filter(([k,_])=>k!='합계').reduce((_frag,[k,rank])=>{
-            const res_p = solp.cloneNode(true);
-            res_p.classList.add(solp_match[k]);
-            getEl('.page-area',res_p).appendChild(createEl('div',{'class': rank}));
-            _frag.appendChild(res_p);
-            return _frag
-        },document.createDocumentFragment())
-
-        _f.appendChild(title_p);
-        _f.appendChild(sol_pages);
-        return _f;
-    },document.createDocumentFragment());
-    getEl('.report-area').appendChild(pages);
-    console.log(pages);
+    if(Object.entries(sol_list).length){
+        const pages = type1.reduce((_f, t)=>{
+            if(!sol_list[t]) return _f;
+            const title_p = solp.cloneNode(true);
+            title_p.classList.add(solp_match[t]);
+            title_p.classList.add('living-cover');
+            getEl('.page-area',title_p).appendChild(createEl('div',{'class': sol_list[t]['합계']}));
+            getEl('.page-area',title_p).appendChild(createEl('div',{'class':'min-sol','children':groups[t].map(e=>createEl('div',{'class':scoreMap[t][e]}))}));
+            
+            const sol_pages = Object.entries(sol_list[t]).filter(([k,_])=>k!='합계').reduce((_frag,[k,rank])=>{
+                const res_p = solp.cloneNode(true);
+                res_p.classList.add(solp_match[k]);
+                res_p.classList.add('sol-living');
+                getEl('.page-area',res_p).appendChild(createEl('div',{'class': rank}));
+                _frag.appendChild(res_p);
+                return _frag
+            },document.createDocumentFragment())
     
-
+            _f.appendChild(title_p);
+            _f.appendChild(sol_pages);
+            return _f;
+        },document.createDocumentFragment());
+        getEl('.report-area').appendChild(pages);
+    }else{
+        const sol_A = solp.cloneNode(true);
+        sol_A.classList.add('a-living');
+        getEl('.report-area').appendChild(sol_A);
+    }
+    console.log(scoreMap)
+    console.log(scores)
 }
-
-
 
 const load = async () => {
     // 페이지 생성
@@ -568,7 +587,20 @@ const load = async () => {
      * print 기능 eventListener
      */
     document.querySelector('.header-btn').addEventListener('click',async ({target})=>{
+        const report = getEl('.report-area');
         if(target.classList == 'print'){
+            report.classList.remove('solution')
+            report.classList.remove('result')
+            print_mode();
+        }
+        if(target.classList == 'print-result'){ // 결과지만
+            report.classList.remove('solution')
+            report.classList.add('result')
+            print_mode();
+        }
+        if(target.classList == 'print-solution'){ //솔루션만
+            report.classList.add('solution')
+            report.classList.remove('result')
             print_mode();
         }
     });

@@ -88,7 +88,7 @@ const getFormattedDate = (dt, _date) => {
 
 const birthFormatt = (dt, f='-')=>{
     if(!dt) throw new error('값이 없음')
-    if (dt.substring(0,1) < 4) return `20${dt.substring(0,2)}${f}${dt.substring(2,4)}${f}${dt.substring(4-6)}`;
+    if (dt.substring(0,1) < 4) return `20${dt.substring(0,2)}${f}${dt.substring(2,4)}${f}${dt.substring(4,6)}`;
     else return `19${dt.substring(0,2)}${f}${dt.substring(2,4)}${f}${dt.substring(4,6)}`;
 }
 

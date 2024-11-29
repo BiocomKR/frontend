@@ -41,13 +41,14 @@ img {
     width: 10em;
     margin: 1em;
 }
-.header-btn{
+.no-print  .header-btn{
     display: grid;
-    grid-template-rows: 1fr 5fr;
+    grid-template-rows: 1fr 1fr 1fr 5fr;
     grid-gap: 1em;
     align-content: center;
+    font-weight: bold;
 }
-.print {
+.print, .print-result, .print-solution {
     animation: sparkle 2s infinite;
     transition: all 0.3s ease;
 }
@@ -278,17 +279,7 @@ img {
 }
 
 /* 솔루션 영역 */
-/* 추후 삭제 !!!!!*/
-.result{display:none;} 
-/* .solution{display:none;}  */
-/* 추후 삭제 !!!!!*/
 .solution *{font-family: 'Pretendard-regular';} 
-.sol-type1 .supple{display: grid; grid-template-rows: repeat(6, 1fr); grid-gap: 2em;}
-.sol-type1 .supple-detail{display: grid; grid-template-columns: 4fr 1fr;}
-.sol-type1 .left-sup div{font-size: 10pt; word-break: keep-all;}
-.sol-type1 .left-sup div:nth-child(3){font-size: 8pt;}
-.sol-type1 .right-sup div{font-size: 7pt;}
-
 
 .sol-1 .page-area >div, .sol-2 .page-area >div{position:relative;}
 .sol-1 .page-area >div div:nth-child(1), .sol-2 .page-area >div div:nth-child(1){position:absolute; top: 0.5em; font-size: 26pt; font-family: 'Pretendard-extrabold';}
@@ -312,22 +303,36 @@ table.major{margin: 0.7em auto; height: 38.1em; width: 24em;}
 .sol-4 .col_C div:nth-child(2){color:#f8971d}
 .sol-4 .col_D div:nth-child(2){color:#f04c53}
 .sol-4 .col_F div:nth-child(2){color:#421715}
+.sol-5 .page-area {grid-template-rows: 1fr 4fr;}
 .sol-5 .page-area >div:nth-child(1){position:relative;}
-.sol-5 .page-area >div:nth-child(1) div{position:absolute;top:70%;left: 50%;transform: translate(-50%, 50%); font-size: 26pt; color:#1fbbb0; font-family: 'Pretendard-black';  width: max-content;}
+.sol-5 .page-area >div:nth-child(1) div{position:absolute;top:39%;left: 50%;transform: translate(-50%, 50%); font-size: 26pt; color:#1fbbb0; font-family: 'Pretendard-black';  width: max-content;}
+.sol-5 .supple{display: grid; grid-template-rows: repeat(6, 1fr); grid-gap: 1em;justify-items: center}
+.sol-5 .supple-detail{display: grid; grid-template-columns: 5fr 1fr; width: 42em; height: 8em; border-radius: 1.5em;     background-color: #f1f2f1;}
+.sol-5 .left-sup {padding: 10px 0 3px 6em; display: grid; grid-template-rows: 1.5fr 5fr 2fr 2fr; height: 7em; background-repeat: no-repeat; background-size: 5em; background-position: 9px center;}
+.sol-5 .left-sup div{font-size: 10pt; word-break: keep-all; padding-top: 3px;}
+.sol-5 .left-sup div:nth-child(1){font-family: 'Pretendard-bold';}
+.sol-5 .left-sup div:nth-child(3){font-size: 8pt;}
+.sol-5 .left-sup div:nth-child(4){font-family: 'Pretendard-bold'; color: #1fbbb0; font-size: 9pt;}
+.sol-5 .right-sup {display: grid; background-repeat: no-repeat; background-size: 3.5em; background-position:center; align-items: center; justify-items: center; grid-gap: 0.9em;}
+.sol-5 .right-sup div{font-size: 7pt;}
+.living-cover .page-area{height: 65em; position: relative;}
+.living-cover .page-area > div:nth-child(1){background-size: 30mm; background-position: 35em 13em;}
+.living-cover .min-sol{display: grid; grid-gap: 2em; position: absolute; bottom: 0.8em; left: 79%; width: 10em;}
+.living-cover .min-sol div{background-size: 11.6mm; background-position: center;}
+
+.living-cover.B1 .min-sol{height: 19.8em;}
+.living-cover.B2 .min-sol{height: 9em;}
+.living-cover.B3 .min-sol{height: 14.3em;}
+.living-cover.B4 .min-sol{height: 9em;}
+.living-cover.B5 .min-sol{height: 19.8em;}
+.living-cover.B6 .min-sol{height: 9em;}
+
+.sol-living .page-area div{background-size: 25mm; background-position: 36em 2em;}
 
 
 
 
 
-.min-sol div {height: 1em;}
-
-
-
-
-
-
-
-.supple-detail div{ background-repeat: no-repeat; background-size: 4em;}
 .mitofu .right-sup{background-image:url("../../images/report/UGI/qr/mitofu.png");}
 .adre .right-sup{background-image:url("../../images/report/UGI/qr/adre.png");}
 .riposomc .right-sup{background-image:url("../../images/report/UGI/qr/riposomc.png");}
@@ -373,12 +378,12 @@ table.major{margin: 0.7em auto; height: 38.1em; width: 24em;}
 .sol-3{background: url('../../images/report/UGI/sol_page/3.redlight_tem.png') #fff center/cover no-repeat;}
 .sol-4{background: url('../../images/report/UGI/sol_page/4.priority_tem.png') #fff center/cover no-repeat;}
 .sol-5{background: url('../../images/report/UGI/sol_page/5.press_tem.png') #fff center/cover no-repeat;}
-.B1{background: url('../../images/report/UGI/sol_page/midcover1.png') #fff center/cover no-repeat;}
-.B2{background: url('../../images/report/UGI/sol_page/midcover2.png') #fff center/cover no-repeat;}
+.B1{background: url('../../images/report/UGI/sol_page/midcover6.png') #fff center/cover no-repeat;}
+.B2{background: url('../../images/report/UGI/sol_page/midcover5.png') #fff center/cover no-repeat;}
 .B3{background: url('../../images/report/UGI/sol_page/midcover3.png') #fff center/cover no-repeat;}
-.B4{background: url('../../images/report/UGI/sol_page/midcover4.png') #fff center/cover no-repeat;}
-.B5{background: url('../../images/report/UGI/sol_page/midcover5.png') #fff center/cover no-repeat;}
-.B6{background: url('../../images/report/UGI/sol_page/midcover6.png') #fff center/cover no-repeat;}
+.B4{background: url('../../images/report/UGI/sol_page/midcover2.png') #fff center/cover no-repeat;}
+.B5{background: url('../../images/report/UGI/sol_page/midcover1.png') #fff center/cover no-repeat;}
+.B6{background: url('../../images/report/UGI/sol_page/midcover4.png') #fff center/cover no-repeat;}
 .G11{background: url('../../images/report/UGI/sol_page/meta-26.png') #fff center/cover no-repeat;}
 .G12{background: url('../../images/report/UGI/sol_page/meta-27.png') #fff center/cover no-repeat;}
 .G13{background: url('../../images/report/UGI/sol_page/meta-28.png') #fff center/cover no-repeat;}
@@ -396,4 +401,15 @@ table.major{margin: 0.7em auto; height: 38.1em; width: 24em;}
 .G54{background: url('../../images/report/UGI/sol_page/meta-10.png') #fff center/cover no-repeat;}
 .G61{background: url('../../images/report/UGI/sol_page/meta-19.png') #fff center/cover no-repeat;}
 .G62{background: url('../../images/report/UGI/sol_page/meta-20.png') #fff center/cover no-repeat;}
+.a-supple{background: url('../../images/report/UGI/sol_page/meta-30.png') #fff center/cover no-repeat;}
+.a-living{background: url('../../images/report/UGI/sol_page/meta-31.png') #fff center/cover no-repeat;}
+.counsel{background: url('../../images/report/UGI/sol_page/meta-32.png') #fff center/cover no-repeat;}
 
+
+
+.result .solution{
+    display: none;
+}
+.solution .result{
+    display: none;
+}
