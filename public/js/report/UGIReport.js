@@ -50,6 +50,9 @@ const groups = {
     '장 건강': [G51,G52,G53,G54], 
     '정신건강 및 집중력': [G61,G62]
 }
+const s_groups = {
+    '지방산 대사':3 ,'탄수화물 대사':2 ,'단백질 대사':7 ,'케톤 대사':1 ,'항산화 기능':1 ,'뼈 건강':1 ,'에너지 대사':8 ,'비타민 대사':7 ,'유전자 발현 능력':1 ,'독소 노출':7,'세포 기능': 2,'소화 흡수 기능':6 ,'장내 세균 균형':4 ,'유해균 증식':2 ,'장내 곰팡이/효모 균형': 6,'신경 전달 기능': 3,'인지 기능':3
+}
 
 const INDICATOR = [B1, B6, B5, B4, B3, B2];
 const INDICATOR2 = [B1, B2, B3, B4, B5, B6];
@@ -91,7 +94,8 @@ const createChart = (d)=>{
  * 가중치
  */
 const weights = INDICATOR3.reduce((obj, i, idx)=>{
-    const weight = [3,2,3,2,5,5,4,4,2,6,4,2.5,2.5,2.5,2.5,5,5];
+    // const weight = [3,2,3,2,5,5,4,4,2,6,4,2.5,2.5,2.5,2.5,5,5];
+    const weight = [2.5,2.5,2.5,2.5,5,5,3.5,3.5,3,5,5,2.5,2.5,2.5,2.5,5,5];
     obj[i] = weight[idx];
     return obj;
 },{});
@@ -102,32 +106,39 @@ const weights = INDICATOR3.reduce((obj, i, idx)=>{
  * @returns 
  */
 const fn_kingScoring = (score)=>{
-    score = Math.round(score)
-    if(score >= 98) return 'Ap';
-    else if(score >=94) return 'A0';
-    else if(score >=89) return 'A-';
-    else if(score >=85) return 'Bp';
-    else if(score >=79) return 'B0';
-    else if(score >=73) return 'B-';
-    else if(score >=65) return 'Cp';
-    else if(score >=60) return 'C0';
-    else if(score >=55) return 'C-';
-    else if(score >=50) return 'Dp';
-    else if(score >=45) return 'D0';
-    else if(score >=40) return 'D-';
-    else return 'F0';
+    // score = Math.round(score)
+    if(score >= 99) return 'Ap';
+    else if(score >=90) return 'A0';
+    else if(score >=81) return 'A-';
+    else if(score >=72) return 'Bp';
+    else if(score >=63) return 'B0';
+    else if(score >=54) return 'B-';
+    else if(score >=45) return 'Cp';
+    else if(score >=36) return 'C0';
+    else if(score >=31) return 'C-';
+    else if(score >=20) return 'Dp';
+    else if(score >=16) return 'D0';
+    else if(score ==0) return 'F0';
+    else return 'D-';
 }
 /**
- * 점수별 랭크(A~F)반환
+ * 점수별 랭크(A~F)반환 - 병원용 결과지 버전
  * @param {Number} score 
  * @returns 
  */
+// const fn_scoring_old = (score)=>{
+//     if(score >= 85) return 'A';
+//     else if(score >=70) return 'B';
+//     else if(score >=55) return 'C';
+//     else if(score >=40) return 'D';
+//     else return 'F';
+// }
 const fn_scoring = (score)=>{
-    if(score >= 85) return 'A';
-    else if(score >=70) return 'B';
-    else if(score >=55) return 'C';
-    else if(score >=40) return 'D';
-    else return 'F';
+    if(score >0.99) return 'A';
+    else if(score >=0.7) return 'B';
+    else if(score >=0.5) return 'C';
+    else if(score == 0) return 'F';
+    else return 'D';
 }
 
 
@@ -164,36 +175,56 @@ const fn_graphScoreing = (f)=>{
     else return 'N';
 }
 
+const calcScore2 = (s)=>{
+    if(s > 0.99) return 1;
+    else if(s >= 0.7) return 0.7;
+    else if(s >= 0.5) return 0.5;
+    else if(s == 0) return 0;
+    else return 0.3; 
+}
+
+
 /**
- * 전체 map 기반으로 대분류-중분류 점수 측정
+ * 전체 map 기반으로 대분류-중분류 점수 측정 ( 병원용 알고리즘 )
  * @param {Object} map 
  * @param {Object} weights 
  * @returns 
  */
-let a;
+// const calcScore_old = (map, weights)=> {
+//     const res = Object.values(map).reduce((result, { fst, scd, value, score, name , rank }) => {
+//         result[fst] ??= { '합계': 0 };
+//         const _score = score*10;
+//         const valueToAdd = (_score - _score * value * 0.5) < 0? 0 : (_score - _score * value * 0.5);
+//         result[fst][scd] = (result[fst][scd] ?? 0) + valueToAdd;
+//         result[fst]['합계'] += (valueToAdd * (weights[scd] ?? 1) / 10);
+//         return result;
+//     }, Object.create(null));
+//     return res;
+// }
+
 const calcScore = (map, weights)=> {
-    const res = Object.values(map).reduce((result, { fst, scd, value, score, name , rank }) => {
+    const res = Object.values(map).reduce((result, { fst, scd,  name , rank }) => {
         result[fst] ??= { '합계': 0 };
-        const _score = score*10;
-        const valueToAdd = (_score - _score * value * 0.5) < 0? 0 : (_score - _score * value * 0.5);
+        // const _score = score*10;
+        const _score = {'blue' : 1, 'yell' : 0.5, 'red' : 0 } ;
+        const all = s_groups[scd];
+        const valueToAdd = _score[fn_faceScoreing(rank)]/all;
         result[fst][scd] = (result[fst][scd] ?? 0) + valueToAdd;
-        result[fst]['합계'] += (valueToAdd * (weights[scd] ?? 1) / 10);
         return result;
     }, Object.create(null));
+    Object.entries(res).forEach(([k,v])=>{
+        res[k]['합계'] = Object.entries(v).reduce((s,[key, value])=>{
+            s += (calcScore2(value) * (weights[key] ?? 1) *10); return s},0);
+    })
     return res;
 }
+
 
 const fn_setRanking = (map) =>{
     Object.keys(map).forEach((key)=>{
         Object.keys(map[key]).forEach(k=>{
-            console.log(k, map[key][k])
             map[key][k] = k == '합계'? fn_kingScoring(map[key][k]) : fn_scoring(map[key][k])});
     })
-    // INDICATOR.forEach((el)=>{
-    //     Object.keys(map).forEach((key)=>{
-    //         if(el == key) Object.keys(map[el]).forEach((k)=>map[el][k] = k == '합계'? fn_kingScoring(map[el][k]) : fn_scoring(map[el][k]))
-    //     });
-    // })
     return map;
 }
 
@@ -441,7 +472,7 @@ const createPage = async (data, map, sol) =>{
     /**페이지35 */
 
     /* 솔루션 페이지*/
-    const {suppl, assist, suppl_match} = sol;
+    const {suppl, assist, suppl_match, sol_cover} = sol;
     const solp = getEl('.page.hide').cloneNode(true);
     solp.classList.remove('hide');
     solp.classList.add('solution');
@@ -463,10 +494,10 @@ const createPage = async (data, map, sol) =>{
     const assistResult = fn_sol_pick(type3, allList, assist);
     const suppResult = supplement.results.filter((_,idx)=>idx < 6-assistResult.length).concat(assistResult);
     /** 솔루션 표지 */
-    const sol_1 = solp.cloneNode(true);
-    sol_1.classList.add('sol-1');
-    getEl('.page-area',sol_1).appendChild(createEl('div',{'children':[userName+'님', '종합 대사기능 분석'].map((n)=>createEl('div',{'textContent':n}))}));
-    getEl('.report-area').appendChild(sol_1);
+    // const sol_1 = solp.cloneNode(true);
+    // sol_1.classList.add('sol-1');
+    // getEl('.page-area',sol_1).appendChild(createEl('div',{'children':[userName+'님', '종합 대사기능 분석'].map((n)=>createEl('div',{'textContent':n}))}));
+    // getEl('.report-area').appendChild(sol_1);
     const sol_1_1 = solp.cloneNode(true);
     sol_1_1.classList.add('sol-2');
     getEl('.page-area',sol_1_1).appendChild(createEl('div',{'children':[userName+'님', '종합 대사기능 분석'].map((n)=>createEl('div',{'textContent':n}))}));
@@ -498,8 +529,8 @@ const createPage = async (data, map, sol) =>{
     sol_4.classList.add('sol-5');
     if(suppResult.length){ // 영양제 하나라도 있으면
         const type3_tbl = suppResult.reduce((_f, {name, detail, ingr, link, ingrs})=>{
-            const grouping = '도움이 되는 대사 기능 :'+ fn_grouping(ingrs, type3);
-            const div1 = createEl('div',{'class':'left-sup', 'children':[name, detail, '성분 : '+ingr, grouping].map(e=>createEl('div',{'textContent': e}))})
+            const grouping = createEl('div',{'children':['도움이 되는 대사 기능 : ', fn_grouping(ingrs, type3)].map(e=>createEl('span',{'textContent':e}))});
+            const div1 = createEl('div',{'class':'left-sup', 'children':[name, detail, '성분 : '+ingr].map(e=>createEl('div',{'textContent': e})).concat(grouping)})
             const div2 = createEl('div',{'class':'right-sup', 'children':['제품 확인하기', link ].map(e=>createEl('div',{'textContent': e}))})
             const div = createEl('div',{'class':'supple-detail '+suppl_match[name],'children':[div1, div2]});
             _f.appendChild(div);
@@ -529,12 +560,15 @@ const createPage = async (data, map, sol) =>{
     }, {});
     
     if(Object.entries(sol_list).length){
+        const divList = (arr)=> createEl('div',{'class':'solc-word','children':arr.map(e=> createEl('div',{'textContent':e}))});
+        
+
         const pages = type1.reduce((_f, t)=>{
             if(!sol_list[t]) return _f;
             const title_p = solp.cloneNode(true);
             title_p.classList.add(solp_match[t]);
             title_p.classList.add('living-cover');
-            getEl('.page-area',title_p).appendChild(createEl('div',{'class': sol_list[t]['합계']}));
+            getEl('.page-area',title_p).appendChild(createEl('div',{'class': sol_list[t]['합계'],'children':[divList(sol_cover[t])]}));
             getEl('.page-area',title_p).appendChild(createEl('div',{'class':'min-sol','children':groups[t].map(e=>createEl('div',{'class':scoreMap[t][e]}))}));
             
             const sol_pages = Object.entries(sol_list[t]).filter(([k,_])=>k!='합계').reduce((_frag,[k,rank])=>{
@@ -556,8 +590,6 @@ const createPage = async (data, map, sol) =>{
         sol_A.classList.add('a-living');
         getEl('.report-area').appendChild(sol_A);
     }
-    console.log(scoreMap)
-    console.log(scores)
 }
 
 const load = async () => {

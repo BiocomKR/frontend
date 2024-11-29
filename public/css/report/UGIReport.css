@@ -292,7 +292,7 @@ table.major{margin: 0.7em auto; height: 38.1em; width: 24em;}
 .sol-3 .major td{padding-left: 5em; font-size: 14pt;font-family: 'Pretendard-meidum'; border: none;}
 .sol-4 .page-area{grid-template-rows: 1fr 5fr;}
 .sol-4 .page-area >div:nth-child(1){position:relative;}
-.sol-4 .page-area >div:nth-child(1) div{position:absolute;top:45%;left: 50%;transform: translate(-50%, 50%); font-size: 26pt; color:#1fbbb0; font-family: 'Pretendard-black';  width: max-content;}
+.sol-4 .page-area >div:nth-child(1) div{position:absolute;top:35%;left: 50%;transform: translate(-50%, 50%); font-size: 26pt; color:#1fbbb0; font-family: 'Pretendard-black';  width: max-content;}
 .sol-4 .sub{margin:0.4em 0 0 7.5em;width: 32em; height:51em;}
 .sol-4 .sub > div{ display: grid; grid-template-columns: 4fr 1fr 8fr;height: 3em;justify-items: center;align-items: center;}
 .sol-4 .sub div div:nth-child(1){width: max-content;font-family: 'Pretendard-meidum'; font-size: 10pt;}
@@ -312,11 +312,27 @@ table.major{margin: 0.7em auto; height: 38.1em; width: 24em;}
 .sol-5 .left-sup div{font-size: 10pt; word-break: keep-all; padding-top: 3px;}
 .sol-5 .left-sup div:nth-child(1){font-family: 'Pretendard-bold';}
 .sol-5 .left-sup div:nth-child(3){font-size: 8pt;}
-.sol-5 .left-sup div:nth-child(4){font-family: 'Pretendard-bold'; color: #1fbbb0; font-size: 9pt;}
+.sol-5 .left-sup div:nth-child(4) span{font-family: 'Pretendard-bold'; color: #1fbbb0; font-size: 9pt;}
+.sol-5 .left-sup div:nth-child(4) span:nth-child(1){font-family: 'Pretendard-black';}
 .sol-5 .right-sup {display: grid; background-repeat: no-repeat; background-size: 3.5em; background-position:center; align-items: center; justify-items: center; grid-gap: 0.9em;}
 .sol-5 .right-sup div{font-size: 7pt;}
 .living-cover .page-area{height: 65em; position: relative;}
-.living-cover .page-area > div:nth-child(1){background-size: 30mm; background-position: 35em 13em;}
+.living-cover .page-area > div:nth-child(1){background-size: 30mm; background-position: 35em 13em; position: relative;}
+.living-cover .solc-word{font-size: 16pt; position: absolute;width: 27em; word-break: keep-all; top: 34%;;left: 2.5%;}
+.living-cover .solc-word div{font-family: 'Pretendard-bold'; line-height: 1.5em;}
+.living-cover .Ap .solc-word{color: #104572;}
+.living-cover .A0 .solc-word{color: #104572;}
+.living-cover .A- .solc-word{color: #104572;}
+.living-cover .Bp .solc-word{color: #745723;}
+.living-cover .B0 .solc-word{color: #745723;}
+.living-cover .B- .solc-word{color: #745723;}
+.living-cover .Cp .solc-word{color: #7f3d1b;}
+.living-cover .C0 .solc-word{color: #7f3d1b;}
+.living-cover .C- .solc-word{color: #7f3d1b;}
+.living-cover .Dp .solc-word{color:#f04b53}
+.living-cover .D0 .solc-word{color:#f04b53}
+.living-cover .D- .solc-word{color:#f04b53}
+.living-cover .F0 .solc-word{color:#421716}
 .living-cover .min-sol{display: grid; grid-gap: 2em; position: absolute; bottom: 0.8em; left: 79%; width: 10em;}
 .living-cover .min-sol div{background-size: 11.6mm; background-position: center;}
 
@@ -328,10 +344,6 @@ table.major{margin: 0.7em auto; height: 38.1em; width: 24em;}
 .living-cover.B6 .min-sol{height: 9em;}
 
 .sol-living .page-area div{background-size: 25mm; background-position: 36em 2em;}
-
-
-
-
 
 .mitofu .right-sup{background-image:url("../../images/report/UGI/qr/mitofu.png");}
 .adre .right-sup{background-image:url("../../images/report/UGI/qr/adre.png");}
