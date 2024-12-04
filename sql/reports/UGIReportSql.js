@@ -1,6 +1,6 @@
 export const selectListUGIquery = `
  SELECT 검사ID as 'userId', 입력날짜 as 'date', userName, userGender, userBirth FROM LabSpearSIB.report.검사결과_종합대사기능 
-  ORDER BY 검사ID DESC`;
+  ORDER BY date DESC, 검사ID desc`;
 
 export const selectUGIquery = `
     WITH CRT AS (

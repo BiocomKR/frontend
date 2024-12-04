@@ -95,7 +95,7 @@ const createChart = (d)=>{
  */
 const weights = INDICATOR3.reduce((obj, i, idx)=>{
     // const weight = [3,2,3,2,5,5,4,4,2,6,4,2.5,2.5,2.5,2.5,5,5];
-    const weight = [2.5,2.5,2.5,2.5,5,5,3.5,3.5,3,5,5,2.5,2.5,2.5,2.5,5,5];
+    const weight = [2.5,2.5,2.5,2.5, 5,5, 3.5,3.5,3, 5,5, 2.5,2.5,2.5,2.5, 5,5];
     obj[i] = weight[idx];
     return obj;
 },{});
@@ -122,17 +122,10 @@ const fn_kingScoring = (score)=>{
     else return 'D-';
 }
 /**
- * 점수별 랭크(A~F)반환 - 병원용 결과지 버전
+ * 점수별 랭크(A~F)반환 - 병원용 결과지 버전x - 소분류
  * @param {Number} score 
  * @returns 
  */
-// const fn_scoring_old = (score)=>{
-//     if(score >= 85) return 'A';
-//     else if(score >=70) return 'B';
-//     else if(score >=55) return 'C';
-//     else if(score >=40) return 'D';
-//     else return 'F';
-// }
 const fn_scoring = (score)=>{
     if(score >0.99) return 'A';
     else if(score >=0.7) return 'B';
@@ -471,6 +464,8 @@ const createPage = async (data, map, sol) =>{
     /**페이지34 */
     /**페이지35 */
 
+    console.log(scores);
+    console.log(scoreMap);
     /* 솔루션 페이지*/
     const {suppl, assist, suppl_match, sol_cover} = sol;
     const solp = getEl('.page.hide').cloneNode(true);
@@ -536,7 +531,7 @@ const createPage = async (data, map, sol) =>{
             _f.appendChild(div);
             return _f;
         },createEl('div',{'class':'supple'}));
-        getEl('.page-area',sol_4).appendChild(createEl('div',{'children':[createEl('div',{'textContent':userName+'님에 필요한 성분을 '+suppResult.length+'개로 압축했어요'})]}));
+        getEl('.page-area',sol_4).appendChild(createEl('div',{'children':[createEl('div',{'textContent':userName+'님께 필요한 성분을 '+suppResult.length+'개로 압축했어요'})]}));
         getEl('.page-area',sol_4).appendChild(createEl('div',{'class':'sol-type1','children':[type3_tbl]}));
         getEl('.report-area').appendChild(sol_4);
     }else{
@@ -612,6 +607,13 @@ const load = async () => {
         createPage(data.results[0], dataEl, sol);
     } catch (error) {
         console.error('데이터 로딩 실패:', error);
+        if(error == '사용자 이름이 없습니다.'){
+            alert('차트번호가 없거나, 사용자 정보가 존재하지 않습니다. \n다시 확인해주세요.')
+            window.open('/report/insertInfo');
+        }else{
+            alert('시스템 오류 입니다. \n전산 관련 문의는 연구개발팀에 문의해주세요. 내선:0981')
+            window.open('/report/insertInfo');
+        }
     }
     getEl('.back').addEventListener('click',()=>{window.open('/report/insertInfo')})
 
@@ -620,19 +622,23 @@ const load = async () => {
      */
     document.querySelector('.header-btn').addEventListener('click',async ({target})=>{
         const report = getEl('.report-area');
+        const userName = getEl('.report-name').textContent;
         if(target.classList == 'print'){
             report.classList.remove('solution')
             report.classList.remove('result')
+            document.title = `바이오 종합 대사기능 분석_${userName}`;
             print_mode();
         }
         if(target.classList == 'print-result'){ // 결과지만
             report.classList.remove('solution')
             report.classList.add('result')
+            document.title = `바이오 종합 대사기능 분석_${userName}_결과지`;
             print_mode();
         }
         if(target.classList == 'print-solution'){ //솔루션만
             report.classList.add('solution')
             report.classList.remove('result')
+            document.title = `바이오 종합 대사기능 분석_${userName}_솔루션`;
             print_mode();
         }
     });

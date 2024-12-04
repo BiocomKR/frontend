@@ -17,14 +17,13 @@
     .page-break {
         page-break-before: always;
     }
-    .title-page {
-        counter-increment: none;
-        counter-increment: pageNumber; 
-    }
     .result {
         counter-increment: pageNumber; 
     }
-    .result::after {
+    .result.title-page {
+        counter-increment: none;
+    }
+    .page.result::after {
         content: counter(pageNumber);
         counter-increment: page;
         position: absolute;

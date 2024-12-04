@@ -26,6 +26,11 @@
     <select class="analysis">
         <option value="cmfa">유기산 검사</option>
     </select>
+    <form action='/report/UGI' name='userInfo' method="POST" class="hide">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username">
+        <button type="submit">submit</button>
+    </form>
     <div class="table-container">
         <table class="user-list">
             <tr>
@@ -40,11 +45,6 @@
         </table>
     </div>
 
-    <form action='/report/UGI' name='userInfo' method="POST" class="hide">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username">
-        <button type="submit">submit</button>
-    </form>
 
     <script src="/js/Common.js"></script>
     

@@ -7,7 +7,7 @@ const createTable = (data)=>{
         tr.appendChild(createEl('td',{'textContent': date.substring(0,10)}));
         tr.appendChild(createEl('td',{'textContent':userName}));
         tr.appendChild(createEl('td',{'textContent':userGender}));
-        tr.appendChild(createEl('td',{'textContent':birthFormatt(userBirth)}));
+        tr.appendChild(createEl('td',{'textContent':birthFormatt(userBirth.substring(0,6)||'000000')}));
         tr.appendChild(createEl('td',{'children':[createEl('span',{'textContent':'조회','class':'submit','data-id':userId})]}));
         frag.appendChild(tr);
         return frag;
