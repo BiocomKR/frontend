@@ -15,4 +15,6 @@ router.get('/UGIReport', asyncHandler(UGI.getReportData));
 // router.post('/UGIReport/pdf', asyncHandler(UGI.generatePDF));
 router.get('/UGIReport/list', asyncHandler(report.getUgiList));
 router.get('/UGIReport/suppl', asyncHandler(UGI.getSuppleData));
+
+router.get('/lotte/api')
 export default router

@@ -20,17 +20,23 @@
             font-weight: bold;
             background-color: #ffbaba;
         }
+        form {    max-width: 800px;}
+        form div , .list-title{font-size: 1.2em; border-top: 1px dotted; margin-top: 1em; max-width: 800px;}
+        form button{padding: 0.3em 1.5em; background-color: #ffeaea; border: none;}
+        form button:hover{font-weight: bold; background-color: #ffbaba;}
     </style>
 </head>
 <body>
     <select class="analysis">
         <option value="cmfa">유기산 검사</option>
     </select>
-    <form action='/report/UGI' name='userInfo' method="POST" class="hide">
-        <label for="username">Username:</label>
+    <form action='/report/UGI' name='userInfo' method="POST">
+        <div>차트 번호로 조회하기</div>
+        <label for="username">차트 번호:</label>
         <input type="text" id="username" name="username">
-        <button type="submit">submit</button>
+        <button type="submit">조회</button>
     </form>
+    <div class="list-title">리스트로 조회하기</div>
     <div class="table-container">
         <table class="user-list">
             <tr>

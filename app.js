@@ -28,6 +28,7 @@ app.use(morgan('combined', {
 })); // 요청 로깅
 
 app.use(helmet());
+// app.use(cors({origin: 'https://biocom.kr',}))
 app.use(cors({
   origin: '*', // 모든 도메인에서 접근 허용
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',

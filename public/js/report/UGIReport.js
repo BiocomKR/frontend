@@ -464,8 +464,6 @@ const createPage = async (data, map, sol) =>{
     /**페이지34 */
     /**페이지35 */
 
-    console.log(scores);
-    console.log(scoreMap);
     /* 솔루션 페이지*/
     const {suppl, assist, suppl_match, sol_cover} = sol;
     const solp = getEl('.page.hide').cloneNode(true);
@@ -480,6 +478,7 @@ const createPage = async (data, map, sol) =>{
     },[]).sort((x,y)=>x[1]<y[1]?-1:1).map(([k,rank])=>[k,fn_scoring(rank)]);
     // type3 => 대분류별 영양소 끍끍
     const type3 = allList.reduce((obj, e, idx)=>{
+        console.log(suppl, e)
         const data = e.map(({name, rank})=>suppl[name][fn_graphScoreing(rank)]);
         obj[INDICATOR3[idx]]=[...new Set(data.flat())].filter((e)=>e!='없음');
         return obj;
@@ -511,6 +510,7 @@ const createPage = async (data, map, sol) =>{
     /**중분류 */
     const sol_3 = solp.cloneNode(true);
     sol_3.classList.add('sol-4');
+    console.log(type3)
     const type2_tbl = type2.reduce((_f, [k, rank], idx)=>{
         const tr = createEl('div',{'class':'col_'+rank, 'children':[k,rank, type3[k].filter((_,i)=>i<10).join(', ')].map(e=>createEl('div',{'textContent': e||'없음'}))})
         _f.appendChild(tr);
@@ -623,22 +623,23 @@ const load = async () => {
     document.querySelector('.header-btn').addEventListener('click',async ({target})=>{
         const report = getEl('.report-area');
         const userName = getEl('.report-name').textContent;
+        const date = getEl('.user-report-dt span').textContent;
         if(target.classList == 'print'){
             report.classList.remove('solution')
             report.classList.remove('result')
-            document.title = `바이오 종합 대사기능 분석_${userName}`;
+            document.title = `바이오 종합 대사기능 분석_${userName}_${date}`;
             print_mode();
         }
         if(target.classList == 'print-result'){ // 결과지만
             report.classList.remove('solution')
             report.classList.add('result')
-            document.title = `바이오 종합 대사기능 분석_${userName}_결과지`;
+            document.title = `${userName}_바이오 종합 대사기능 분석_결과지_${date}`;
             print_mode();
         }
         if(target.classList == 'print-solution'){ //솔루션만
             report.classList.add('solution')
             report.classList.remove('result')
-            document.title = `바이오 종합 대사기능 분석_${userName}_솔루션`;
+            document.title = `${userName}_바이오 종합 대사기능 분석_솔루션_${date}`;
             print_mode();
         }
     });
