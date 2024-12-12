@@ -196,13 +196,22 @@ const calcScore2 = (s)=>{
 // }
 
 const calcScore = (map, weights)=> {
-    const res = Object.values(map).reduce((result, { fst, scd,  name , rank }) => {
+    const res = Object.values(map).reduce((result, { fst, scd,  name , value, score , rank }) => {
         result[fst] ??= { '합계': 0 };
         // const _score = score*10;
-        const _score = {'blue' : 1, 'yell' : 0.5, 'red' : 0 } ;
+        const _score = {'blue' : 1, 'yell' : 0.5, 'red' : 0.3 } ;
+        const _score2 = (rk)=>{
+            if(['n1','n2','n3','n4','n5','n6'].some(e => e == rk)) return 1;
+            else if(rk == 'n7') return 0.7;
+            else if(rk == 'n8') return 0.5;
+            else if(rk == 'n9') return 0.3;
+            else if(rk == 'n10') return 0.3;
+        };
+        const score_f = ((score*10) - (score*10) * value * 0.4) ;
+        console.log(name, score_f);
         const all = s_groups[scd];
-        const valueToAdd = _score[fn_faceScoreing(rank)]/all;
-        result[fst][scd] = (result[fst][scd] ?? 0) + valueToAdd;
+        const valueToAdd = all == 1? _score2(rank) : _score[fn_faceScoreing(rank)]/all;
+        result[fst][scd] = (result[fst][scd] ?? 0) + (score_f < 0 ? 0 : valueToAdd);
         return result;
     }, Object.create(null));
     Object.entries(res).forEach(([k,v])=>{
@@ -478,15 +487,19 @@ const createPage = async (data, map, sol) =>{
     },[]).sort((x,y)=>x[1]<y[1]?-1:1).map(([k,rank])=>[k,fn_scoring(rank)]);
     // type3 => 대분류별 영양소 끍끍
     const type3 = allList.reduce((obj, e, idx)=>{
-        console.log(suppl, e)
+        // console.log(suppl, e)
         const data = e.map(({name, rank})=>suppl[name][fn_graphScoreing(rank)]);
         obj[INDICATOR3[idx]]=[...new Set(data.flat())].filter((e)=>e!='없음');
         return obj;
     },{});
+    console.log(type3)
     const ingredient = [...new Set(Object.values(type3).flat())].filter(e=>e!='').join(',');
     const supplement = await jsonProvider(`/api/UGIReport/suppl?supple=${ingredient}`);
+    // const supplement2 = await jsonProvider(`/api/UGIReport/suppl?supple=${ingredient}`);
+    // const supplement3 = await jsonProvider(`/api/UGIReport/suppl?supple=${ingredient}`);
     const assistResult = fn_sol_pick(type3, allList, assist);
-    const suppResult = supplement.results.filter((_,idx)=>idx < 6-assistResult.length).concat(assistResult);
+//     const suppResult = supplement.results.filter((_,idx)=>idx < 6-assistResult.length).concat(assistResult);
+    const suppResult = supplement.results;
     /** 솔루션 표지 */
     // const sol_1 = solp.cloneNode(true);
     // sol_1.classList.add('sol-1');
@@ -510,7 +523,7 @@ const createPage = async (data, map, sol) =>{
     /**중분류 */
     const sol_3 = solp.cloneNode(true);
     sol_3.classList.add('sol-4');
-    console.log(type3)
+    // console.log(type3)
     const type2_tbl = type2.reduce((_f, [k, rank], idx)=>{
         const tr = createEl('div',{'class':'col_'+rank, 'children':[k,rank, type3[k].filter((_,i)=>i<10).join(', ')].map(e=>createEl('div',{'textContent': e||'없음'}))})
         _f.appendChild(tr);
@@ -585,6 +598,8 @@ const createPage = async (data, map, sol) =>{
         sol_A.classList.add('a-living');
         getEl('.report-area').appendChild(sol_A);
     }
+
+    console.log(scores, scoreMap)
 }
 
 const load = async () => {
@@ -623,7 +638,8 @@ const load = async () => {
     document.querySelector('.header-btn').addEventListener('click',async ({target})=>{
         const report = getEl('.report-area');
         const userName = getEl('.report-name').textContent;
-        const date = getEl('.user-report-dt span').textContent;
+        const date = getEl('.user-report-dt span').textContent.replaceAll('-','').substr(2);
+	const ids = getEl('.user-pk span').textContent;
         if(target.classList == 'print'){
             report.classList.remove('solution')
             report.classList.remove('result')
@@ -633,13 +649,13 @@ const load = async () => {
         if(target.classList == 'print-result'){ // 결과지만
             report.classList.remove('solution')
             report.classList.add('result')
-            document.title = `${userName}_바이오 종합 대사기능 분석_결과지_${date}`;
+            document.title = `${date}_${userName}_${ids}_바이오 종합 대사기능 분석 결과`;
             print_mode();
         }
         if(target.classList == 'print-solution'){ //솔루션만
             report.classList.add('solution')
             report.classList.remove('result')
-            document.title = `${userName}_바이오 종합 대사기능 분석_솔루션_${date}`;
+            document.title = `${date}_${userName}_${ids}_솔루션`;
             print_mode();
         }
     });
