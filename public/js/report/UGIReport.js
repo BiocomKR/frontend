@@ -185,7 +185,7 @@ const calcScore2 = (s)=>{
  */
 // const calcScore_old = (map, weights)=> {
 //     const res = Object.values(map).reduce((result, { fst, scd, value, score, name , rank }) => {
-//         result[fst] ??= { '합계': 0 };
+//         result[fst] ??= { '합계': 0 };fhtep
 //         const _score = score*10;
 //         const valueToAdd = (_score - _score * value * 0.5) < 0? 0 : (_score - _score * value * 0.5);
 //         result[fst][scd] = (result[fst][scd] ?? 0) + valueToAdd;
@@ -208,7 +208,7 @@ const calcScore = (map, weights)=> {
             else if(rk == 'n10') return 0.3;
         };
         const score_f = ((score*10) - (score*10) * value * 0.4) ;
-        console.log(name, score_f);
+        // console.log(name, score_f);
         const all = s_groups[scd];
         const valueToAdd = all == 1? _score2(rank) : _score[fn_faceScoreing(rank)]/all;
         result[fst][scd] = (result[fst][scd] ?? 0) + (score_f < 0 ? 0 : valueToAdd);
@@ -492,14 +492,29 @@ const createPage = async (data, map, sol) =>{
         obj[INDICATOR3[idx]]=[...new Set(data.flat())].filter((e)=>e!='없음');
         return obj;
     },{});
-    console.log(type3)
+    const type4 = type2.map(([k,v])=>{ return [k, v, [...new Set(Object.values(type3[k]).flat())].filter(e=>e!='').join(',')] });
+    
     const ingredient = [...new Set(Object.values(type3).flat())].filter(e=>e!='').join(',');
-    const supplement = await jsonProvider(`/api/UGIReport/suppl?supple=${ingredient}`);
-    // const supplement2 = await jsonProvider(`/api/UGIReport/suppl?supple=${ingredient}`);
-    // const supplement3 = await jsonProvider(`/api/UGIReport/suppl?supple=${ingredient}`);
-    const assistResult = fn_sol_pick(type3, allList, assist);
+    const assistResult = await Promise.all(
+        type4.filter(([,,i]) => i !== "").map(async (e) => {
+            const supple = await jsonProvider(`/api/UGIReport/suppl?supple=${e[2]}`);
+            return supple;
+        })
+    );
+    const supplement = assistResult.reduce((ob, supple, _, arr)=>{
+        if(ob.length < 7) {
+            supple.results.forEach((s, idx)=>{
+                const limit = arr.length < 3 ? 6:3;
+                if(!ob.some(({name})=>name == s.name) && idx <= limit) ob.push(s)
+                })
+        }
+        return ob;
+    }, []).filter((_,idx)=>idx < 6);
+    console.log(supplement)
+    // const supplement = await jsonProvider(`/api/UGIReport/suppl?supple=${ingredient}`);
+    // const assistResult = fn_sol_pick(type3, allList, assist);
 //     const suppResult = supplement.results.filter((_,idx)=>idx < 6-assistResult.length).concat(assistResult);
-    const suppResult = supplement.results;
+    const suppResult = supplement;
     /** 솔루션 표지 */
     // const sol_1 = solp.cloneNode(true);
     // sol_1.classList.add('sol-1');
@@ -599,7 +614,7 @@ const createPage = async (data, map, sol) =>{
         getEl('.report-area').appendChild(sol_A);
     }
 
-    console.log(scores, scoreMap)
+    // console.log(scores, scoreMap)
 }
 
 const load = async () => {
