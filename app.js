@@ -33,7 +33,9 @@ app.use(helmet());
 app.use(cors({
   origin: '*', // 모든 도메인에서 접근 허용
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  allowedHeaders: 'Content-Type,Authorization'
+  allowedHeaders: 'Content-Type,Authorization',
+  optionsSuccessStatus: 204, // OPTIONS 요청에 대한 성공 상태 코드
+  exposedHeaders: 'Content-Type'
 }));
 
 app.use(express.json({
