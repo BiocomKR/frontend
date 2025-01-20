@@ -41,6 +41,7 @@ const logger = winston.createLogger({
             format: 'YYYY-MM-DD HH:mm:ss',
     }),
     logFormat, 
+    winston.format.json(),
     ),
     transports: [
         // info 레벨 로그를 저장할 파일 설정

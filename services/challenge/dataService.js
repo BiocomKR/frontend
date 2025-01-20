@@ -2,8 +2,7 @@ import ServiceLogger from '../../config/ServiceLogger.js';
 import * as SqlService from '../SqlService.js';
 import * as ChallengeSql from '../../sql/challenge/challengeSql.js'
 
-const logger = new ServiceLogger('UGIReportService');
-
+const logger = new ServiceLogger('challengeDataService');
 
 // 롯데 챌린지 용!!!
 export async function getUserDataService(param) {

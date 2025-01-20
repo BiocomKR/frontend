@@ -15,8 +15,6 @@ const print_mode = ()=>{
             document.body.classList.remove('print-mode');
         }, 1000);
 }
-const [B1, B2, B3, B4, B5, B6] = ['체중 조절 능력', '항산화 능력','에너지 생성 능력','신체 방어 능력', '장 건강', '정신건강 및 집중력'];
-const [G11,G12,G13,G14,G21,G22,G31,G32,G33,G41,G42,G51,G52,G53,G54,G61,G62] = ['지방산 대사','탄수화물 대사','단백질 대사','케톤 대사','항산화 기능','뼈 건강','에너지 대사','비타민 대사','유전자 발현 능력','독소 노출','세포 기능','소화 흡수 기능','장내 세균 균형','유해균 증식','장내 곰팡이/효모 균형','신경 전달 기능','인지 기능'];
 const solp_match = {
     '체중 조절 능력' : 'B1',
     '항산화 능력' : 'B2',
@@ -42,43 +40,34 @@ const solp_match = {
     '신경 전달 기능' : 'G61',
     '인지 기능' : 'G62'
 }
-const groups = {
-    '체중 조절 능력': [G11,G12,G13,G14], 
-    '항산화 능력': [G21,G22],
-    '에너지 생성 능력': [G31,G32,G33],
-    '신체 방어 능력': [G41,G42], 
-    '장 건강': [G51,G52,G53,G54], 
-    '정신건강 및 집중력': [G61,G62]
-}
-const s_groups = {
-    '지방산 대사':3 ,'탄수화물 대사':2 ,'단백질 대사':7 ,'케톤 대사':1 ,'항산화 기능':1 ,'뼈 건강':1 ,'에너지 대사':8 ,'비타민 대사':7 ,'유전자 발현 능력':1 ,'독소 노출':7,'세포 기능': 2,'소화 흡수 기능':6 ,'장내 세균 균형':4 ,'유해균 증식':2 ,'장내 곰팡이/효모 균형': 6,'신경 전달 기능': 3,'인지 기능':3
-}
+// const groups = {
+//     '체중 조절 능력': [G11,G12,G13,G14], 
+//     '항산화 능력': [G21,G22],
+//     '에너지 생성 능력': [G31,G32,G33],
+//     '신체 방어 능력': [G41,G42], 
+//     '장 건강': [G51,G52,G53], 
+//     '정신건강 및 집중력': [G61,G62]
+// }
 
-const INDICATOR = [B1, B6, B5, B4, B3, B2];
-const INDICATOR2 = [B1, B2, B3, B4, B5, B6];
-const INDICATOR3 = [G11,G12,G13,G14,G21,G22,G31,G32,G33,G41,G42,G51,G52,G53,G54,G61,G62];
-const UGISAN = ['UGI111', 'UGI112', 'UGI113', 'UGI121', 'UGI122', 'UGI131', 'UGI132', 'UGI133', 'UGI134', 'UGI135', 'UGI136', 'UGI137', 'UGI141', 'UGI211', 'UGI221', 'UGI311', 'UGI312', 'UGI313', 'UGI314', 'UGI315', 'UGI316', 'UGI317', 'UGI318', 'UGI321', 'UGI322', 'UGI323', 'UGI324', 'UGI325', 'UGI326', 'UGI327', 'UGI331', 'UGI411', 'UGI412', 'UGI413', 'UGI414', 'UGI415', 'UGI416', 'UGI417', 'UGI421', 'UGI422', 'UGI511', 'UGI512', 'UGI513', 'UGI514', 'UGI515', 'UGI516', 'UGI521', 'UGI522', 'UGI523', 'UGI524', 'UGI531', 'UGI532', 'UGI541', 'UGI542', 'UGI543', 'UGI544', 'UGI545', 'UGI546', 'UGI611', 'UGI612', 'UGI613', 'UGI621', 'UGI622', 'UGI623'];
-const KINGSCORE = ['Ap','A0','A-','Bp','B0','B-','Cp','C0','C-','Dp','D0','D-','F0'];
-const SMALLSCORE = ['A','B','C','D','F'];
-const FACE = {'blue':'정상', 'yell':'주의', 'red':'나쁨'};
 /**
  * 스코어맵 기반 차트 생성
  * @param {scoreMap} d 
  */
 const createChart = (d)=>{
+    const indicator = ['체중 조절 능력', '정신건강 및 집중력', '장 건강', '신체 방어 능력', '에너지 생성 능력', '항산화 능력'];
     const chartDom = getEl('.page-3 .chart');
     const scores = {'Ap':5,'A0':4.7,'A-':4.4,'Bp':4,'B0':3.7,'B-':3.4,'Cp':3,'C0':2.7,'C-':2.4,'Dp':2,'D0':1.7,'D-':1.4, 'F0':1}
-    const data = INDICATOR.map(e=>{return scores[d[e]['합계']]});
+    const data = indicator.map(e=>{return scores[d[e]['합계']]});
     echarts.init(chartDom).setOption({
             color: ['#15b3ac'], legend: {},
             radar: [{
-                indicator: INDICATOR.map(e=>{return {'text':e, 'max':5}}),
+                indicator: indicator.map(e=>{return {'text':e, 'max':5}}),
                 center: ['51%','55%'],
                 radius: 130,
                 splitNumber: 5,
                 axisName: { /*formatter: '【{value}】',*/  color: '#10b4ad', fontFamily: 'S-Core5', fontSize: 18, fontWeight: '600'},
                 axisTick : { show : false},
-                splitArea: {areaStyle: {color: ['#fff'],/*shadowColor: '#FFE434',shadowBlur: 10*/}},
+                splitArea: {areaStyle: {color: ['#fff']}},
                 axisLine: {lineStyle: {color: '#ffffff00' } },
                 splitLine: {lineStyle: {color: '#b0b0b0' }}
                 }],
@@ -91,20 +80,37 @@ const createChart = (d)=>{
 }
 
 /**
- * 가중치
- */
-const weights = INDICATOR3.reduce((obj, i, idx)=>{
-    // const weight = [3,2,3,2,5,5,4,4,2,6,4,2.5,2.5,2.5,2.5,5,5];
-    const weight = [2.5,2.5,2.5,2.5, 5,5, 3.5,3.5,3, 5,5, 2.5,2.5,2.5,2.5, 5,5];
-    obj[i] = weight[idx];
-    return obj;
-},{});
-
-/**
  * 대분류별 랭크 반환(A+~F)
  * @param {Number} score 
  * @returns 
  */
+// const fn_kingScoring = (score)=>{
+//     if(score <= 13.6) return 'Ap';
+//     else if(score <= 40.8) return 'A0';
+//     else if(score <= 68) return 'A-';
+//     else if(score <= 74.2) return 'Bp';
+//     else if(score <= 84.6) return 'B0';
+//     else if(score <= 95) return 'B-';
+//     else if(score <= 100.8) return 'Cp';
+//     else if(score <= 110.4) return 'C0';
+//     else if(score <= 120) return 'C-';
+//     else if(score <= 126.8) return 'Dp';
+//     else if(score <= 138.4) return 'D0';
+//     else if(score <= 150) return 'D-';
+//     else return 'F0';
+// }
+// /**
+//  * 점수별 랭크(A~F)반환 - 병원용 결과지 버전x - 소분류
+//  * @param {Number} score 
+//  * @returns 
+//  */
+// const fn_scoring = (score)=>{
+//     if(score <= 68) return 'A';
+//     else if(score <= 95) return 'B';
+//     else if(score <= 120) return 'C';
+//     else if(score <= 150) return 'D';
+//     else return 'F';
+// }
 const fn_kingScoring = (score)=>{
     // score = Math.round(score)
     if(score >= 99) return 'Ap';
@@ -134,94 +140,63 @@ const fn_scoring = (score)=>{
     else return 'D';
 }
 
-
 /**
- * 그래프 등급 기반 얼굴 보여주기
- * @param {String} f : 그래프 등급(rank) 
+ * 전체 map 기반으로 대분류-중분류 점수 측정 ( 병원용 알고리즘 )
+ * @param {Object} map 
  * @returns 
  */
-const fn_faceScoreing = (f)=>{
-    const blue = ['n1','n2','n3','n4','n5','n6','m1','m2','m3','p1','p2','p3'];
-    const yell = ['n7','n8','m4','p4'];
-    const red  = ['n9','n10','m5','p5'];
-    if(blue.some(m=> m==f)) return 'blue';
-    else if(yell.some(m=> m==f)) return 'yell';
-    else return 'red';
-}
+// const calcScore = (map)=> {
+//     const groups = Object.values(map).reduce((obj, { fst, scd}) => {
+//         obj[fst] ??= {};
+//         obj[fst][scd] = (obj[fst][scd] ?? 0) + 1;
+//         return obj;
+//     }, Object.create(null));
+//     const res = Object.values(map).reduce((result, { fst, scd , value, way}) => {
+//         result[fst] ??= { '합계': 0 };
+//         const all = groups[fst][scd];
+//         const valueToAdd = Math.abs(value) / all ;
+//         result[fst][scd] = (result[fst][scd] ?? 0) + (valueToAdd < 0 ? 0 : valueToAdd);
+//         result[fst]['합계'] += valueToAdd / Object.keys(groups[fst]).length;
+//         return result;
+//     }, Object.create(null));
+//     return res;
+// }
 
-/**
- * 그래프 등급별 설명을 위한 N, L, H, VL, VH 반환
- * @param {String} f : 그래프 등급(rank) 
- * @returns 
- */
-const fn_graphScoreing = (f)=>{
-    const N = ['n1','n2','n3','n4','n5','n6','m1','m2','m3','p1','p2','p3'];
-    const L = 'm4'
-    const H = ['n7','n8','p4'];
-    const VL = 'm5'
-    const VH = ['n9','n10','p5'];
 
-    if(f == L) return 'L';
-    else if(f == VL) return 'VL';
-    else if(H.some(m=> m==f)) return 'H';
-    else if(VH.some(m=> m==f)) return 'VH';
-    else return 'N';
-}
-
-const calcScore2 = (s)=>{
+const calcRank = (s)=>{
     if(s > 0.99) return 1;
     else if(s >= 0.7) return 0.7;
     else if(s >= 0.5) return 0.5;
     else if(s == 0) return 0;
     else return 0.3; 
 }
-
-
-/**
- * 전체 map 기반으로 대분류-중분류 점수 측정 ( 병원용 알고리즘 )
- * @param {Object} map 
- * @param {Object} weights 
- * @returns 
- */
-// const calcScore_old = (map, weights)=> {
-//     const res = Object.values(map).reduce((result, { fst, scd, value, score, name , rank }) => {
-//         result[fst] ??= { '합계': 0 };fhtep
-//         const _score = score*10;
-//         const valueToAdd = (_score - _score * value * 0.5) < 0? 0 : (_score - _score * value * 0.5);
-//         result[fst][scd] = (result[fst][scd] ?? 0) + valueToAdd;
-//         result[fst]['합계'] += (valueToAdd * (weights[scd] ?? 1) / 10);
-//         return result;
-//     }, Object.create(null));
-//     return res;
-// }
-
-const calcScore = (map, weights)=> {
-    const res = Object.values(map).reduce((result, { fst, scd,  name , value, score , rank }) => {
+const calcScore = (map)=> {
+    const groups = Object.values(map).reduce((obj, { fst, scd}) => {
+        obj[fst] ??= {};
+        obj[fst][scd] = (obj[fst][scd] ?? 0) + 1;
+        return obj;
+    }, Object.create(null));
+    const res = Object.values(map).reduce((result, { fst, scd , value, way}) => {
         result[fst] ??= { '합계': 0 };
-        // const _score = score*10;
-        const _score = {'blue' : 1, 'yell' : 0.5, 'red' : 0.3 } ;
-        const _score2 = (rk)=>{
-            if(['n1','n2','n3','n4','n5','n6'].some(e => e == rk)) return 1;
-            else if(rk == 'n7') return 0.7;
-            else if(rk == 'n8') return 0.5;
-            else if(rk == 'n9') return 0.3;
-            else if(rk == 'n10') return 0.3;
-        };
-        const score_f = ((score*10) - (score*10) * value * 0.4) ;
-        // console.log(name, score_f);
-        const all = s_groups[scd];
-        const valueToAdd = all == 1? _score2(rank) : _score[fn_faceScoreing(rank)]/all;
-        result[fst][scd] = (result[fst][scd] ?? 0) + (score_f < 0 ? 0 : valueToAdd);
+        const all = groups[fst][scd];
+        const scoreMapping = {'blue' : 1, 'green' : 0.7, 'yell' : 0.5, 'orange' : 0.3 , 'red' : 0} ;
+        const valueToAdd = scoreMapping[fn_faceScoreing(value, way)] / all;
+        result[fst][scd] = (result[fst][scd] ?? 0) + valueToAdd;
         return result;
     }, Object.create(null));
     Object.entries(res).forEach(([k,v])=>{
+        const all =Object.keys(groups[k]).length;
         res[k]['합계'] = Object.entries(v).reduce((s,[key, value])=>{
-            s += (calcScore2(value) * (weights[key] ?? 1) *10); return s},0);
+            s += ((calcRank(value) * 100) / all); return s},0);
     })
     return res;
 }
 
-
+/**
+ * 대분류 / 중분류 등급 반환
+ * @param {} map 
+ * @returns 
+ */
 const fn_setRanking = (map) =>{
     Object.keys(map).forEach((key)=>{
         Object.keys(map[key]).forEach(k=>{
@@ -231,6 +206,43 @@ const fn_setRanking = (map) =>{
 }
 
 /**
+ * 결과지 동적 생성 용 헬퍼 함수1
+ * @param {} ugiCode 
+ * @returns 
+ */
+const parseUGICode = (ugiCode) => {
+    // UGI132 => { category: 1, group: 3, item: 2 }
+    const match = ugiCode.match(/UGI(\d)(\d)(\d)/);
+    if (!match) return null;
+    
+    return {
+        category: match[1],
+        group: match[2],
+        item: match[3]
+    };
+};
+/**
+ * 결과지 동적 생성 용 헬퍼 함수2
+ * @param {Object} code 
+ * @param {Number} categoryNum 
+ * @param {Number} groupNum 
+ * @returns 
+ */
+const getUGIItemsByGroup = (code, categoryNum, groupNum) => {
+    const a = Object.entries(code)
+        .filter(([key]) => {
+            const parsed = parseUGICode(key);
+            return parsed && 
+                parsed.category == categoryNum && 
+                parsed.group == groupNum;
+        })
+    const b = a.map(([_, value]) => value);
+    return b;
+};
+
+
+
+/**
  * 전체 대분류 등급 및 차트
  * @param {Element} page 
  * @param {String} userName 
@@ -238,13 +250,14 @@ const fn_setRanking = (map) =>{
  * @param {JSON} word 
  */
 const createTitle = (page, userName, obj, word)=>{
+    const indicator = ['체중 조절 능력', '항산화 능력','에너지 생성 능력','신체 방어 능력', '장 건강', '정신건강 및 집중력'];
     const p3_div1 = createEl('div',{'class':'title3 s-core6', 'children':[createEl('span', {'class':'name3','textContent': `${userName} 님의`})]});
     const p3_div2 = createEl('div',{'class':'chart'});
     const p3_div3 = createEl('div',{'class':'grade3'});
     
     [p3_div1, p3_div2, p3_div3].forEach(el=>{getEl('.page-area', page).appendChild(el)});
     const p3_span1 = createEl('span',{'class': 'span3','children':['A','B','C','D','F'].map(e=>createEl('span',{'textContent':e}))});
-    const p3_tbl1 = createEl('table',{'class': 'table3','children':INDICATOR2.reduce((_frag, ind)=>{
+    const p3_tbl1 = createEl('table',{'class': 'table3','children':indicator.reduce((_frag, ind)=>{
         const rank = obj[ind]['합계'];
         const ment = (ind == 'B5')? word.king[ind][rank.substring(0,1)]: word.king.defalt[rank.substring(0,1)];
         const el_ment = createEl('td',{'textContent':ind + ment})
@@ -265,27 +278,88 @@ const createTitle = (page, userName, obj, word)=>{
  * @param {Array} small :['중분류1','중분류2'....]
  */
 const createCover = (page, obj ,small)=>{
+    const rank = ['Ap','A0','A-','Bp','B0','B-','Cp','C0','C-','Dp','D0','D-','F0'];
     const div1 = createEl('div', {'class':'king-rank', 'children':[createEl('div',{'class':obj['합계']})]});
-    const div2 = createEl('div', {'class':'rank-graph', 'children':KINGSCORE.map(m=>createEl('div',{'class':obj['합계'] == m?'check':''}))});
+    const div2 = createEl('div', {'class':'rank-graph', 'children':rank.map(m=>createEl('div',{'class':obj['합계'] == m?'check':''}))});
     const small_rank = createEl('div', {'class':'small-rank', 'children': small.map(m=>createEl('div',{'class':obj[m]}))});
     const div3 = createEl('div', {'class':'small-ranking', 'children': [small_rank]});
     [div1, div2, div3].forEach(el=>{getEl('.page-area', page).appendChild(el)});
 }
 
-const creeateTable = (page, ranking, arr, desc)=>{
+
+
+/**
+ * 그래프 등급 기반 얼굴 보여주기
+ * @param {String} f : 그래프 등급(rank) 
+ * @returns 
+ */
+const fn_faceScoreing = (value)=>{
+    const score = Math.abs(value);
+    if(score <= 68) return 'blue';
+    else if(score <= 95) return 'green';
+    else if(score <= 120) return 'yell';
+    else if(score <= 150) return 'orange';
+    else return 'red';
+}
+
+/**
+ * 그래프 등급별 설명을 위한 N, L, H, VL, VH 반환
+ * @param {String} f : 그래프 등급(rank) 
+ * @returns 
+ */
+const fn_graphScoreing = (value, way)=>{
+    if(way == 1) {
+        if(value < -120) return 'VL';
+        else if(value < -68) return 'L';
+        else if(value <= 68) return 'N';
+        else if(value <= 120) return 'H';
+        else return 'VH';
+    }else {
+        if(value <= 68) return 'N';
+        else if(value <= 120) return 'H';
+        else return 'VH';
+    }
+
+}
+
+const setScore = (value, way) => {
+    const v = value > 200 ? 200 : value < -200 ? -200 : value;
+    return way == 1? v/2 : v;
+} 
+
+const fn_setWays = (way)=>{
+    if(Array.from(new Set(way)).length == 1){
+        if(way[0] == 0){
+         // 단방향만 있을 때
+        }else {
+            // 양방향만 있을 때
+        }
+    }else{
+
+    }
+}
+
+const createTable = (page, ranking, arr, desc)=>{
     const div1 = createEl('div', {'class':'page-rank','children':[createEl('div',{'class':ranking})]})
     const div2 = createEl('div', {'class':'desc', 'children':[createEl('div',{'textContent':desc[ranking]})]})
-    const ths = createEl('tr', {'children':['항 목','상 태','그 래 프'].map(m=>createEl('th',{'textContent':m}))})
-    const tbl1 = arr.reduce((tbl, {name, rank}, idx)=>{
+    const ths = createEl('tr', {'children':['항 목','상 태','수치','그 래 프'].map(m=>createEl('th',{'textContent':m}))})
+    const ways = [];
+    const tbl1 = arr.reduce((tbl, {name, value, way}, idx)=>{
+        const FACE = {'blue':'정상', 'green':'양호', 'yell':'주의', 'orange':'나쁨', 'red':'심각'};
         const num = ['①','②','③','④','⑤','⑥','⑦','⑧'];
         const tr = createEl('tr');
-        const score = fn_faceScoreing(rank);
+        const score = setScore(value, way);
+        const graphScore = way == 0 ? Math.abs(score/2 -0.5) : score > 0? Math.abs(score/2 -0.5) + 50 : 50 - Math.abs(score/2 -0.5);
+        const graph = createEl('div',{'class':`graph-score way${way}`, 'children':[createEl('div',{'style':`width:${graphScore}%;`, class: 'graph-bar'}), createEl('div',{'style':`left:${graphScore-1}%;`, class: 'graph-dot'})]});
         tr.appendChild(createEl('td',{'textContent':`${num[idx]} ${name}`}))
-        tr.appendChild(createEl('td',{'class': score,'children':[createEl('div',{'textContent':FACE[score]})]}))
-        tr.appendChild(createEl('td',{'class':rank}))
-        tbl.appendChild(tr)
+        tr.appendChild(createEl('td',{'class': fn_faceScoreing(value),'children':[createEl('div',{'textContent':FACE[fn_faceScoreing(value)]})]}))
+        tr.appendChild(createEl('td',{'class': 'score-value','textContent': score + (value > 200 ? '이상' : value < -200 ? '이하' : '%')}))
+        tr.appendChild(createEl('td',{'children':[graph]}))
+        tbl.appendChild(tr);
+        ways.push(way);
         return tbl;
     },document.createDocumentFragment());
+    console.log(ways);
     const div3 = createEl('div', {'class':'tables','children':[createEl('table',{'children':[ths, tbl1]})]});
     getEl('.page-area', page).appendChild(createEl('div',{'class':'graph-area'}));
     getEl('.page-area', page).classList.add('block');
@@ -294,10 +368,10 @@ const creeateTable = (page, ranking, arr, desc)=>{
 
 const createDesc = (page, arr, desc)=>{
     getEl('.page-area', page).appendChild(createEl('div',{'class':'desc-area'}));
-    const priority = {'red': 1, 'yell': 2, 'blue': 3};
-    const divs = arr.sort((a,b)=>priority[fn_faceScoreing(a['rank'])]-priority[fn_faceScoreing(b['rank'])]).reduce((_fg, {name, en, rank})=>{
-        const div1 = createEl('div',{'class':'desc-title','children':[createEl('div', {'class':fn_faceScoreing(rank)}),createEl('div',{'textContent':`${name} [${en}]`})]});
-        const div2 = createEl('div',{'class':'desc-detail spoqa', 'textContent': desc[name][fn_graphScoreing(rank)]});
+    const priority = {'red': 1, 'orange': 2, 'yell': 3, 'green': 4, 'blue': 5};
+    const divs = arr.sort((a,b)=>priority[fn_faceScoreing(a['value'])]-priority[fn_faceScoreing(b['value'])]).reduce((_fg, {name, en, value, way})=>{
+        const div1 = createEl('div',{'class':'desc-title','children':[createEl('div', {'class':fn_faceScoreing(value)}),createEl('div',{'textContent':`${name} [${en}]`})]});
+        const div2 = createEl('div',{'class':'desc-detail spoqa', 'textContent': desc[name][fn_graphScoreing(value, way)]});
         const div3 = createEl('div',{'class':'desc-block', 'children':[div1, div2]})
         _fg.appendChild(div3);
         return _fg;
@@ -335,6 +409,18 @@ const fn_grouping = (ingrs, type3) =>{
     }).flat())].filter(e=>e!='').join(',').replace(',', ', ');
 }
 
+const setUserInfo = (page, data)=>{
+    const nowDt = new Date();
+    const {userName, userGender, userAge, userBirth, userPk, userDt} = data;
+    document.title = `바이오 종합 대사기능 분석_${userName}님`;
+    getEl('.report-name', page).textContent = `${userName} 님`;
+    getEl('.user-gender span', page).textContent = `${userGender||''} / ${userAge||''}`;
+    getEl('.user-birth span', page).textContent = birthFormatt(userBirth);
+    getEl('.user-pk span', page).textContent = userPk;
+    getEl('.user-dt span', page).textContent = userDt.substring(0,10);
+    getEl('.user-report-dt span', page).textContent = getFormattedDate(nowDt);
+}
+
 /**
  * @description 페이지별 js
  * @param {*} data 
@@ -343,142 +429,138 @@ const createPage = async (data, map, sol) =>{
     // code : 요소별 정보, word : 랭크 문구, desc : 요소별 문구
     const {code, word, desc} = map;
     // 사용자 정보
-    const {userPk, userDt, userName, userBirth, userGender, userAge} = data;
-    UGISAN.forEach(m=>{code[m].value = data[`${m}_rank`]; code[m].rank = data[m].trim();});
-    const scores = calcScore(code, weights);
-    const scoreMap = fn_setRanking(calcScore(code, weights));
-    const nowDt = new Date();
-    document.title = `바이오 종합 대사기능 분석_${userName}님`;
+    const userName = data.userName;
+    Object.keys(code).forEach(m=>{code[m].value = data[`${m}`];});
 
-    /** 표지 */
-    const page1 = getEl('.title-page');
-    getEl('.report-name', page1).textContent = `${userName} 님`;
-    getEl('.user-gender span', page1).textContent = `${userGender||''} / ${userAge||''}`;
-    getEl('.user-birth span', page1).textContent = birthFormatt(userBirth);
-    getEl('.user-pk span', page1).textContent = userPk;
-    getEl('.user-dt span', page1).textContent = userDt.substring(0,10);
-    getEl('.user-report-dt span', page1).textContent = getFormattedDate(nowDt);
-    /**페이지 3 */
-    createTitle(getEl('.page-3'),userName,scoreMap, word);
-    /**페이지4 -- 체중 조절 능력*/
-    createCover(getEl('.page-4'), scoreMap[B1] ,[G11,G12,G13,G14]);
-    const {UGI111,UGI112,UGI113,UGI121,UGI122,UGI131,UGI132,UGI133,UGI134,UGI135,UGI136,UGI137,UGI141} = code;
-    /**페이지5 */
-    const page5 = getEl('.page-5');
-    const g11 = [UGI111,UGI112,UGI113];
-    creeateTable(page5, scoreMap[B1][G11], g11, word.small[G11]);
-    createDesc(page5, g11, desc)
-    /**페이지6 */
-    const page6 = getEl('.page-6');
-    const g12 = [UGI121,UGI122];
-    creeateTable(page6, scoreMap[B1][G12], g12, word.small[G12]);
-    createDesc(page6, g12, desc)
-    /**페이지7 */
-    const g13 = [UGI131,UGI132,UGI133,UGI134,UGI135,UGI136,UGI137];
-    creeateTable(getEl('.page-7'), scoreMap[B1][G13], g13, word.small[G13]);
-    /**페이지8 */
-    createBlank(getEl('.page-8'))  // 공백용
-    createDesc(getEl('.page-8'), g13, desc)
-    /**페이지9 */
-    const page9 = getEl('.page-9');
-    const g14 = [UGI141];
-    creeateTable(page9, scoreMap[B1][G14], g14, word.small[G14]);
-    createDesc(page9,g14 , desc)
-    /**페이지10 -- 항산화 능력 */
-    createCover(getEl('.page-10'),scoreMap[B2], [G21,G22]);
-    const {UGI211, UGI221} = code;
-    /**페이지11 */
-    const page11 = getEl('.page-11');
-    const g21 = [UGI211];
-    creeateTable(page11, scoreMap[B2][G21], g21, word.small[G21]);
-    createDesc(page11, g21, desc)
-    /**페이지12 */
-    const page12 = getEl('.page-12');
-    const g22 = [UGI221];
-    creeateTable(page12, scoreMap[B2][G22], g22, word.small[G22]);
-    createDesc(page12, g22, desc)
-    /**페이지13 -- 에너지 생성 능력*/
-    createCover(getEl('.page-13'),scoreMap[B3], [G31,G32,G33]);
-    const {UGI311, UGI312, UGI313, UGI314, UGI315, UGI316, UGI317, UGI318, UGI321, UGI322, UGI323, UGI324, UGI325, UGI326, UGI327, UGI331}=code;
-    /**페이지14 */
-    const g31 = [UGI311, UGI312, UGI313, UGI314, UGI315, UGI316, UGI317, UGI318];
-    creeateTable(getEl('.page-14'), scoreMap[B3][G31], g31, word.small[G31]);
-    /**페이지15 */
-    createBlank(getEl('.page-15'))  // 공백용
-    createDesc(getEl('.page-15'), g31, desc)
-    /**페이지16 */
-    const g32 = [UGI321, UGI322, UGI323, UGI324, UGI325, UGI326, UGI327];
-    creeateTable(getEl('.page-16'), scoreMap[B3][G32], g32, word.small[G32]);
-    /**페이지17 */
-    createBlank(getEl('.page-17'))  // 공백용
-    createDesc(getEl('.page-17'), g32, desc)
-    /**페이지18 */
-    const page18 = getEl('.page-18');
-    const g33 = [UGI331];
-    creeateTable(page18, scoreMap[B3][G33], g33, word.small[G33]);
-    createDesc(page18, g33, desc)
-    /**페이지19 -- 신체 방어 능력*/
-    const {UGI411, UGI412, UGI413, UGI414, UGI415, UGI416, UGI417, UGI421, UGI422} = code;
-    createCover(getEl('.page-19'),scoreMap[B4], [G41,G42]);
-    /**페이지20 */
-    const g41 = [UGI411, UGI412, UGI413, UGI414, UGI415, UGI416, UGI417]
-    creeateTable(getEl('.page-20'), scoreMap[B4][G41], g41, word.small[G41]);
-    /**페이지21 */
-    createBlank(getEl('.page-21'))  // 공백용
-    createDesc(getEl('.page-21'), g41, desc)
-    /**페이지22 */
-    const page22 = getEl('.page-22');
-    const g42 = [UGI421, UGI422]
-    creeateTable(page22, scoreMap[B4][G42], g42, word.small[G42]);
-    createDesc(page22, g42, desc)
-    /**페이지23 -- 장 건강*/
-    const {UGI511, UGI512, UGI513, UGI514, UGI515, UGI516, UGI521, UGI522, UGI523, UGI524, UGI531, UGI532, UGI541, UGI542, UGI543, UGI544, UGI545, UGI546} = code;
-    createCover(getEl('.page-23'),scoreMap[B5], [G51,G52,G53,G54]);
-    /**페이지24 */
-    const g51 = [UGI511, UGI512, UGI513, UGI514, UGI515, UGI516];
-    creeateTable(getEl('.page-24'), scoreMap[B5][G51], g51, word.small[G51]);
-    /**페이지25 */
-    createBlank(getEl('.page-25'))  // 공백용
-    createDesc(getEl('.page-25'), g51, desc)
-    /**페이지26 */
-    const g52 = [UGI521, UGI522, UGI523, UGI524];
-    creeateTable(getEl('.page-26'), scoreMap[B5][G52], g52, word.small[G52]);
-    /**페이지27 */
-    createBlank(getEl('.page-27'))  // 공백용
-    createDesc(getEl('.page-27'), g52, desc)
-    /**페이지28 */
-    const page28 = getEl('.page-28');
-    const g53 = [UGI531, UGI532]
-    creeateTable(page28, scoreMap[B5][G53], g53, word.small[G53]);
-    createDesc(page28, g53, desc)
-    /**페이지29 */
-    const g54 = [UGI541, UGI542, UGI543, UGI544, UGI545, UGI546];
-    creeateTable(getEl('.page-29'), scoreMap[B5][G54], g54, word.small[G54]);
-    /**페이지30 */
-    createBlank(getEl('.page-30'))  // 공백용
-    createDesc(getEl('.page-30'), g54, desc)
-    /**페이지31 -- 정신 건강 및 집중력*/
-    const {UGI611, UGI612, UGI613, UGI621, UGI622, UGI623} = code;
-    createCover(getEl('.page-31'),scoreMap[B6], [G61,G62]);
-    /**페이지32 */
-    const g61 = [UGI611, UGI612, UGI613]
-    const page32 = getEl('.page-32');
-    creeateTable(page32, scoreMap[B6][G61], g61, word.small[G61]);
-    createDesc(page32, g61, desc)
-    /**페이지33 */
-    const page33 = getEl('.page-33');
-    const g62 = [UGI621, UGI622, UGI623]
-    creeateTable(page33, scoreMap[B6][G62], g62, word.small[G62]);
-    createDesc(page33, g62, desc)
-    /**페이지34 */
-    /**페이지35 */
+    // 점수 계산 및 랭킹 생성
+    const scores = calcScore(code);
+    const scoreMap = fn_setRanking(calcScore(code));
+    //  결과지 크리에이터
+    const pageCreators = {
+        createTitle: ()=>{
+            const page1 = getEl('.title-page');
+            setUserInfo(page1, data);
+        },
+        createOverviewPage: () => {
+            createTitle(getEl('.page-3'), userName, scoreMap, word);
+        },
+        createCategoryPage : ()=>{
+            const category = [
+                {name: '체중 조절 능력', startPage:  4, groups: [ // 체중 조절 능력
+                    {code: '지방산 대사', itemCount: 3}, 
+                    {code: '탄수화물 대사', itemCount: 2}, 
+                    {code: '단백질 대사', itemCount: 7}, 
+                    {code: '케톤 대사', itemCount: 1}
+                ]}, 
+                {name: '항산화 능력', startPage: 10, groups: [ // 항산화 능력
+                    {code: '항산화 기능', itemCount: 1}, 
+                    {code: '뼈 건강', itemCount: 1}
+                ]}, 
+                {name: '에너지 생성 능력', startPage: 13, groups: [ // 에너지 생성 능력
+                    {code: '에너지 대사', itemCount: 8}, 
+                    {code: '비타민 대사', itemCount: 7}, 
+                    {code: '유전자 발현 능력', itemCount: 1}
+                ]}, 
+                {name: '신체 방어 능력', startPage: 19, groups: [ // 신체 방어 능력
+                    {code: '독소 노출', itemCount: 7}, 
+                    {code: '세포 기능', itemCount: 2}
+                ]}, 
+                {name: '장 건강', startPage: 23, groups: [ // 장 건강
+                    {code: '장내 세균 균형', itemCount: 6}, 
+                    {code: '소화 흡수 기능', itemCount: 6}, 
+                    {code: '장내 곰팡이/효모 균형', itemCount: 6}
+                ]}, 
+                {name: '정신건강 및 집중력', startPage: 30, groups: [ // 정신건강 및 집중력
+                    {code: '신경 전달 기능', itemCount: 3}, 
+                    {code: '인지 기능', itemCount: 3}
+                ]} 
+            ]
+            category.forEach(({name, startPage, groups}, b_idx) => {
+                let currentPage = startPage;
+                
+                // 카테고리 커버 페이지 생성
+                createCover(getEl(`.page-${currentPage}`), scoreMap[name], groups.map(g => g.code));
+                currentPage++;
+                 // 각 그룹별 상세 페이지 생성
+                groups.forEach(({code: groupCode, itemCount}, g_idx) => {
+                    const groupItems = getUGIItemsByGroup(code, b_idx+1, g_idx+1);
+                    // 현재 페이지에 테이블 생성
+                    const page = getEl(`.page-${currentPage}`);
+                    createTable(page, scoreMap[name][groupCode], groupItems, word.small[groupCode]);
+                     // 항목이 많은 경우 설명을 다음 페이지에
+                    if (itemCount > 3) {
+                        currentPage++;
+                        createBlank(getEl(`.page-${currentPage}`));
+                        createDesc(getEl(`.page-${currentPage}`), groupItems, desc);
+                    } else {
+                        createDesc(page, groupItems, desc);
+                    }
+                    
+                    currentPage++;
+                });
+            });
+        },
+    };
+    pageCreators.createCategoryPage();
+    pageCreators.createTitle();
+    pageCreators.createOverviewPage();
 
-    /* 솔루션 페이지*/
+        /* 솔루션 페이지*/
     const {suppl, assist, suppl_match, sol_cover} = sol;
     const solp = getEl('.page.hide').cloneNode(true);
     solp.classList.remove('hide');
     solp.classList.add('solution');
-    const allList = [g11, g12, g13, g14, g21, g22, g31, g32, g33, g41, g42, g51, g52, g53, g54, g61, g62];
+    const category = [
+        {name: '체중 조절 능력', startPage:  4, groups: [ // 체중 조절 능력
+            {code: '지방산 대사', itemCount: 3}, 
+            {code: '탄수화물 대사', itemCount: 2}, 
+            {code: '단백질 대사', itemCount: 7}, 
+            {code: '케톤 대사', itemCount: 1}
+        ]}, 
+        {name: '항산화 능력', startPage: 10, groups: [ // 항산화 능력
+            {code: '항산화 기능', itemCount: 1}, 
+            {code: '뼈 건강', itemCount: 1}
+        ]}, 
+        {name: '에너지 생성 능력', startPage: 13, groups: [ // 에너지 생성 능력
+            {code: '에너지 대사', itemCount: 8}, 
+            {code: '비타민 대사', itemCount: 7}, 
+            {code: '유전자 발현 능력', itemCount: 1}
+        ]}, 
+        {name: '신체 방어 능력', startPage: 19, groups: [ // 신체 방어 능력
+            {code: '독소 노출', itemCount: 7}, 
+            {code: '세포 기능', itemCount: 2}
+        ]}, 
+        {name: '장 건강', startPage: 23, groups: [ // 장 건강
+            {code: '장내 세균 균형', itemCount: 6}, 
+            {code: '소화 흡수 기능', itemCount: 6}, 
+            {code: '장내 곰팡이/효모 균형', itemCount: 6}
+        ]}, 
+        {name: '정신건강 및 집중력', startPage: 30, groups: [ // 정신건강 및 집중력
+            {code: '신경 전달 기능', itemCount: 3}, 
+            {code: '인지 기능', itemCount: 3}
+        ]} 
+    ]
+    const allList = category.reduce((acc, {groups}, b_idx) => {
+        groups.forEach(({itemCount}, g_idx) =>{
+            const ar = [];
+            for(let i=0;i<itemCount;i++){
+                ar.push(getUGIItemsByGroup(code, b_idx+1, g_idx+1)[i]);
+            }
+            acc.push(ar);
+        })
+        return acc;
+    }, []);
+    const groups = category.reduce((acc, {name, groups}, idx)=>{
+        acc[name] = allList[idx];
+        return acc;
+    },{})
+    const indicator = ['지방산 대사','탄수화물 대사','단백질 대사','케톤 대사',
+                    '항산화 기능','뼈 건강',
+                    '에너지 대사','비타민 대사','유전자 발현 능력',
+                    '독소 노출','세포 기능',
+                    '장내 세균 균형', '소화 흡수 기능','장내 곰팡이/효모 균형',
+                    '신경 전달 기능','인지 기능'];
+
     const type1 = Object.entries(scores).map(e=>[e[0],e[1]['합계']]).sort((x,y)=>x[1]<y[1]?-1:1).map(e=>[e[0], e[1]]).map(e=>e[0]);
     const type2 = Object.entries(scores).reduce((arr,i)=>{
         const obj = Object.entries(i[1]).filter(e=>e[0]!='합계');
@@ -487,39 +569,20 @@ const createPage = async (data, map, sol) =>{
     },[]).sort((x,y)=>x[1]<y[1]?-1:1).map(([k,rank])=>[k,fn_scoring(rank)]);
     // type3 => 대분류별 영양소 끍끍
     const type3 = allList.reduce((obj, e, idx)=>{
-        // console.log(suppl, e)
-        const data = e.map(({name, rank})=>suppl[name][fn_graphScoreing(rank)]);
-        obj[INDICATOR3[idx]]=[...new Set(data.flat())].filter((e)=>e!='없음');
+        
+        const data = e.map(({name, value, way})=>suppl[name][fn_graphScoreing(value, way)]);
+        obj[indicator[idx]]=[...new Set(data.flat())].filter((e)=>e!='없음');
         return obj;
     },{});
-    const type4 = type2.map(([k,v])=>{ return [k, v, [...new Set(Object.values(type3[k]).flat())].filter(e=>e!='').join(',')] });
-    
+    // console.log(type3)
     const ingredient = [...new Set(Object.values(type3).flat())].filter(e=>e!='').join(',');
-    const assistResult = await Promise.all(
-        type4.filter(([,,i]) => i !== "").map(async (e) => {
-            const supple = await jsonProvider(`/api/UGIReport/suppl?supple=${e[2]}`);
-            return supple;
-        })
-    );
-    const supplement = assistResult.reduce((ob, supple, _, arr)=>{
-        if(ob.length < 7) {
-            supple.results.forEach((s, idx)=>{
-                const limit = arr.length < 3 ? 6:3;
-                if(!ob.some(({name})=>name == s.name) && idx <= limit) ob.push(s)
-                })
-        }
-        return ob;
-    }, []).filter((_,idx)=>idx < 6);
-    console.log(supplement)
-    // const supplement = await jsonProvider(`/api/UGIReport/suppl?supple=${ingredient}`);
+    const supplement = await jsonProvider(`/api/UGIReport/suppl?supple=${ingredient}`);
+    // const supplement2 = await jsonProvider(`/api/UGIReport/suppl?supple=${ingredient}`);
+    // const supplement3 = await jsonProvider(`/api/UGIReport/suppl?supple=${ingredient}`);
     // const assistResult = fn_sol_pick(type3, allList, assist);
-//     const suppResult = supplement.results.filter((_,idx)=>idx < 6-assistResult.length).concat(assistResult);
-    const suppResult = supplement;
+    // const suppResult = supplement.results.filter((_,idx)=>idx < 6-assistResult.length).concat(assistResult);
+    const suppResult = supplement.results;
     /** 솔루션 표지 */
-    // const sol_1 = solp.cloneNode(true);
-    // sol_1.classList.add('sol-1');
-    // getEl('.page-area',sol_1).appendChild(createEl('div',{'children':[userName+'님', '종합 대사기능 분석'].map((n)=>createEl('div',{'textContent':n}))}));
-    // getEl('.report-area').appendChild(sol_1);
     const sol_1_1 = solp.cloneNode(true);
     sol_1_1.classList.add('sol-2');
     getEl('.page-area',sol_1_1).appendChild(createEl('div',{'children':[userName+'님', '종합 대사기능 분석'].map((n)=>createEl('div',{'textContent':n}))}));
@@ -538,7 +601,6 @@ const createPage = async (data, map, sol) =>{
     /**중분류 */
     const sol_3 = solp.cloneNode(true);
     sol_3.classList.add('sol-4');
-    // console.log(type3)
     const type2_tbl = type2.reduce((_f, [k, rank], idx)=>{
         const tr = createEl('div',{'class':'col_'+rank, 'children':[k,rank, type3[k].filter((_,i)=>i<10).join(', ')].map(e=>createEl('div',{'textContent': e||'없음'}))})
         _f.appendChild(tr);
@@ -589,10 +651,11 @@ const createPage = async (data, map, sol) =>{
         const pages = type1.reduce((_f, t)=>{
             if(!sol_list[t]) return _f;
             const title_p = solp.cloneNode(true);
+            const g_group = category.filter(({name})=>name == t).flatMap(({groups})=>groups).map(({code})=>code);
             title_p.classList.add(solp_match[t]);
             title_p.classList.add('living-cover');
             getEl('.page-area',title_p).appendChild(createEl('div',{'class': sol_list[t]['합계'],'children':[divList(sol_cover[t])]}));
-            getEl('.page-area',title_p).appendChild(createEl('div',{'class':'min-sol','children':groups[t].map(e=>createEl('div',{'class':scoreMap[t][e]}))}));
+            getEl('.page-area',title_p).appendChild(createEl('div',{'class':'min-sol','children':g_group.map(e=>createEl('div',{'class':scoreMap[t][e], 'data-group' : e}))}));
             
             const sol_pages = Object.entries(sol_list[t]).filter(([k,_])=>k!='합계').reduce((_frag,[k,rank])=>{
                 const res_p = solp.cloneNode(true);
@@ -614,12 +677,13 @@ const createPage = async (data, map, sol) =>{
         getEl('.report-area').appendChild(sol_A);
     }
 
-    // console.log(scores, scoreMap)
+    console.log(scores, scoreMap);
+
 }
 
 const load = async () => {
     // 페이지 생성
-    for(idx=2;idx<=35;idx++){
+    for(idx=2;idx<=34;idx++){
         const page = getEl('.page.hide').cloneNode(true);
         page.classList.remove('hide');
         page.classList.add('result');
@@ -675,4 +739,5 @@ const load = async () => {
         }
     });
 }
+
 window.addEventListener('load', load);

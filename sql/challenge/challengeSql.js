@@ -45,3 +45,23 @@ export const mergeChallenge = `
     INSERT (userid, rgstDt, breakfast, lunch, dinner, snack, drink, weight, bedtime, waketime, sleep, excer, excerScore, conScore, conCheck)
     VALUES (@userid, @rgstDt, @breakfast, @lunch, @dinner, @snack, @drink, @weight, @bedtime, @waketime, @sleep, @excer, @excerScore, @conScore, @conCheck);
 `;
+
+export const selectAllChallengers = `
+  select * from challenge_users
+  order by rgstDt;
+`;
+export const selectAllMapping = `
+  select * from LabSpearSIB.report.challenge_mapping
+  order by userid;
+`;
+
+export const insertChallengerData = `
+  insert into challenge_users (userid , name, startDt, endDt, groupCode)
+  values (@userid , @name, @startDt, @endDt, @groupCode);
+`;
+
+export const insertMappingData = `
+  insert into LabSpearSIB.report.challenge_mapping (usercode, report, userid, testcode, testNm, fileNm)
+  values (@usercode, @report, @userid, @testcode, @testNm, @fileNm);
+`;
+

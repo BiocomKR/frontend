@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title>로그 뷰어</title>
+   <style>
+       /* ... existing styles ... */
+   </style>
+</head>
+<body>
+   <div class="controls">
+       <!-- inline event handlers 제거 -->
+       <select class="file-select" id="logFile">
+           <% logFiles.forEach(function(file) { %>
+               <option value="<%= file %>"><%= file %></option>
+           <% }); %>
+       </select>
+       <button class="refresh-btn" id="refreshBtn">새로고침</button>
+       <label class="auto-refresh">
+           <input type="checkbox" id="autoRefresh">
+           자동 새로고침 (10초)
+       </label>
+   </div>
+   <div class="log-container" id="logContainer"></div>
+   <script src="/js/logViewer.js"></script>
+</body>
+</html>

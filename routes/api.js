@@ -27,5 +27,7 @@ router.get('/report/hormone_report/:filename', pdf.getHormoneReport);
 router.get('/report/hormone_solution/:filename', pdf.getHormoneSolution);
 router.get('/report/ugi_report/:filename', pdf.getUgiReport);
 router.get('/report/ugi_solution/:filename', pdf.getUgiSolution);
+router.get('/report/challenge_img/:filename', pdf.getChallImg);
+
 
 export default router

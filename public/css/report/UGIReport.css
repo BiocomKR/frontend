@@ -151,7 +151,6 @@ img {
 .page-32{background: url('../../images/report/UGI/page/page-32.png') #fff center/cover no-repeat;}
 .page-33{background: url('../../images/report/UGI/page/page-33.png') #fff center/cover no-repeat;}
 .page-34{background: url('../../images/report/UGI/page/page-34.png') #fff center/cover no-repeat;}
-.page-35{background: url('../../images/report/UGI/page/page-35.png') #fff center/cover no-repeat;}
 .page-area{ padding: 0.3em 1.7em; display: grid; height: 62.4em;
 }
 .page-area.block {display: block;}
@@ -166,61 +165,35 @@ img {
 .page-3 .table3 td:nth-child(even){background-size: 72%; background-position: center;}
 
 .graph-area .page-rank > div{height: 39mm; background-size: 25mm; background-position: 37em 3em;}
-.graph-area .desc > div{font-size: 22pt; font-family: 'S-Core4'; margin-bottom: 1.5em; padding-top: 0.9em;}
+/* .graph-area .desc > div{font-size: 22pt; font-family: 'S-Core4'; margin-bottom: 1.5em; padding-top: 0.9em;} */
+.graph-area .desc > div{font-size: 22pt; font-family: 'S-Core4'; margin-bottom: 0.8em; padding-top: 0em;}
 
 .graph-area .tables {font-size: 11pt; margin-bottom: 2em;}
-.graph-area .tables td:nth-child(2){width: 5em; text-align: right; background-position: 8pt 7pt;}
-.graph-area .tables td:nth-child(2) > div{padding-right: 3px;}
-.graph-area .tables td:nth-child(3){background-size: 98mm 2.8em; width: 23.5em; background-position: -0.3em center;}
-.graph-area .tables tr:nth-child(2) td:nth-child(3){background-size: 98mm; }
+.graph-area .tables td:nth-child(1){width: 17em; }
+.graph-area .tables td:nth-child(2){width: 4.5em; text-align: right; background-position: 6pt 8pt;}
+.graph-area .tables td:nth-child(2) > div{padding-right: 0px;}
+.graph-area .tables td:nth-child(3){width: 4.5em; text-align: center;padding: 8px 5px; font-size: 10pt;}
+.graph-area .tables td:nth-child(4){width: 21em;}
+.graph-area .tables tr:nth-child(2) td:nth-child(4){background-size: 95mm; }
 .graph-area .tables tr th{height: 2em; background-color: #eaeaea; border: 1px solid #838486; text-align: center; font-family: 'Spoqa Han Sans Neo';}
 .graph-area .tables tr td{height: 2.2em; border: 1px solid #838486; font-family: 'Spoqa Han Sans Neo'; font-weight: 400;}
 .graph-area .tables tr th:first-child,
 .graph-area .tables tr td:first-child{border-left: none;}
-.graph-area .tables tr th:nth-child(3),
-.graph-area .tables tr td:nth-child(3){border-right: none;}
+.graph-area .tables tr th:nth-child(4),
+.graph-area .tables tr td:nth-child(4){border-right: none;}
 
-.graph-area .n1{background-repeat: no-repeat; background-image: url('../../images/report/UGI/o_graph/digra_1.png');}
-.graph-area .n2{background-repeat: no-repeat; background-image: url('../../images/report/UGI/o_graph/digra_2.png');}
-.graph-area .n3{background-repeat: no-repeat; background-image: url('../../images/report/UGI/o_graph/digra_3.png');}
-.graph-area .n4{background-repeat: no-repeat; background-image: url('../../images/report/UGI/o_graph/digra_4.png');}
-.graph-area .n5{background-repeat: no-repeat; background-image: url('../../images/report/UGI/o_graph/digra_5.png');}
-.graph-area .n6{background-repeat: no-repeat; background-image: url('../../images/report/UGI/o_graph/digra_6.png');}
-.graph-area .n7{background-repeat: no-repeat; background-image: url('../../images/report/UGI/o_graph/digra_7.png');}
-.graph-area .n8{background-repeat: no-repeat; background-image: url('../../images/report/UGI/o_graph/digra_8.png');}
-.graph-area .n9{background-repeat: no-repeat; background-image: url('../../images/report/UGI/o_graph/digra_9.png');}
-.graph-area .n10{background-repeat: no-repeat; background-image: url('../../images/report/UGI/o_graph/digra_10.png');}
-.graph-area .m1{background-repeat: no-repeat; background-image: url('../../images/report/UGI/t_graph/undigra_5.png');}
-.graph-area .m2{background-repeat: no-repeat; background-image: url('../../images/report/UGI/t_graph/undigra_4.png');}
-.graph-area .m3{background-repeat: no-repeat; background-image: url('../../images/report/UGI/t_graph/undigra_4.png');}
-.graph-area .m4{background-repeat: no-repeat; background-image: url('../../images/report/UGI/t_graph/undigra_2.png');}
-.graph-area .m5{background-repeat: no-repeat; background-image: url('../../images/report/UGI/t_graph/undigra_1.png');}
-.graph-area .p1{background-repeat: no-repeat; background-image: url('../../images/report/UGI/t_graph/undigra_6.png');}
-.graph-area .p2{background-repeat: no-repeat; background-image: url('../../images/report/UGI/t_graph/undigra_7.png');}
-.graph-area .p3{background-repeat: no-repeat; background-image: url('../../images/report/UGI/t_graph/undigra_8.png');}
-.graph-area .p4{background-repeat: no-repeat; background-image: url('../../images/report/UGI/t_graph/undigra_9.png');}
-.graph-area .p5{background-repeat: no-repeat; background-image: url('../../images/report/UGI/t_graph/undigra_10.png');}
+.graph-area .graph-score{background-size: 84.9mm 3em; background-position: -12pt -1pt; background-repeat: no-repeat; width: 100%; height: inherit; position: relative;}
+.graph-area tr:nth-child(2) .graph-score{ background-position: -12pt -1pt}
+.graph-area .graph-score.way0{background-image: url('../../images/report/UGI/graph/digra.png');}
+.graph-area tr:nth-child(2) .graph-score.way0{background-image: url('../../images/report/UGI/graph/digra_top.png');}
+.graph-area .graph-score.way1{background-image: url('../../images/report/UGI/graph/undigra.png');}
+.graph-area tr:nth-child(2) .graph-score.way1{background-image: url('../../images/report/UGI/graph/undigra_top.png');}
+.graph-area .graph-score::before{content: ''; position: absolute;background-color: #fff; width: 100%; height: 100%; top: 0; left: 0; opacity: 0.2;}
 
-.graph-area tr:nth-child(2) .n1{background-repeat: no-repeat; background-image: url('../../images/report/UGI/o_graph/digra_top1.png');}
-.graph-area tr:nth-child(2) .n2{background-repeat: no-repeat; background-image: url('../../images/report/UGI/o_graph/digra_top2.png');}
-.graph-area tr:nth-child(2) .n3{background-repeat: no-repeat; background-image: url('../../images/report/UGI/o_graph/digra_top3.png');}
-.graph-area tr:nth-child(2) .n4{background-repeat: no-repeat; background-image: url('../../images/report/UGI/o_graph/digra_top4.png');}
-.graph-area tr:nth-child(2) .n5{background-repeat: no-repeat; background-image: url('../../images/report/UGI/o_graph/digra_top5.png');}
-.graph-area tr:nth-child(2) .n6{background-repeat: no-repeat; background-image: url('../../images/report/UGI/o_graph/digra_top6.png');}
-.graph-area tr:nth-child(2) .n7{background-repeat: no-repeat; background-image: url('../../images/report/UGI/o_graph/digra_top7.png');}
-.graph-area tr:nth-child(2) .n8{background-repeat: no-repeat; background-image: url('../../images/report/UGI/o_graph/digra_top8.png');}
-.graph-area tr:nth-child(2) .n9{background-repeat: no-repeat; background-image: url('../../images/report/UGI/o_graph/digra_top9.png');}
-.graph-area tr:nth-child(2) .n10{background-repeat: no-repeat; background-image: url('../../images/report/UGI/o_graph/digra_top10.png');}
-.graph-area tr:nth-child(2) .m1{background-repeat: no-repeat; background-image: url('../../images/report/UGI/t_graph/undigra_top5.png');}
-.graph-area tr:nth-child(2) .m2{background-repeat: no-repeat; background-image: url('../../images/report/UGI/t_graph/undigra_top4.png');}
-.graph-area tr:nth-child(2) .m3{background-repeat: no-repeat; background-image: url('../../images/report/UGI/t_graph/undigra_top4.png');}
-.graph-area tr:nth-child(2) .m4{background-repeat: no-repeat; background-image: url('../../images/report/UGI/t_graph/undigra_top2.png');}
-.graph-area tr:nth-child(2) .m5{background-repeat: no-repeat; background-image: url('../../images/report/UGI/t_graph/undigra_top1.png');}
-.graph-area tr:nth-child(2) .p1{background-repeat: no-repeat; background-image: url('../../images/report/UGI/t_graph/undigra_top6.png');}
-.graph-area tr:nth-child(2) .p2{background-repeat: no-repeat; background-image: url('../../images/report/UGI/t_graph/undigra_top7.png');}
-.graph-area tr:nth-child(2) .p3{background-repeat: no-repeat; background-image: url('../../images/report/UGI/t_graph/undigra_top8.png');}
-.graph-area tr:nth-child(2) .p4{background-repeat: no-repeat; background-image: url('../../images/report/UGI/t_graph/undigra_top9.png');}
-.graph-area tr:nth-child(2) .p5{background-repeat: no-repeat; background-image: url('../../images/report/UGI/t_graph/undigra_top10.png');}
+.graph-area .graph-score .graph-dot{width:8px; height: 8px;border: none; top: 51%; border-radius: 50%;}
+.graph-area .graph-score .graph-bar{height: 6px;background-color: #000; border: 0.5px solid #fff; border-left: none; top: 55%; left: 1px; box-sizing: border-box; }
+.graph-area .graph-score div{position: absolute; background-color: #000; border: 0.5px solid #fff; border-left: none; top: 52%; left: 1px; box-sizing: border-box;}
+
 
 .desc-area .desc-block{height: 7em;}
 .desc-area .desc-title{display: flex; margin-bottom: 0.5em;}
@@ -259,9 +232,11 @@ img {
 .D{background-repeat: no-repeat; background-image: url('../../images/report/UGI/apl/alp_d.png');}
 .F{background-repeat: no-repeat; background-image: url('../../images/report/UGI/apl/alp_f.png');}
 /*face*/
-.red{background-size: 23pt;  background-repeat: no-repeat; background-image: url('../../images/report/UGI/face_red.png');}
-.yell{background-size: 23pt;  background-repeat: no-repeat; background-image: url('../../images/report/UGI/face_yell.png');}
-.blue{background-size: 23pt;  background-repeat: no-repeat; background-image: url('../../images/report/UGI/face_blue.png');}
+.red{background-size: 22pt;  background-repeat: no-repeat; background-image: url('../../images/report/UGI/face/face_red.png');}
+.orange{background-size: 22pt;  background-repeat: no-repeat; background-image: url('../../images/report/UGI/face/face_orange.png');}
+.yell{background-size: 22pt;  background-repeat: no-repeat; background-image: url('../../images/report/UGI/face/face_yell.png');}
+.green{background-size: 22pt;  background-repeat: no-repeat; background-image: url('../../images/report/UGI/face/face_green.png');}
+.blue{background-size: 22pt;  background-repeat: no-repeat; background-image: url('../../images/report/UGI/face/face_blue.png');}
 
 @keyframes sparkle {
     0% {
@@ -340,7 +315,8 @@ table.major{margin: 0.7em auto; height: 38.1em; width: 24em;}
 .living-cover.B2 .min-sol{height: 9em;}
 .living-cover.B3 .min-sol{height: 14.3em;}
 .living-cover.B4 .min-sol{height: 9em;}
-.living-cover.B5 .min-sol{height: 19.8em;}
+.living-cover.B5 .min-sol{height: 14.3em;}
+/* .living-cover.B5 .min-sol{height: 19.8em;} */
 .living-cover.B6 .min-sol{height: 9em;}
 
 .sol-living .page-area div{background-size: 25mm; background-position: 36em 2em;}

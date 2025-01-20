@@ -1,12 +1,11 @@
-import * as service from '../../services/challenge/dataService.js';
+import { logger } from '../../config/winston.js';
+import * as service from '../../services/challenge/adminService.js';
 
 // 롯데 챌린지 용!!!
-
 
 export async function getUsersData(req, res) {
   try{
     const { userid } = req.body;
-    console.log(userid)
     
     if (!userid) return res.status(400).json({error:'존재하지 않는 사용자 입니다.'});
     
@@ -20,6 +19,7 @@ export async function getUsersData(req, res) {
     });
   } catch(error){
     res.status(500).json({ error: error.message });
+    logger.error(error);
   }
 }
 
@@ -70,6 +70,7 @@ export async function setUsersData(req, res) {
     }
   } catch (error) {
       console.error('Error processing request:', error);
+      logger.error('Error processing request:', error);
 
       // 에러 응답
       res.status(500).json({
