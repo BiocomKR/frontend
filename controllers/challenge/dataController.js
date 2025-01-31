@@ -1,7 +1,8 @@
 import { logger } from '../../config/winston.js';
-import * as service from '../../services/challenge/adminService.js';
+import * as service from '../../services/challenge/dataService.js';
 
 // 롯데 챌린지 용!!!
+
 
 export async function getUsersData(req, res) {
   try{

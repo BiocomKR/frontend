@@ -53,6 +53,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressSanitizer());
 
+
 app.use(session({
   secret: 'biocom_dev_report_page',
   resave: false,
@@ -63,10 +64,13 @@ app.use("/", express.static("public"));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.use('/', routes);
 
 app.use(notFoundHandler);
 app.use(errorHandler);
+
 
 logger.info('Express application configured successfully');
 

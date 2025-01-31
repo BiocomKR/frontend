@@ -76,7 +76,7 @@ async function startServer() {
         // 일정 시간 후에 프로세스 종료 (로그가 저장될 시간 확보)
         setTimeout(() => {
             process.exit(1);
-        }, 1000);
+        }, 10000);
     }
 })();
 

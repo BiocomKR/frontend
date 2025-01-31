@@ -1,0 +1,119 @@
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+.spoqa { font-family: 'Spoqa Han Sans Neo', 'sans-serif'; }
+.s-core9 { font-family: 'S-Core9', 'sans-serif';}
+.s-core8 { font-family: 'S-Core8', 'sans-serif';}
+.s-core7 { font-family: 'S-Core7', 'sans-serif';}
+.s-core6 { font-family: 'S-Core6', 'sans-serif';}
+.s-core5 { font-family: 'S-Core5', 'sans-serif';}
+.s-core4 { font-family: 'S-Core4', 'sans-serif';}
+.s-core3 { font-family: 'S-Core3', 'sans-serif';}
+.s-core2 { font-family: 'S-Core2', 'sans-serif';}
+.s-core1 { font-family: 'S-Core1', 'sans-serif';}
+body{margin: 0; }
+table { width: 100%; border-collapse: collapse; margin: 20px 0;}
+th, td { border: 1px solid #ddd; padding: 8px; text-align: left;}
+img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+}
+.hide{
+    display: none !important;
+}
+.no-print {
+    position: fixed;
+    top: 0;
+    background-color: #f6f6f6;
+    height: 100%;
+    text-align: center;
+    z-index: 1000;
+    display: grid;
+    grid-template-rows: 2fr 1fr 10fr;
+}
+.no-print span{
+    cursor: pointer;
+    width: 100%;
+    padding: 10px 0;
+    /* background-color: #4CAF50; */
+    color: #0cb6af;
+    border-radius: 5px;
+}
+.header-title img{
+    width: 10em;
+    margin: 1em;
+}
+.no-print  .header-btn{
+    display: grid;
+    grid-template-rows: auto;
+    grid-gap: 1em;
+    align-content: center;
+    font-weight: bold;
+}
+.print, .print-result, .print-solution, .back {
+    animation: sparkle 2s infinite;
+    transition: all 0.3s ease;
+}
+
+.print:hover , .pdf-save:hover {
+    background-color: #0cb6af;
+    color: #fff !important;  /* !important로 애니메이션의 color를 오버라이드 */
+    text-shadow: none !important;  /* hover 시 반짝임 효과 제거 */
+    animation: none;  /* hover 시 애니메이션 중지 */
+}
+/*리포트 영역*/
+.report-area{
+    margin-left: 10em;
+}
+/* 결과지 영역 */
+.title-page{
+    padding: 1cm;
+}
+.page, .sol-page{
+    padding: 0.5cm;
+}
+.title-page, .page ,.sol-page{
+    position: relative;
+    width: 21cm;
+    min-height: 29.7cm;
+    margin: 0 auto;
+    /* margin: 1cm auto; */
+    background: white;
+    box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+    box-sizing: border-box;
+    /*pdf-출력용*/
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    display: block;
+    position: relative;
+    page-break-before: auto;
+    page-break-after: auto;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+}
+.title-page > *,
+.page > * , .sol-page > *{
+    /*pdf-출력용*/
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+}
+.result .solution{
+    display: none;
+}
+.solution .result{
+    display: none;
+}
+
+
+@keyframes sparkle {
+    0% {
+        color: #0cb6af;
+        text-shadow: none;
+    }
+    50% {
+        color: #14d8d0;
+        text-shadow: 0 0 10px rgba(20, 216, 208, 0.5);
+    }
+    100% {
+        color: #0cb6af;
+        text-shadow: none;
+    }
+}

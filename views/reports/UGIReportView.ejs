@@ -2,6 +2,8 @@
 <html>
 <head>
     <title>유기산 리포트 뷰어 <%= username %></title>
+    <link href="/css/report/report.css" rel="stylesheet">
+    <link href="/css/report/report-print.css" rel="stylesheet">
     <link href="/css/report/UGIReport.css" rel="stylesheet">
     <link href="/css/report/UGIReport-print.css" rel="stylesheet">
     <link href="/css/font.css" rel="stylesheet">
@@ -24,6 +26,7 @@
             <img src="/images/logo/biocom_logo.png">
         </div>
         <div class="header-btn">
+            <div style="margin-bottom: 0.5em;">&lt;&lt; 종합대사기능 &gt;&gt;</div>
             <span class="print">😊전체 프린트🖨️</span> 
             <span class="print-result">🧁결과지만 프린트🖨️</span>
             <span class="print-solution">🎀솔루션만 프린트🖨️</span>
@@ -35,8 +38,8 @@
                 <div>프린터 선택에서 <br>"PDF로 저장"을 <br>선택 후 저장하세요.</div>
             </div>
         </div>
-        <span class='back' style="align-self: end;">뒤로가기</span>
-        <span style="align-self: end;">by.연구개발팀</span>
+        <span class='back' style="align-self: end; font-weight:bold;">&lt;&lt; 뒤로가기</span>
+        <!-- <span style="align-self: end;">by.연구개발팀</span> -->
     </div>
     <div class="report-area">
         <div class="title-page result">
@@ -58,9 +61,9 @@
         </div>
     </div>
 
-    <script src="/js/Common.js"></script>
-    <script src="/js/lib/html2canvas.min.js"></script>
     <script src="/js/lib/jspdf.min.js"></script>
+    <script src="/js/lib/html2canvas.min.js"></script>
+    <script src="/js/Common.js"></script>
     <script src="/js/lib/bluebird.min.js"></script>
     <script src="/js/lib/echarts.min.js"></script>
     <script src="/js/report/UGIReport.js?V=2415"></script>

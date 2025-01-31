@@ -32,18 +32,58 @@
             align-items: center;
             justify-items: start;
         }
+
+        .page-nav {
+            cursor: pointer;
+            padding: 5px 10px;
+            margin: 0 5px;
+            background-color: #ffeaea;
+            border-radius: 5px;
+            border: none;
+        }
+        .page-nav:hover {
+            background-color: #ffbaba;
+            font-weight: bold;
+        }
+        .page-nav.disabled:hover {
+            background-color: #ffeaea;
+            font-weight: normal;
+        }
+        .page-nav.disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+        .page-number {
+            padding: 5px 10px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        .page-number.active {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .disabled {
+            pointer-events: none;
+        }
     </style>
 </head>
 <body>
-    <select class="analysis">
-        <option value="cmfa">유기산 검사</option>
-    </select>
-    <form action='/report/UGI' name='userInfo' method="POST">
-        <div>차트 번호로 조회하기</div>
-        <label for="username">차트 번호:</label>
-        <input type="text" id="username" name="username">
-        <button type="submit" class="submit">조회</button>
-    </form>
+    
+    <div class="report-select">
+        <select class="analysis" value="<%= analysis %>">
+            <option value="UGI">종합대사기능</option>
+            <option value="IgG">지연성알러지</option>
+        </select>
+    </div>
+    <div class="report-search">
+        <form action='/report/<%= analysis %>' name='userInfo' method="POST">
+            <div>차트 번호로 바로 조회</div>
+            <label for="username">차트 번호:</label>
+            <input type="text" id="username" name="username">
+            <button type="submit" class="submit">조회</button>
+        </form>
+    </div>
     <div class="list-title">리스트로 조회하기</div>
     <div class="">
         <div>접수 일자로 조회하기</div>
@@ -56,6 +96,7 @@
         <div>ex) 2024-12-09 , 띄어쓰기 없음. 추후 개선하겠습니다........</div>
     </div>
     <div class="table-container">
+        <div class="pagination"></div>
         <table class="user-list">
             <thead>
                 <tr>
@@ -73,7 +114,6 @@
 
 
     <script src="/js/Common.js"></script>
-    
     <script src="/js/report/report.js?V=2415"></script>
 </body>
 </html>

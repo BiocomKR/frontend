@@ -1,100 +1,3 @@
-@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
-.spoqa { font-family: 'Spoqa Han Sans Neo', 'sans-serif'; }
-.s-core9 { font-family: 'S-Core9', 'sans-serif';}
-.s-core8 { font-family: 'S-Core8', 'sans-serif';}
-.s-core7 { font-family: 'S-Core7', 'sans-serif';}
-.s-core6 { font-family: 'S-Core6', 'sans-serif';}
-.s-core5 { font-family: 'S-Core5', 'sans-serif';}
-.s-core4 { font-family: 'S-Core4', 'sans-serif';}
-.s-core3 { font-family: 'S-Core3', 'sans-serif';}
-.s-core2 { font-family: 'S-Core2', 'sans-serif';}
-.s-core1 { font-family: 'S-Core1', 'sans-serif';}
-body{margin: 0; }
-table { width: 100%; border-collapse: collapse; margin: 20px 0;}
-th, td { border: 1px solid #ddd; padding: 8px; text-align: left;}
-img {
-    image-rendering: -webkit-optimize-contrast;
-    image-rendering: crisp-edges;
-}
-.hide{
-    display: none !important;
-}
-.no-print {
-    position: fixed;
-    top: 0;
-    background-color: #f6f6f6;
-    height: 100%;
-    text-align: center;
-    z-index: 1000;
-    display: grid;
-    grid-template-rows: 2fr 1fr 10fr;
-}
-.no-print span{
-    cursor: pointer;
-    width: 100%;
-    padding: 10px 0;
-    /* background-color: #4CAF50; */
-    color: #0cb6af;
-    border-radius: 5px;
-}
-.header-title img{
-    width: 10em;
-    margin: 1em;
-}
-.no-print  .header-btn{
-    display: grid;
-    grid-template-rows: 1fr 1fr 1fr 5fr;
-    grid-gap: 1em;
-    align-content: center;
-    font-weight: bold;
-}
-.print, .print-result, .print-solution {
-    animation: sparkle 2s infinite;
-    transition: all 0.3s ease;
-}
-
-.print:hover , .pdf-save:hover {
-    background-color: #0cb6af;
-    color: #fff !important;  /* !important로 애니메이션의 color를 오버라이드 */
-    text-shadow: none !important;  /* hover 시 반짝임 효과 제거 */
-    animation: none;  /* hover 시 애니메이션 중지 */
-}
-/*리포트 영역*/
-.report-area{
-    margin-left: 10em;
-}
-/* 결과지 영역 */
-.title-page{
-    padding: 1cm;
-}
-.page, .sol-page{
-    padding: 0.5cm;
-}
-.title-page, .page ,.sol-page{
-    width: 21cm;
-    min-height: 29.7cm;
-    margin: 1cm auto;
-    background: white;
-    box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
-    position: relative;
-    box-sizing: border-box;
-    /*pdf-출력용*/
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
-    display: block;
-    position: relative;
-    page-break-before: auto;
-    page-break-after: auto;
-    image-rendering: -webkit-optimize-contrast;
-    image-rendering: crisp-edges;
-}
-.title-page > *,
-.page > * , .sol-page > *{
-    /*pdf-출력용*/
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
-}
-
 .title-area{
     padding: 1.5em 3.8em;
     display: grid;
@@ -168,7 +71,7 @@ img {
 /* .graph-area .desc > div{font-size: 22pt; font-family: 'S-Core4'; margin-bottom: 1.5em; padding-top: 0.9em;} */
 .graph-area .desc > div{font-size: 22pt; font-family: 'S-Core4'; margin-bottom: 0.8em; padding-top: 0em;}
 
-.graph-area .tables {font-size: 11pt; margin-bottom: 2em;}
+.graph-area .tables {font-size: 11pt; margin-bottom: 2em; position: relative;}
 .graph-area .tables td:nth-child(1){width: 17em; }
 .graph-area .tables td:nth-child(2){width: 4.5em; text-align: right; background-position: 6pt 8pt;}
 .graph-area .tables td:nth-child(2) > div{padding-right: 0px;}
@@ -194,6 +97,17 @@ img {
 .graph-area .graph-score .graph-bar{height: 6px;background-color: #000; border: 0.5px solid #fff; border-left: none; top: 55%; left: 1px; box-sizing: border-box; }
 .graph-area .graph-score div{position: absolute; background-color: #000; border: 0.5px solid #fff; border-left: none; top: 52%; left: 1px; box-sizing: border-box;}
 
+.way-text{
+    font-size: 7pt;
+    font-weight: bold;
+    position: absolute;
+    top: 32px;
+    right: 3px;
+}
+.way-text.way2{
+    text-align: end;
+    top: 20px;
+}
 
 .desc-area .desc-block{height: 7em;}
 .desc-area .desc-title{display: flex; margin-bottom: 0.5em;}
@@ -237,21 +151,6 @@ img {
 .yell{background-size: 22pt;  background-repeat: no-repeat; background-image: url('../../images/report/UGI/face/face_yell.png');}
 .green{background-size: 22pt;  background-repeat: no-repeat; background-image: url('../../images/report/UGI/face/face_green.png');}
 .blue{background-size: 22pt;  background-repeat: no-repeat; background-image: url('../../images/report/UGI/face/face_blue.png');}
-
-@keyframes sparkle {
-    0% {
-        color: #0cb6af;
-        text-shadow: none;
-    }
-    50% {
-        color: #14d8d0;
-        text-shadow: 0 0 10px rgba(20, 216, 208, 0.5);
-    }
-    100% {
-        color: #0cb6af;
-        text-shadow: none;
-    }
-}
 
 /* 솔루션 영역 */
 .solution *{font-family: 'Pretendard-regular';} 
@@ -392,12 +291,3 @@ table.major{margin: 0.7em auto; height: 38.1em; width: 24em;}
 .a-supple{background: url('../../images/report/UGI/sol_page/meta-30.png') #fff center/cover no-repeat;}
 .a-living{background: url('../../images/report/UGI/sol_page/meta-31.png') #fff center/cover no-repeat;}
 .counsel{background: url('../../images/report/UGI/sol_page/meta-32.png') #fff center/cover no-repeat;}
-
-
-
-.result .solution{
-    display: none;
-}
-.solution .result{
-    display: none;
-}

@@ -10,10 +10,10 @@
  */
 const print_mode = ()=>{
     document.body.classList.add('print-mode');
-        window.print();
-        setTimeout(() => {
-            document.body.classList.remove('print-mode');
-        }, 1000);
+    window.print();
+    setTimeout(() => {
+        document.body.classList.remove('print-mode');
+    }, 1000);
 }
 const solp_match = {
     '체중 조절 능력' : 'B1',
@@ -330,12 +330,14 @@ const setScore = (value, way) => {
 const fn_setWays = (way)=>{
     if(Array.from(new Set(way)).length == 1){
         if(way[0] == 0){
-         // 단방향만 있을 때
+            // 단방향만 있을 때
+            return createEl('div',{'class':'way-text','textContent':'[최고치: 200%]'});
         }else {
             // 양방향만 있을 때
+            return createEl('div',{'class':'way-text  way2','children':[createEl('div',{'textContent':'[최소치:-100%]'}), createEl('div',{'textContent':'[최고치: 100%]'})]})
         }
     }else{
-
+        return createEl('div',{'class':'way-text way2','children':[createEl('div',{'textContent':'[최고치: 200%]'}), createEl('div',{'textContent':'[최소치: -100% 최고치: 100%]'})]})
     }
 }
 
@@ -359,8 +361,9 @@ const createTable = (page, ranking, arr, desc)=>{
         ways.push(way);
         return tbl;
     },document.createDocumentFragment());
-    console.log(ways);
     const div3 = createEl('div', {'class':'tables','children':[createEl('table',{'children':[ths, tbl1]})]});
+
+    div3.appendChild(fn_setWays(ways));
     getEl('.page-area', page).appendChild(createEl('div',{'class':'graph-area'}));
     getEl('.page-area', page).classList.add('block');
     [div1, div2, div3].forEach((el)=>{getEl('.graph-area', page).appendChild(el);});
@@ -384,20 +387,6 @@ const createBlank =(page)=>{
     getEl('.page-area', page).appendChild(createEl('div',{'class':'desc-blank'}));
 }
 
-const fn_sol_pick = (type3, allList, assist)=>{
-    const result = [];
-    const born = fn_graphScoreing(allList[5][0].rank);
-    const mental = allList[16].map(({name,rank})=>name == '퀴놀린산'||name == '키누렌산'? fn_graphScoreing(rank):'').filter(e=>e!='').some(e=>e!='N')
-    const vita = [0,1,2,4,6].map((e)=>fn_graphScoreing(allList[7][e].rank)).some(e=>e!='N');
-    if(born == 'L'||born == 'VL') result.push(assist['비타민 D3']);
-    if(mental) result.push(assist['커큐민']);
-    if(type3['장내 곰팡이/효모 균형'].length||type3['유해균 증식'].length) result.push(assist['자몽씨']);
-    if(type3['소화 흡수 기능'].length) result.push(assist['엔자임베네핏']);
-    if(type3['장내 세균 균형'].length) result.push(assist['썬화이버']);
-    if(type3['독소 노출'].length||type3['항산화 기능'].length) result.push(assist['글루타치온']);
-    if(vita) result.push(assist['뉴로마스터']);
-    return result;
-}
 // 영양제 그룹핑~
 const fn_grouping = (ingrs, type3) =>{
     return [...new Set(ingrs.split(',').filter(e=>e).map(e=>{
@@ -569,19 +558,30 @@ const createPage = async (data, map, sol) =>{
     },[]).sort((x,y)=>x[1]<y[1]?-1:1).map(([k,rank])=>[k,fn_scoring(rank)]);
     // type3 => 대분류별 영양소 끍끍
     const type3 = allList.reduce((obj, e, idx)=>{
-        
         const data = e.map(({name, value, way})=>suppl[name][fn_graphScoreing(value, way)]);
         obj[indicator[idx]]=[...new Set(data.flat())].filter((e)=>e!='없음');
         return obj;
     },{});
-    // console.log(type3)
+    const type4 = type2.map(([k,v])=>{ return [k, v, [...new Set(Object.values(type3[k]).flat())].filter(e=>e!='').join(',')] });
+    
     const ingredient = [...new Set(Object.values(type3).flat())].filter(e=>e!='').join(',');
-    const supplement = await jsonProvider(`/api/UGIReport/suppl?supple=${ingredient}`);
-    // const supplement2 = await jsonProvider(`/api/UGIReport/suppl?supple=${ingredient}`);
-    // const supplement3 = await jsonProvider(`/api/UGIReport/suppl?supple=${ingredient}`);
-    // const assistResult = fn_sol_pick(type3, allList, assist);
-    // const suppResult = supplement.results.filter((_,idx)=>idx < 6-assistResult.length).concat(assistResult);
-    const suppResult = supplement.results;
+    const assistResult = await Promise.all(
+        type4.filter(([,,i]) => i !== "").map(async (e) => {
+            const supple = await jsonProvider(`/api/UGIReport/suppl?supple=${e[2]}`);
+            return supple;
+        })
+    );
+    const supplement = assistResult.reduce((ob, supple, _, arr)=>{
+        if(ob.length < 7) {
+            supple.results.forEach((s, idx)=>{
+                const limit = arr.length < 3 ? 6:3;
+                if(!ob.some(({name})=>name == s.name) && idx <= limit) ob.push(s)
+                })
+        }
+        return ob;
+    }, []).filter((_,idx)=>idx < 6);
+    // console.log(supplement)
+    const suppResult = supplement;
     /** 솔루션 표지 */
     const sol_1_1 = solp.cloneNode(true);
     sol_1_1.classList.add('sol-2');
@@ -682,6 +682,7 @@ const createPage = async (data, map, sol) =>{
 }
 
 const load = async () => {
+    window.jsPDF = window.jspdf.jsPDF;
     // 페이지 생성
     for(idx=2;idx<=34;idx++){
         const page = getEl('.page.hide').cloneNode(true);
@@ -703,13 +704,13 @@ const load = async () => {
         console.error('데이터 로딩 실패:', error);
         if(error == '사용자 이름이 없습니다.'){
             alert('차트번호가 없거나, 사용자 정보가 존재하지 않습니다. \n다시 확인해주세요.')
-            window.open('/report/insertInfo');
+            window.open('/report/insertInfo?analysis=UGI');
         }else{
             alert('시스템 오류 입니다. \n전산 관련 문의는 연구개발팀에 문의해주세요. 내선:0981')
-            window.open('/report/insertInfo');
+            window.open('/report/insertInfo?analysis=UGI');
         }
     }
-    getEl('.back').addEventListener('click',()=>{window.open('/report/insertInfo')})
+    getEl('.back').addEventListener('click',()=>{window.open('/report/insertInfo?analysis=UGI')})
 
     /**
      * print 기능 eventListener
@@ -737,6 +738,8 @@ const load = async () => {
             document.title = `${date}_${userName}_${ids}_솔루션`;
             print_mode();
         }
+        //////////////////////////////////////////////////////////////////
+        
     });
 }
 

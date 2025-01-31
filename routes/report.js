@@ -1,6 +1,7 @@
 import express from 'express';
-import * as UGI from '../controllers/reports/UGIReportController.js';
 import * as report from '../controllers/reports/ReportController.js'
+import * as UGI from '../controllers/reports/UGIReportController.js';
+import * as IgG from '../controllers/reports/IgGReportController.js';
 import * as log from '../controllers/loggingController.js'
 import { logger } from "../config/winston.js";
 
@@ -14,8 +15,11 @@ const asyncHandler = (fn) => (req, res, next) =>
 // 리포트 관련 라우트
 router.get('/insertInfo', asyncHandler(report.getInsertInfo));
 
-// UGI 리포트 관련 라우트
+// UGI 사용자 정보 전달 라우트 
 router.post('/UGI', asyncHandler(UGI.getUserCheck));
+
+// IgG 사용자 정보 전달 라우트 
+router.post('/IgG', asyncHandler(IgG.getUserCheck));
 
 // 로그 관련 라우트
 router.get('/log', asyncHandler(log.getLog));

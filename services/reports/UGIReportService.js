@@ -23,25 +23,6 @@ export async function getAllData(param) {
         throw error;
     }
 }
-export async function getAllList(param) {
-    try {
-        logger.info(`[UGI Report] 전체 리스트 조회!`);
-        console.log(param)
-        const query = param?UGIReportSql.selectListUGIqueryByDate : UGIReportSql.selectListUGIquery;
-        const params = param?[{ name: 'date', type: SqlService.sql.Date , value: param }] : [];
-    
-        SqlService.queryLogging(query, params);
-        
-        const res = await SqlService.selectList(query, params);
-    
-        logger.info('조회 완료', { res });
-        return res;
-    } catch (error) {
-        logger.error(`Error in getAllList: ${error.message}`);
-        throw error;
-    }
-}
-
 
 export async function getSuppleList(param) {
     try {

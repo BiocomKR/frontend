@@ -1,0 +1,119 @@
+body * {font-family: 'Pretendard-meidum'; word-break: keep-all;}
+/* 참고치 설정 */
+.level-info{ position: absolute; top: 50%; right: -60%; transform: translate(50%, -50%); width: 100%; height: 38%; background-color: #fff; border: 1px solid #000; border-radius: 10px; padding: 5%; z-index: 1000; overflow: scroll;}
+.level-info input{ width: 50%; } 
+/* 표지 */
+.cover-area{margin: 21.5cm auto 0; text-align: center; font-weight: 900;}
+.cover-area .name-area{margin: 0.5cm 0 0 0; font-size: 0.7cm; padding-left: 1cm;}
+.cover-area .date-area{margin: 2.35cm 0 0 0; font-size: 0.5cm; padding-left: 3.5cm;}
+.cover-area .uuid-area{margin: 0.3cm 0 0 0; font-size: 0.5cm; padding-left: 3.3cm;}
+/*사용자정보*/
+.user-info{ width: 17.4cm; margin: 3.3cm 0 0 1.3cm;}
+.user-info td{border: none; height: 0.6cm;}
+.user-info td:nth-child(2){width: 5.9cm; }
+.user-info td:nth-child(odd){width: 2cm; }
+/*content-area 공통*/
+.content-area {width: 17.4cm; margin: 0 0 0 1.3cm;}
+.title-text-area{height: 1cm;}
+/* all value */
+.all-value-table{height: 16.2cm;}
+.all-value-table{margin: 0.1cm 0 0 0;}
+.all-value-table th{padding: 0.3cm 0; text-align: center; border: 1px solid #a2a19f; border-top: 2px solid #0cb6af; background-color: #d8d8d8;}
+/* all value > th*/
+.all-value-table th:nth-child(1){width: 1.8cm;}
+.all-value-table th:nth-child(3){width: 7cm;}
+.all-value-table th:nth-child(1){border-left: none;}
+.all-value-table th:nth-child(3){border-right: none;}
+/* all value > tr*/
+.all-value-table tr td{font-size: 0.335cm; background-color: #fff; border: 1px solid #a2a19f; padding-right: 0;}
+.all-value-table tr td:nth-child(1){border-left: none;}
+.all-value-table tr td:nth-child(3){border-right: none;}
+/* all value > .level-tr*/
+.all-value-table .level-tr .lv-value{padding: 0 0.2cm;}
+.all-value-table .level-tr .lv-title{font-size:0.45cm; text-align: center; font-weight: 900;background-color: #edebeb; padding-left: 0;}
+.all-value-table .level-tr .lv-subtitle{font-weight: 900; padding-bottom: 0.1cm;}
+.all-value-table .level-tr .lv-content{letter-spacing: -1px;}
+/*table-area*/
+.table-area, .info-table{height: 17.4cm;}
+.table-area table{/*margin: 0.15cm 0 0 0;*/ margin: 0.17cm 0 0 0;}
+/* table > th*/
+.table-area table th{border: none;}
+.table-area table tr:nth-child(1) th{/*height: 0.55cm;*/ height: 0.56cm;}
+.table-area table tr:nth-child(2) th{/*height: 0.29cm;*/ height: 0.31cm;}
+/* table > td*/
+.table-area table td{border: none; height: 0.98cm; padding: 0 0 0 0.2cm;}
+.table-area table td:nth-child(1){width: 1cm;}
+.table-area table td:nth-child(2){width: 2.4cm;}
+.table-area table td:nth-child(3){width: 1.3cm;}
+.table-area table td:nth-child(4){width: auto;}
+/* table > graph*/
+.graph-area {position: relative; width: 100%; height: 100%;}
+.graph-area > div {position: absolute; left: 1.4%; top: 50%; transform: translateY(-70%); font-weight: 900; padding-left: 0.1cm;}
+.level-graph{padding: 0.05cm; font-size: 0.35cm;}
+.level-graph.lv-1{background-color: #b4e4e2;}
+.level-graph.lv-2{background-color: #b4e4e2;}
+.level-graph.lv-3{background-color: #f29201;}
+.level-graph.lv-4{background-color: #ef8174;}
+.level-graph.lv-5{background-color: #ef8174;}
+/* under-level-info */
+.under-level-info{margin: 0.45cm 0 0 4.2cm; font-size: 0.33cm;}
+/* 단계별 글자 색 */
+.level-1 .lv-subtitle,
+.level-2 .lv-subtitle{color: #0cb6af;}
+.level-3 .lv-subtitle, .level-3 .lv-title{color: #f28c00;}
+.level-3 .lv-value{color: #ec6a5b;}
+.level-4 .lv-subtitle, .level-4 .lv-value, .level-4 .lv-title{color: #ec6a5b;}
+.level-5 .lv-subtitle, .level-5 .lv-value, .level-5 .lv-title{color: #ec6a5b;}
+
+
+.page.page-1{background: url('/images/report/IgG/pages/page-01.png') #fff center/cover no-repeat;}
+.page.page-2{background: url('/images/report/IgG/pages/page-02.png') #fff center/cover no-repeat;}
+.page.page-3{background: url('/images/report/IgG/pages/page-03.png') #fff center/cover no-repeat;}
+.page.page-4{background: url('/images/report/IgG/pages/page-04.png') #fff center/cover no-repeat;}
+.page.page-5{background: url('/images/report/IgG/pages/page-05.png') #fff center/cover no-repeat;}
+.page.page-6{background: url('/images/report/IgG/pages/page-06.png') #fff center/cover no-repeat;}
+.page.page-7{background: url('/images/report/IgG/pages/page-07.png') #fff center/cover no-repeat;}
+.page.page-8{background: url('/images/report/IgG/pages/page-08.png') #fff center/cover no-repeat;}
+.page.page-9{background: url('/images/report/IgG/pages/page-09.png') #fff center/cover no-repeat;}
+.page.page-10{background: url('/images/report/IgG/pages/page-10.png') #fff center/cover no-repeat;}
+.page.page-11{background: url('/images/report/IgG/pages/page-11.png') #fff center/cover no-repeat;}
+.page.page-12{background: url('/images/report/IgG/pages/page-12.png') #fff center/cover no-repeat;}
+.page.page-13{background: url('/images/report/IgG/pages/page-13.png') #fff center/cover no-repeat;}
+.page.page-14{background: url('/images/report/IgG/pages/page-14.png') #fff center/cover no-repeat;}
+.page.page-15{background: url('/images/report/IgG/pages/page-15.png') #fff center/cover no-repeat;}
+.page.page-16{background: url('/images/report/IgG/pages/page-16.png') #fff center/cover no-repeat;}
+.page.page-17{background: url('/images/report/IgG/pages/page-17.png') #fff center/cover no-repeat;}
+.page.page-18{background: url('/images/report/IgG/pages/page-18.png') #fff center/cover no-repeat;}
+.page.page-19{background: url('/images/report/IgG/pages/page-19.png') #fff center/cover no-repeat;}
+.page.page-20{background: url('/images/report/IgG/pages/page-20.png') #fff center/cover no-repeat;}
+.page.page-21{background: url('/images/report/IgG/pages/page-21.png') #fff center/cover no-repeat;}
+.page.page-22{background: url('/images/report/IgG/pages/page-22.png') #fff center/cover no-repeat;}
+.page.page-23{background: url('/images/report/IgG/pages/page-23.png') #fff center/cover no-repeat;}
+.page.page-24{background: url('/images/report/IgG/pages/page-24.png') #fff center/cover no-repeat;}
+.page.page-25{background: url('/images/report/IgG/pages/page-25.png') #fff center/cover no-repeat;}
+.page.page-26{background: url('/images/report/IgG/pages/page-26.png') #fff center/cover no-repeat;}
+.page.page-27{background: url('/images/report/IgG/pages/page-27.png') #fff center/cover no-repeat;}
+.page.page-28{background: url('/images/report/IgG/pages/page-28.png') #fff center/cover no-repeat;}
+
+.page.page-kid-1{background: url('/images/report/IgG/solution_pages/solution_kids_1.png') #fff center/cover no-repeat;}
+.page.page-kid-2{background: url('/images/report/IgG/solution_pages/solution_kids_2.png') #fff center/cover no-repeat;}
+.page.page-kid-3{background: url('/images/report/IgG/solution_pages/solution_kids_3.png') #fff center/cover no-repeat;}
+
+.page.page-normal-1{background: url('/images/report/IgG/solution_pages/solution_normal_1.png') #fff center/cover no-repeat;}
+.page.page-normal-2{background: url('/images/report/IgG/solution_pages/solution_normal_2.png') #fff center/cover no-repeat;}
+.page.page-normal-3{background: url('/images/report/IgG/solution_pages/solution_normal_3.png') #fff center/cover no-repeat;}
+
+.page.page-pang-1{background: url('/images/report/IgG/solution_pages/solution_pang_1.png') #fff center/cover no-repeat;}
+.page.page-pang-2{background: url('/images/report/IgG/solution_pages/solution_pang_2.png') #fff center/cover no-repeat;}
+.page.page-pang-3{background: url('/images/report/IgG/solution_pages/solution_pang_3.png') #fff center/cover no-repeat;}
+.page.page-pang-4{background: url('/images/report/IgG/solution_pages/solution_pang_4.png') #fff center/cover no-repeat;}
+.page.page-pang-5{background: url('/images/report/IgG/solution_pages/solution_pang_5.png') #fff center/cover no-repeat;}
+.page.page-pang-3{background: url('/images/report/IgG/solution_pages/solution_pang_3.png') #fff center/cover no-repeat;}
+.page.page-pang-7{background: url('/images/report/IgG/solution_pages/solution_pang_7.png') #fff center/cover no-repeat;}
+.page.page-pang-8{background: url('/images/report/IgG/solution_pages/solution_pang_8.png') #fff center/cover no-repeat;}
+.page.page-pang-9{background: url('/images/report/IgG/solution_pages/solution_pang_9.png') #fff center/cover no-repeat;}
+.page.page-pang-10{background: url('/images/report/IgG/solution_pages/solution_pang_10.png') #fff center/cover no-repeat;}
+.page.page-pang-11{background: url('/images/report/IgG/solution_pages/solution_pang_11.png') #fff center/cover no-repeat;}
+.page.page-pang-12{background: url('/images/report/IgG/solution_pages/solution_pang_12.png') #fff center/cover no-repeat;}
+.page.page-pang-13{background: url('/images/report/IgG/solution_pages/solution_pang_13.png') #fff center/cover no-repeat;}
+

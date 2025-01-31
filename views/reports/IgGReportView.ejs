@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>지연성알러지 리포트 뷰어 <%= username %></title>
+    <link href="/css/report/report.css" rel="stylesheet">
+    <link href="/css/report/report-print.css" rel="stylesheet">
+    <link href="/css/report/IgGReport.css" rel="stylesheet">
+    <!-- <link href="/css/report/IgGReport-print.css" rel="stylesheet"> -->
+    <link href="/css/font.css" rel="stylesheet">
+    <link href="/css/xeicon.min.css" rel="stylesheet">
+    <style>
+        @media print {
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- username을 hidden input으로 저장 -->
+    <input type="hidden" id="hiddenUsername" value="<%= username %>">
+    <!-- 인쇄 버튼 (인쇄 시에는 보이지 않음) -->
+    <div class="no-print">
+        <div class="header-title">
+            <img src="/images/logo/biocom_logo.png">
+        </div>
+        <div class="header-btn">
+            <div style="margin-bottom: 0.5em;">&lt;&lt; 지연성 알러지 &gt;&gt;</div>
+            <span class="print">😊전체 프린트🖨️</span> 
+            <span class="print-result">🍪결과지만 프린트🖨️</span>
+            <span class="print-solution">🌟솔루션만 프린트🖨️</span>
+            <span class="level-btn">🧪참고치 설정</span>
+            <!-- <button class="save-pdf">PDF 저장</button> -->
+            <div style="font-weight: bold; margin-top: 0.5em;"><span style="border-top: 1px dotted #0cb6af; border-radius: 0; cursor:default"> <span class="report-name"><%= username %> 님</span></span></div>
+            <div style="display: grid; grid-gap: 0.5em;  ; color: #0cb6af;">
+                <!-- <div style="font-weight: bold; margin-top: 0.5em;"><span style="border-top: 1px dotted #0cb6af; border-radius: 0; cursor:default">📌출력 방법</span></div>
+                <div style="margin-bottom: 0.5em;">프린터 선택에서 <br>원하는 프린터를 <br>선택 후 인쇄하세요.</div> -->
+                <div style="font-weight: bold; margin-top: 0.5em;"><span style="border-top: 1px dotted #0cb6af; border-radius: 0; cursor:default">📌pdf 저장방법</span></div>
+                <div>프린터 선택에서 <br>"PDF로 저장"을 <br>선택 후 저장하세요.</div>
+            </div>
+        </div>
+        <span class='back' style="align-self: end;">&lt;&lt; 뒤로가기</span>
+        <!-- <span style="align-self: end;">by.연구개발팀</span> -->
+
+        <div class="level-info hide">
+            <div class="level-info-title">참고치 정보</div>
+            <div class="level-info-content">
+                <form action="/api/IgGReport/insertLevels" method="post" name="levelInfoForm">
+                    <div class="level-info-item">
+                        <label for="level1">1단계 &lt; </label>
+                        <input type="text" class="level1" name="level1" placeholder="1단계">
+                    </div>
+                    <div class="level-info-item">
+                        <label for="level2">2단계 &lt; </label>
+                        <input type="text" class="level2" name="level2" placeholder="2단계">
+                    </div>
+                    <div class="level-info-item">
+                        <label for="level3">3단계 &lt; </label>
+                        <input type="text" class="level3" name="level3" placeholder="3단계">
+                    </div>
+                    <div class="level-info-item">
+                        <label for="level4">4단계 &lt; </label>
+                        <input type="text" class="level4" name="level4" placeholder="4단계">
+                    </div>
+                    <div class="level-info-item">
+                        <label for="level5">5단계 &gt; </label>
+                        <input type="text" class="level5" name="level5" placeholder="5단계">
+                    </div>
+                    <div class="level-info-item">
+                        <label for="rgstUser">등록자 &nbsp; </label>
+                        <input type="text" class="rgstUser" name="rgstUser" placeholder="마지막 등록자">
+                    </div>
+                </form>
+                <div class="level-info-item">
+                    등록일 : <div class="last-rgst"></div>
+                </div>
+                <button class="level-info-btn">저장</button>
+            </div>
+        </div>
+    </div>
+    <div class="report-area">
+        <div class="page hide">
+            <div class="page-area"></div>
+        </div>
+    </div>
+
+    <script src="/js/Common.js"></script>
+    <script src="/js/lib/html2canvas.min.js"></script>
+    <script src="/js/lib/jspdf.min.js"></script>
+    <script src="/js/lib/bluebird.min.js"></script>
+    <script src="/js/lib/echarts.min.js"></script>
+    <script src="/js/report/IgGReport.js?V=2501"></script>
+</body>
+</html>
