@@ -102,7 +102,7 @@ const createPagination = (t) => {
 
 const load = async () => {
     // 데이터 로드
-    const analysis = new URL(window.location.href).searchParams.get('analysis');
+    const analysis = new URL(window.location.href).searchParams.get('analysis')||'UGI';
     try {
         const data = await jsonProvider(`/api/${analysis}Report/list`);
         if (data.error) throw new Error(data.error);
