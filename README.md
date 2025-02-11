@@ -14,6 +14,15 @@
 바이오컴 프론트엔드 깃 레파지토리 입니다.
 
 <br />
+
+## 💁‍♂️ 프로젝트 팀원
+|PM|Backend+AI|Frontend|AI|
+|:---:|:---:|:---:|:---:|
+| ![](https://github.com/BiocomKR.png?size=100) | ![](https://github.com/biosungwoo.png?size=100) | ![](https://github.com/biocomJisoo.png?size=100) | ![](https://github.com/JiwonBiocom.png?size=100) |
+|[이준우](https://github.com/yewon-Noh)|[우성우](https://github.com/biosungwoo)|[박지수](https://github.com/biocomJisoo)|[하지원](https://github.com/JiwonBiocom)|
+
+
+<br />
 <!--
 추후 작성!
 ### 화면 구성
@@ -32,13 +41,16 @@
 
 <br />
 
-## ⚙ 기술 스택
+
 <!--필요한 기술 스택에 대한 logo는 [skills 폴더](/skills/)에서 다운로드 받을 수 있습니다.-->
+
+## ⚙ 기술 스택
+
 ### Front-end
 <div>
 <img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/JavaScript.png?raw=true" width="80">
 <img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/React.png?raw=true" width="80">
-<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/JWT.png?raw=true" width="80">
+<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/Nginx.png?raw=true" width="80">
 </div>
 
 ### Infra
@@ -64,8 +76,3 @@
 
 <br />
 
-## 💁‍♂️ 프로젝트 팀원
-|PM|Backend+AI|Frontend|AI|
-|:---:|:---:|:---:|:---:|
-| ![](https://github.com/BiocomKR.png?size=100) | ![](https://github.com/biosungwoo.png?size=100) | ![](https://github.com/biocomJisoo.png?size=100) | ![](https://github.com/JiwonBiocom.png?size=100) |
-|[이준우](https://github.com/yewon-Noh)|[우성우](https://github.com/biosungwoo)|[박지수](https://github.com/biocomJisoo)|[하지원](https://github.com/JiwonBiocom)|
