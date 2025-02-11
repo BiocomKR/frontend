@@ -3,10 +3,9 @@
 <!-- logo -->
 <img src="https://avatars.githubusercontent.com/u/131945290?v=4" width="200"/>
 
-## Frontend
+# Frontend
 
-[<img src="https://img.shields.io/badge/-readme.md-important?style=flat&logo=google-chrome&logoColor=white" />]() 
-<br/> [<img src="https://img.shields.io/badge/프로젝트 기간-2025.02.11~-fab2ac?style=flat&logo=&logoColor=white" />]()
+[<img src="https://img.shields.io/badge/-readme.md-important?style=flat&logo=google-chrome&logoColor=white" />]()  [<img src="https://img.shields.io/badge/프로젝트 기간-2025.02.11~-fab2ac?style=flat&logo=&logoColor=white" />]()
 
 </div> 
 
