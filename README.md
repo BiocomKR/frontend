@@ -17,8 +17,8 @@
 ## 💁‍♂️ 프로젝트 팀원
 |PM|Backend+AI|Frontend|AI|
 |:---:|:---:|:---:|:---:|
-| ![](https://github.com/BiocomKR.png?size=100) | ![](https://github.com/biosungwoo.png?size=100) | ![](https://github.com/biocomJisoo.png?size=100) | ![](https://github.com/JiwonBiocom.png?size=100) |
-|[이준우](https://github.com/yewon-Noh)|[우성우](https://github.com/biosungwoo)|[박지수](https://github.com/biocomJisoo)|[하지원](https://github.com/JiwonBiocom)|
+| ![](https://github.com/junwoo86.png?size=100) | ![](https://github.com/biosungwoo.png?size=100) | ![](https://github.com/biocomJisoo.png?size=100) | ![](https://github.com/JiwonBiocom.png?size=100) |
+|[이준우](https://github.com/junwoo86)|[우성우](https://github.com/biosungwoo)|[박지수](https://github.com/biocomJisoo)|[하지원](https://github.com/JiwonBiocom)|
 
 
 <br />
