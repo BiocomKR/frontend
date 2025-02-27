@@ -5,6 +5,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --tblr-font-sans-serif: 'Inter Var', -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -18,4 +19,79 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+  font-feature-settings: "cv03", "cv04", "cv11";
+}
+
+.navbar-vertical {
+  background: var(--tblr-navbar-vertical-bg, var(--tblr-dark));
+  color: var(--tblr-navbar-vertical-color, var(--tblr-light));
+}
+
+@font-face {
+	font-family: 'Pretendard-black';
+	font-weight: 900;
+	font-display: swap;
+	src: local('Pretendard Black'), url('/styles/fonts//pretendard/Pretendard-Black.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Pretendard-extrabold';
+	font-weight: 800;
+	font-display: swap;
+	src: local('Pretendard ExtraBold'), url('/styles/fonts//pretendard/Pretendard-ExtraBold.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Pretendard-bold';
+	font-weight: 700;
+	font-display: swap;
+	src: local('Pretendard Bold'), url('/styles/fonts//pretendard/Pretendard-Bold.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Pretendard-semibold';
+	font-weight: 600;
+	font-display: swap;
+	src: local('Pretendard SemiBold'), url('/styles/fonts//pretendard/Pretendard-SemiBold.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Pretendard-meidum';
+	font-weight: 500;
+	font-display: swap;
+	src: local('Pretendard Medium'), url('/styles/fonts//pretendard/Pretendard-Medium.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Pretendard-regular';
+	font-weight: 400;
+	font-display: swap;
+	src: local('Pretendard Regular'), url('/styles/fonts//pretendard/Pretendard-Regular.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Pretendard-light';
+	font-weight: 300;
+	font-display: swap;
+	src: local('Pretendard Light'), url('/styles/fonts//pretendard/Pretendard-Light.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Pretendard-extralight';
+	font-weight: 200;
+	font-display: swap;
+	src: local('Pretendard ExtraLight'), url('/styles/fonts//pretendard/Pretendard-ExtraLight.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Pretendard-thin';
+	font-weight: 100;
+	font-display: swap;
+	src: local('Pretendard Thin'), url('/styles/fonts//pretendard/Pretendard-Thin.woff2') format('woff2');
+}
+
+@layer base {
+  html {
+    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  }
 }
