@@ -1,7 +1,7 @@
 import { logger } from '../../config/winston.js';
 import * as service from '../../services/reports/reportService.js'
 
-const pageRow = 30; // pagenation 한 페이지마다 보여줄 데이터 row 수
+const pageRow = 100; // pagenation 한 페이지마다 보여줄 데이터 row 수
 
 // get mapping = reportInfo
 export function getInsertInfo(req, res){

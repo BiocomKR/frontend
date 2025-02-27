@@ -124,7 +124,8 @@ const fn_kingScoring = (score)=>{
     else if(score >=31) return 'C-';
     else if(score >=20) return 'Dp';
     else if(score >=16) return 'D0';
-    else if(score ==0) return 'F0';
+    // else if(score == 0) return 'F0';
+    else if(score < 0) return 'F0';
     else return 'D-';
 }
 /**
@@ -136,7 +137,8 @@ const fn_scoring = (score)=>{
     if(score >0.99) return 'A';
     else if(score >=0.7) return 'B';
     else if(score >=0.5) return 'C';
-    else if(score == 0) return 'F';
+    // else if(score == 0) return 'F';
+    else if(score < 0) return 'F';
     else return 'D';
 }
 
@@ -167,8 +169,10 @@ const calcRank = (s)=>{
     if(s > 0.99) return 1;
     else if(s >= 0.7) return 0.7;
     else if(s >= 0.5) return 0.5;
-    else if(s == 0) return 0;
-    else return 0.3; 
+    else if(s < 0) return -0.2;
+    else return 0.1; 
+    // else if(s == 0) return 0;
+    // else return 0.3; 
 }
 const calcScore = (map)=> {
     const groups = Object.values(map).reduce((obj, { fst, scd}) => {
@@ -179,7 +183,8 @@ const calcScore = (map)=> {
     const res = Object.values(map).reduce((result, { fst, scd , value, way}) => {
         result[fst] ??= { '합계': 0 };
         const all = groups[fst][scd];
-        const scoreMapping = {'blue' : 1, 'green' : 0.7, 'yell' : 0.5, 'orange' : 0.3 , 'red' : 0} ;
+        const scoreMapping = {'blue' : 1, 'green' : 0.7, 'yell' : 0.5, 'orange' : 0.1 , 'red' : -0.2} ;
+        // const scoreMapping = {'blue' : 1, 'green' : 0.7, 'yell' : 0.5, 'orange' : 0.3 , 'red' : 0} ;
         const valueToAdd = scoreMapping[fn_faceScoreing(value, way)] / all;
         result[fst][scd] = (result[fst][scd] ?? 0) + valueToAdd;
         return result;
@@ -296,8 +301,8 @@ const createCover = (page, obj ,small)=>{
 const fn_faceScoreing = (value)=>{
     const score = Math.abs(value);
     if(score <= 68) return 'blue';
-    else if(score <= 95) return 'green';
-    else if(score <= 120) return 'yell';
+    else if(score <= 120) return 'green';
+    else if(score <= 135) return 'yell';
     else if(score <= 150) return 'orange';
     else return 'red';
 }
@@ -323,39 +328,26 @@ const fn_graphScoreing = (value, way)=>{
 }
 
 const setScore = (value, way) => {
-    const v = value > 200 ? 200 : value < -200 ? -200 : value;
-    return way == 1? v/2 : v;
+    const v = value > 150 ? 150 : value < -150 ? -150 : value;
+    const res =  way == 1? v >=  0 ? v / 150 * 50 + 50 : 50 + v/150 * 50 : v / 150 * 100;
+    console.log(v, res)
+    return res > 0.2 ? res : 0.2;
 } 
-
-const fn_setWays = (way)=>{
-    if(Array.from(new Set(way)).length == 1){
-        if(way[0] == 0){
-            // 단방향만 있을 때
-            return createEl('div',{'class':'way-text','textContent':'[최고치: 200%]'});
-        }else {
-            // 양방향만 있을 때
-            return createEl('div',{'class':'way-text  way2','children':[createEl('div',{'textContent':'[최소치:-100%]'}), createEl('div',{'textContent':'[최고치: 100%]'})]})
-        }
-    }else{
-        return createEl('div',{'class':'way-text way2','children':[createEl('div',{'textContent':'[최고치: 200%]'}), createEl('div',{'textContent':'[최소치: -100% 최고치: 100%]'})]})
-    }
-}
 
 const createTable = (page, ranking, arr, desc)=>{
     const div1 = createEl('div', {'class':'page-rank','children':[createEl('div',{'class':ranking})]})
     const div2 = createEl('div', {'class':'desc', 'children':[createEl('div',{'textContent':desc[ranking]})]})
-    const ths = createEl('tr', {'children':['항 목','상 태','수치','그 래 프'].map(m=>createEl('th',{'textContent':m}))})
+    const ths = createEl('tr', {'children':['항 목','상 태','그 래 프'].map(m=>createEl('th',{'textContent':m}))})
     const ways = [];
     const tbl1 = arr.reduce((tbl, {name, value, way}, idx)=>{
-        const FACE = {'blue':'정상', 'green':'양호', 'yell':'주의', 'orange':'나쁨', 'red':'심각'};
+        const FACE = {'blue':'정상', 'green':'주의', 'yell':'나쁨', 'orange':'나쁨', 'red':'나쁨'};
         const num = ['①','②','③','④','⑤','⑥','⑦','⑧'];
         const tr = createEl('tr');
-        const score = setScore(value, way);
-        const graphScore = way == 0 ? Math.abs(score/2 -0.5) : score > 0? Math.abs(score/2 -0.5) + 50 : 50 - Math.abs(score/2 -0.5);
-        const graph = createEl('div',{'class':`graph-score way${way}`, 'children':[createEl('div',{'style':`width:${graphScore}%;`, class: 'graph-bar'}), createEl('div',{'style':`left:${graphScore-1}%;`, class: 'graph-dot'})]});
+        const graphScore = setScore(value, way) ;
+        console.log(name, value, way, ' >>' ,graphScore)
+        const graph = createEl('div',{'class':`graph-score way${way}`, 'children':[createEl('div',{'style':`width:${graphScore}%;`, class: 'graph-bar'})]});
         tr.appendChild(createEl('td',{'textContent':`${num[idx]} ${name}`}))
         tr.appendChild(createEl('td',{'class': fn_faceScoreing(value),'children':[createEl('div',{'textContent':FACE[fn_faceScoreing(value)]})]}))
-        tr.appendChild(createEl('td',{'class': 'score-value','textContent': score + (value > 200 ? '이상' : value < -200 ? '이하' : '%')}))
         tr.appendChild(createEl('td',{'children':[graph]}))
         tbl.appendChild(tr);
         ways.push(way);
@@ -363,7 +355,6 @@ const createTable = (page, ranking, arr, desc)=>{
     },document.createDocumentFragment());
     const div3 = createEl('div', {'class':'tables','children':[createEl('table',{'children':[ths, tbl1]})]});
 
-    div3.appendChild(fn_setWays(ways));
     getEl('.page-area', page).appendChild(createEl('div',{'class':'graph-area'}));
     getEl('.page-area', page).classList.add('block');
     [div1, div2, div3].forEach((el)=>{getEl('.graph-area', page).appendChild(el);});

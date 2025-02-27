@@ -5,6 +5,7 @@ import * as IgG from '../controllers/reports/IgGReportController.js';
 import * as report from '../controllers/reports/ReportController.js';
 import * as chall from '../controllers/challenge/dataController.js';
 import * as pdf from '../controllers/challenge/pdfController.js';
+import * as test from '../controllers/test/testController.js';
 
 const router = express.Router();
 
@@ -25,6 +26,11 @@ router.get('/UGIReport/suppl', asyncHandler(UGI.getSuppleData));
 router.get('/IgGReport', asyncHandler(IgG.getReportData));
 router.post('/IgGReport/insertLevels', asyncHandler(IgG.insertLevels));
 router.get('/IgGReport/levels', asyncHandler(IgG.getLevels));
+
+// test api
+router.get('/test/questionnaire', asyncHandler(test.getQuestionnaireList));
+router.get('/test/searchQuestionnaire', asyncHandler(test.getSearchQuestionnaireList));
+router.get('/test/userQuestionnaire', asyncHandler(test.getUserQuestionnaireList));
 
 
 // 챌린지 관련 api
