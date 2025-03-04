@@ -68,6 +68,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 
+app.use('/downloads', express.static(path.join(__dirname, 'public/downloads')));
+
 app.use(notFoundHandler);
 app.use(errorHandler);
 

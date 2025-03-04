@@ -16,10 +16,12 @@ const asyncHandler = (fn) => (req, res, next) =>
 router.get('/insertInfo', asyncHandler(report.getInsertInfo));
 
 // UGI 사용자 정보 전달 라우트 
-router.post('/UGI', asyncHandler(UGI.getUserCheck));
+router.post('/UGI', asyncHandler(UGI.postUserCheck));
+router.get('/ugi', asyncHandler(UGI.getUgiApi))
 
 // IgG 사용자 정보 전달 라우트 
 router.post('/IgG', asyncHandler(IgG.getUserCheck));
+router.get('/igg', asyncHandler(IgG.getIgGApi))
 
 // 로그 관련 라우트
 // router.get('/log', asyncHandler(log.getLog));

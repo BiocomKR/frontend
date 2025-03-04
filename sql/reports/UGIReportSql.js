@@ -76,3 +76,10 @@ export const selectUGIquery = `
     export const selectSupplementquery = `
     SELECT * FROM report.UgisanRecomend(@supple);
     `
+
+export const selectUgiIdByDate = `
+    SELECT 검사ID as userId FROM LabSpearSIB.report.검사결과_종합대사기능
+    WHERE 입력날짜 = @date;
+    `;
+
+

@@ -184,7 +184,7 @@ const createPage = async (data, levels) => {
                     const level = `level-tr level-${i.slice(0, -2)}`;
                     return createEl('tr', {'class': level,'children': [
                         createEl('td', {'textContent': i, 'class': 'lv-title'}),
-                        createEl('td', {'textContent': lv[i]?.slice(0, -2)|| '', 'class': 'lv-value'}),
+                        createEl('td', {'textContent': lv[i]?.slice(0, -2)|| '해당 없음', 'class': 'lv-value'}),
                         createEl('td', {'children': [
                             createEl('div', {'textContent': title, 'class': 'lv-subtitle'}),
                             createEl('div', {'textContent': content, 'class': 'lv-content'})

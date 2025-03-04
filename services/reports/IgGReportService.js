@@ -68,3 +68,20 @@ export async function insertLevels(param){
         throw error;
     }
 }
+
+export async function getIgGIdByDate(param) {
+    try{
+        logger.info(`[IgG Report] ${param} 날짜 기반 검사 id 조회!`);
+
+        const query = IgGReportSql.selectIgGIdByDate;
+        const params = [
+            { name: 'date', type: SqlService.sql.Date, value: param }
+        ];
+
+        SqlService.queryLogging(query, params);
+        const res = await SqlService.selectList(query, params);
+        return res;
+    }catch(error){
+
+    }
+}

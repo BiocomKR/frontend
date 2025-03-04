@@ -706,11 +706,12 @@ const load = async () => {
     /**
      * print 기능 eventListener
      */
-    document.querySelector('.header-btn').addEventListener('click',async ({target})=>{
+    document.querySelector('.header-btn').addEventListener('click', async ({target}) => {
         const report = getEl('.report-area');
         const userName = getEl('.report-name').textContent;
         const date = getEl('.user-report-dt span').textContent.replaceAll('-','').substr(2);
-	const ids = getEl('.user-pk span').textContent;
+        const ids = getEl('.user-pk span').textContent;
+
         if(target.classList == 'print'){
             report.classList.remove('solution')
             report.classList.remove('result')
@@ -730,7 +731,37 @@ const load = async () => {
             print_mode();
         }
         //////////////////////////////////////////////////////////////////
-        
+        if (target.classList.contains('pdf-save')) {
+            try {
+                const response = await fetch('/api/generate-pdf', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        username: userName.replace(' 님', ''), // '님' 제거
+                        reportType: report.classList.contains('solution') ? 'solution' : 'result'
+                    })
+                });
+
+                const data = await response.json();
+                if (data.success) {
+                    const link = document.createElement('a');
+                    link.href = data.downloadUrl;
+                    link.download = data.downloadUrl.split('/').pop();
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                } else {
+                    console.error('PDF 생성 실패:', data.error);
+                    alert(`PDF 생성 실패: ${data.error}`);
+                }
+            } catch (error) {
+                console.error('PDF 저장 오류:', error);
+                alert('PDF 저장 중 오류가 발생했습니다. 개발자 도구의 콘솔을 확인해주세요.');
+            }
+            return;
+        }
     });
 }
 

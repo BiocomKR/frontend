@@ -134,3 +134,20 @@ INSERT INTO LabSpearSIB.report.지연성알러지_참고치
 VALUES
 	(@level1, @level2, @level3, @level4, @level5, @rgstUser);
 `;
+
+export const selectIgGIdByDate = `
+	with rows as (
+        SELECT ISNULL(검사접수.차트번호, '') as 'userId'
+		FROM LabSpearSIB.dbo.검사접수 검사접수
+		INNER JOIN LabSpearSIB.dbo.검사결과 검사결과 
+		    ON 검사결과.접수일자 = 검사접수.접수일자 
+		    AND 검사결과.접수번호 = 검사접수.접수번호 
+	WHERE 검사결과.오더코드 = 'D0004'
+	    AND 검사접수.차트번호 IS NOT NULL
+		AND 검사접수.주민등록번호 IS NOT NULL
+        AND 검사결과.결과값 IS NOT NULL
+        AND 검사접수.접수일자 = @date
+	GROUP BY 검사접수.접수일자, 검사접수.차트번호
+    )
+    select * from rows
+`;
