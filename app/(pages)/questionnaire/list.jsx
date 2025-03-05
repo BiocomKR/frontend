@@ -12,11 +12,11 @@ export default function QLists({handleItemClick}) {
         const fetchData = async () =>{
             try{
                 setIsLoading(true);
-                const response = await fetch("https://localhost:3001/api/test/questionnaire");
-                const data = await response.json();
-                console.log(data);
-                setStats(data.results);
-                setIsLoading(false);
+                // const response = await fetch("https://localhost:3001/api/test/questionnaire");
+                // const data = await response.json();
+                // console.log(data);
+                // setStats(data.results);
+                // setIsLoading(false);
             }catch (Error) {
                 console.error("데이터를 불러오는데 실패했습니다.", Error);
                 alert("신청서 검색 중 오류 발생\n 오류코드: "+ Error+'\nIT팀에 해당 메세지를 공유 바랍니다.');
@@ -38,14 +38,44 @@ export default function QLists({handleItemClick}) {
                 window.location.reload();
             }
             setIsLoading(true);
-            const response = await fetch(`https://localhost:3001/api/test/searchQuestionnaire?name=${search}`);
+            
+            // 토큰 가져오기 (로컬 스토리지에 저장된 토큰)
+            const token = localStorage.getItem('token');
+            
+            // 요청 헤더 설정
+            const headers = {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            };
+            
+            // 토큰이 있으면 Authorization 헤더 추가
+            if (token) {
+                headers['Authorization'] = `Bearer ${token}`;
+            }
+            
+            // HTTP 프로토콜 사용
+            const response = await fetch(`http://localhost:8000/api/sib/list?exam_id=${search}`, {
+                method: 'GET',
+                headers: headers,
+                mode: 'cors'  // CORS 모드 명시
+            });
+            
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error("API 응답 에러:", errorText);
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
             const data = await response.json();
-            //   console.log("검색 결과:", data);
-            setStats(data.results);
+            console.log("API 응답 데이터:", data);
+            
+            // 응답 구조에 맞게 데이터 설정
+            setStats(Array.isArray(data) ? data : [data]);
             setIsLoading(false);
         } catch (error) {
             console.error("검색 중 오류 발생:", error);
             alert("신청서 검색 중 오류 발생\n 오류코드: "+ error+'\nIT팀에 해당 메세지를 공유 바랍니다.');
+            setIsLoading(false);
         }
     };
   

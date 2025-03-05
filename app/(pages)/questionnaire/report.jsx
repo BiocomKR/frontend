@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { FreeDiv, FreeTrWNo, LoadingSkPage, FreeListWTitle } from "@/components/ItemLists";
+import Comments from '@/components/Comments'
 
 export default function QReport({selectedData}) {
     const [isLoading, setIsLoading] = useState(false);
@@ -10,11 +11,37 @@ export default function QReport({selectedData}) {
         const fetchData = async () =>{
             try{
                 setIsLoading(true);
-                const response = await fetch("https://localhost:3001/api/test/userQuestionnaire?id=" + selectedData['검사ID']);
+                
+                // 토큰 가져오기 (로컬 스토리지에 저장된 토큰)
+                const token = localStorage.getItem('token');
+                
+                // 요청 헤더 설정
+                const headers = {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                };
+                
+                // 토큰이 있으면 Authorization 헤더 추가
+                if (token) {
+                    headers['Authorization'] = `Bearer ${token}`;
+                }
+                
+                // 기존 코드를 새로운 FastAPI 엔드포인트로 변경
+                const response = await fetch(`http://localhost:8000/api/sib/detail?exam_id=${selectedData['검사ID']}`, {
+                    method: 'GET',
+                    headers: headers,
+                    mode: 'cors'
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
                 const data = await response.json();
                 const jsonData = await jsonProvider();
                 console.log(data, jsonData)
-                const reportData = Object.entries(data.results).reduce((obj, [k,v]) => {
+                
+                const reportData = Object.entries(data).reduce((obj, [k,v]) => {
                     const title = jsonData[k]?.title || k;
                     const detail = jsonData[k]?.detail? jsonData[k].detail[(v-1)]||'입력없음': v;
                     const no = jsonData[k]?.no||'-';
@@ -27,11 +54,13 @@ export default function QReport({selectedData}) {
                     }
                     return obj;
                 }, {user: {}, basic: [], disease: []});
+                
                 console.log(reportData);
                 setReportData(reportData);
                 setIsLoading(false);
             }catch (Error) {
                 console.error("데이터를 불러오는데 실패했습니다.", Error);
+                setIsLoading(false);
             }
         }
         fetchData();
@@ -89,8 +118,13 @@ export default function QReport({selectedData}) {
                         </div>
                     ) : Object.keys(reportData).length > 0 ? (
                         <div className="grid grid-cols-[1.5fr_1fr] gap-6 h-screen-80 ">
-                            <div className="flex flex-row gap-4 overflow-y-scroll">
-                                추후 여기에 리포트가 나옵니다 ㅎㅎ
+                            <div className="grid grid-rows-[1fr_1fr] gap-4">
+                                <div className='overflow-y-scroll'>
+                                    추후 여기에 리포트가 나옵니다 ㅎㅎ
+                                </div>
+                                <div className="overflow-y-scroll">
+                                    <Comments chartId={selectedData['검사ID']} />
+                                </div>
                             </div>
                             <div className="flex flex-col gap-6 overflow-y-scroll bg-white p-1">
                                 <div>
@@ -108,18 +142,18 @@ export default function QReport({selectedData}) {
                                     <div>
                                         <div className="text-lg font-medium text-white p-2 pl-3 bg-bico-mt">검사결과</div>
                                         <div>
-                                                <div className="text-lg font-medium  p-2 pl-3 mb-2 bg-gray-200">5년 이내 앓았던 질환정보</div>
-                                                <div className="pl-2 pb-2 grid grid-cols-4">
-                                                        {reportData.disease.filter(i=> i.detail).length > 0 ?
-                                                            reportData.disease.filter(i=> i.detail).map((item, idx) => (
-                                                            <FreeDiv  key={idx} items={{value: item.title}} />
-                                                        ))
-                                                        : <div className="text-sm font-medium pl-3 p-1 bg-gray-100" colSpan={4}>
-                                                            없음
-                                                        </div>
-                                                        }
-                                                </div>
+                                            <div className="text-lg font-medium  p-2 pl-3 mb-2 bg-gray-200">5년 이내 앓았던 질환정보</div>
+                                            <div className="pl-2 pb-2 grid grid-cols-4">
+                                                    {reportData.disease.filter(i=> i.detail).length > 0 ?
+                                                        reportData.disease.filter(i=> i.detail).map((item, idx) => (
+                                                        <FreeDiv  key={idx} items={{value: item.title}} />
+                                                    ))
+                                                    : <div className="text-sm font-medium pl-3 p-1 bg-gray-100" colSpan={4}>
+                                                        없음
+                                                    </div>
+                                                    }
                                             </div>
+                                        </div>
                                         <div className="space-y-6">
                                             <div>
                                                 <div className="text-lg font-medium  p-1 pl-3 mb-2 bg-gray-200">기본정보</div>
@@ -157,6 +191,8 @@ export default function QReport({selectedData}) {
                     )}
                 </div>
             </div>
+
+            
         </div>
     );
 }
