@@ -146,7 +146,7 @@ const createPage = async (data, levels) => {
     }
 
     const createGraph = (value) =>{
-        const score = 2.26;
+        const score = 2.25;
         const levelArr = Object.values(levels).filter(lv => !isNaN(Number(lv))).sort((a,b)=>a-b);
         let result = 0;
         levelArr.some((level, idx, arr) => {
@@ -302,7 +302,6 @@ const saveLevelInfo = async () => {
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 const load = async () => {
-    window.jsPDF = window.jspdf.jsPDF;
     // 페이지 생성
     for(idx=1;idx<=28;idx++){
         const page = getEl('.page.hide').cloneNode(true);
@@ -336,9 +335,32 @@ const load = async () => {
     });
 
     /**
+     *  PDF 자동화기능용
+     */
+    const reportId = getEl('.report-area').dataset.reportId;
+    if(reportId){
+        const _report = getEl('.report-area');
+        const _userName = getEl('.name-area').textContent;
+        const _date = formatDate(new Date()).substring(0, 10).replaceAll('-','');
+        const _ids = getEl('.uuid-area').textContent;
+        if(reportId == 'result'){ // 결과지만
+            _report.classList.remove('solution')
+            _report.classList.add('result')
+            document.title = `${_date}_${_userName}_${_ids}_바이오 종합 대사기능 분석 결과`;
+            document.body.classList.add('print-mode');
+        }
+        if(reportId == 'solution'){ //솔루션만
+            _report.classList.add('solution')
+            _report.classList.remove('result')
+            document.title = `${_date}_${_userName}_${_ids}_솔루션`;
+            document.body.classList.add('print-mode');
+        }
+    }
+
+    /*
      * print 기능 eventListener
      */
-    document.querySelector('.header-btn').addEventListener('click',async ({target})=>{
+    document.querySelector('.header-btn').addEventListener('click',({target})=>{
         const report = getEl('.report-area');
         const userName = getEl('.name-area').textContent;
         const date = formatDate(new Date()).substring(0, 10).replaceAll('-','');
@@ -361,59 +383,7 @@ const load = async () => {
             document.title = `${date}_${userName}_${ids}_솔루션`;
             print_mode();
         }
-        else if(target.classList.contains('save-pdf')){
-            await savePDF();
-        }
     });
-}
-
-/**
- * @description PDF 저장 기능
- */
-const savePDF = async () => {
-    try {
-        // 로딩 표시 추가
-        const loadingDiv = document.createElement('div');
-        loadingDiv.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,0.8);color:white;padding:20px;border-radius:10px;z-index:9999;';
-        loadingDiv.textContent = 'PDF 생성 중...';
-        document.body.appendChild(loadingDiv);
-
-        // 구버전 jsPDF 사용 (전역 변수로 등록됨)
-        const doc = new jsPDF('p', 'mm', 'a4');
-        const pages = document.querySelectorAll('.page:not(.hide)');
-        
-        for (let i = 0; i < pages.length; i++) {
-            const canvas = await html2canvas(pages[i], {
-                scale: 2,
-                useCORS: true,
-                logging: false,
-                allowTaint: true,
-                backgroundColor: '#ffffff'
-            });
-            
-            const imgData = canvas.toDataURL('image/jpeg', 1.0);
-            
-            if (i > 0) {
-                doc.addPage();
-            }
-            
-            // A4 크기에 맞게 이미지 추가
-            doc.addImage(imgData, 'JPEG', 0, 0, 210, 297);
-        }
-        
-        // PDF 저장
-        const userName = getEl('.report-name')?.textContent || 'unknown';
-        const date = new Date().toISOString().slice(2,10).replace(/-/g,'');
-        doc.save(`IgG_Report_${userName}_${date}.pdf`);
-
-        document.body.removeChild(loadingDiv);
-    } catch (error) {
-        console.error('PDF 생성 중 오류:', error);
-        alert('PDF 생성 중 오류가 발생했습니다.');
-        if (document.body.contains(loadingDiv)) {
-            document.body.removeChild(loadingDiv);
-        }
-    }
 }
 
 window.addEventListener('load', load);

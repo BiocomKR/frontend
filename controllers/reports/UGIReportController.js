@@ -10,7 +10,8 @@ export function postUserCheck(req, res){
         req.session.username = username;
         return res.render(`reports/UGIReportView`,{
             username : username,
-            isAuthenticated: true 
+            isAuthenticated: true ,
+            reportID: ''
         });
         
     }catch (error){
@@ -60,7 +61,7 @@ export async function getSuppleData(req, res){
 // get mapping = report/ugi
 export async function getUgiApi(req, res) {
     try{
-        const {id} = req.query;
+        const {id, reportID} = req.query;
         if(!id) return res.status(400).json({error:'사용자 이름이 없습니다.'});
 
         // 세션에 username 저장
@@ -68,7 +69,8 @@ export async function getUgiApi(req, res) {
 
         return res.render(`reports/UGIReportView`,{
             username : id,
-            isAuthenticated: true 
+            isAuthenticated: true,
+            reportID
         });
     }catch(error){
         logger.error(`Error in getUgiApi: ${error.message}`);
@@ -107,10 +109,10 @@ export async function getUgiIdByDate(req, res) {
         const result = await service.getUgiIdByDate(dateString);
 
         if (!result) return res.status(400).json({ error: '유효하지 않은 코드 입니다.' });
-        const results = result.map(item => item.userId);
+        const results = result.map(item =>{return {id: item.userId, name: item.userName}});
         
         res.json({
-            results,
+            results
         });
     } catch(error){
         logger.error(`Error in getReportData: ${error.message}`);

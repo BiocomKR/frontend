@@ -704,6 +704,29 @@ const load = async () => {
     getEl('.back').addEventListener('click',()=>{window.open('/report/insertInfo?analysis=UGI')})
 
     /**
+     *  PDF 자동화기능용
+     */
+    const reportId = getEl('.report-area').dataset.reportId;
+    if(reportId){
+        const _report = getEl('.report-area');
+        const _userName = getEl('.report-name').textContent;
+        const _date = getEl('.user-report-dt span').textContent.replaceAll('-','').substr(2);
+        const _ids = getEl('.user-pk span').textContent;
+        if(reportId == 'result'){ // 결과지만
+            _report.classList.remove('solution')
+            _report.classList.add('result')
+            document.title = `${_date}_${_userName}_${_ids}_바이오 종합 대사기능 분석 결과`;
+            document.body.classList.add('print-mode');
+        }
+        if(reportId == 'solution'){ //솔루션만
+            _report.classList.add('solution')
+            _report.classList.remove('result')
+            document.title = `${_date}_${_userName}_${_ids}_솔루션`;
+            document.body.classList.add('print-mode');
+        }
+    }
+
+    /**
      * print 기능 eventListener
      */
     document.querySelector('.header-btn').addEventListener('click', async ({target}) => {
@@ -729,38 +752,6 @@ const load = async () => {
             report.classList.remove('result')
             document.title = `${date}_${userName}_${ids}_솔루션`;
             print_mode();
-        }
-        //////////////////////////////////////////////////////////////////
-        if (target.classList.contains('pdf-save')) {
-            try {
-                const response = await fetch('/api/generate-pdf', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        username: userName.replace(' 님', ''), // '님' 제거
-                        reportType: report.classList.contains('solution') ? 'solution' : 'result'
-                    })
-                });
-
-                const data = await response.json();
-                if (data.success) {
-                    const link = document.createElement('a');
-                    link.href = data.downloadUrl;
-                    link.download = data.downloadUrl.split('/').pop();
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                } else {
-                    console.error('PDF 생성 실패:', data.error);
-                    alert(`PDF 생성 실패: ${data.error}`);
-                }
-            } catch (error) {
-                console.error('PDF 저장 오류:', error);
-                alert('PDF 저장 중 오류가 발생했습니다. 개발자 도구의 콘솔을 확인해주세요.');
-            }
-            return;
         }
     });
 }

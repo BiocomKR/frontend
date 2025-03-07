@@ -10,7 +10,8 @@ export function getUserCheck(req, res){
         req.session.username = username;
         return res.render(`reports/IgGReportView`,{
             username : username,
-            isAuthenticated: true 
+            isAuthenticated: true ,
+            reportID: ''
         });
         
     }catch (error){
@@ -66,7 +67,7 @@ export async function insertLevels(req, res){
 // get mapping = report/igg
 export async function getIgGApi(req, res) {
     try{
-        const {id} = req.query;
+        const {id, reportID} = req.query;
         if(!id) return res.status(400).json({error:'사용자 이름이 없습니다.'});
 
         // 세션에 username 저장
@@ -74,6 +75,7 @@ export async function getIgGApi(req, res) {
 
         return res.render(`reports/IgGReportView`,{
             username : id,
+            reportID,
             isAuthenticated: true 
         });
     }catch(error){
@@ -113,7 +115,7 @@ export async function getIgGIdByDate(req, res) {
         const result = await service.getIgGIdByDate(dateString);
 
         if (!result) return res.status(400).json({ error: '유효하지 않은 코드 입니다.' });
-        const results = result.map(item => item.userId);
+        const results = result.map(item =>{return {id: item.userId, name: item.userName}});
         
         res.json({
             results,

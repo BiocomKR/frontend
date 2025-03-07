@@ -48,7 +48,7 @@ body * {font-family: 'Pretendard-meidum'; word-break: keep-all;}
 .table-area table td:nth-child(4){width: auto;}
 /* table > graph*/
 .graph-area {position: relative; width: 100%; height: 100%;}
-.graph-area > div {position: absolute; left: 1.4%; top: 50%; transform: translateY(-70%); font-weight: 900; padding-left: 0.1cm;}
+.graph-area > div {position: absolute; left: 1.45%; top: 50%; transform: translateY(-70%); font-weight: 900; padding-left: 0.1cm;}
 .level-graph{padding: 0.05cm; font-size: 0.35cm;}
 .level-graph.lv-1{background-color: #b4e4e2;}
 .level-graph.lv-2{background-color: #b4e4e2;}
@@ -108,7 +108,7 @@ body * {font-family: 'Pretendard-meidum'; word-break: keep-all;}
 .page.page-pang-3{background: url('/images/report/IgG/solution_pages/solution_pang_3.png') #fff center/cover no-repeat;}
 .page.page-pang-4{background: url('/images/report/IgG/solution_pages/solution_pang_4.png') #fff center/cover no-repeat;}
 .page.page-pang-5{background: url('/images/report/IgG/solution_pages/solution_pang_5.png') #fff center/cover no-repeat;}
-.page.page-pang-3{background: url('/images/report/IgG/solution_pages/solution_pang_3.png') #fff center/cover no-repeat;}
+.page.page-pang-6{background: url('/images/report/IgG/solution_pages/solution_pang_6.png') #fff center/cover no-repeat;}
 .page.page-pang-7{background: url('/images/report/IgG/solution_pages/solution_pang_7.png') #fff center/cover no-repeat;}
 .page.page-pang-8{background: url('/images/report/IgG/solution_pages/solution_pang_8.png') #fff center/cover no-repeat;}
 .page.page-pang-9{background: url('/images/report/IgG/solution_pages/solution_pang_9.png') #fff center/cover no-repeat;}

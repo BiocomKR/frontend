@@ -78,7 +78,7 @@ export const selectUGIquery = `
     `
 
 export const selectUgiIdByDate = `
-    SELECT 검사ID as userId FROM LabSpearSIB.report.검사결과_종합대사기능
+    SELECT 검사ID  as userId, userName FROM LabSpearSIB.report.검사결과_종합대사기능
     WHERE 입력날짜 = @date;
     `;
 
