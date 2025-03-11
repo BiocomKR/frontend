@@ -9,6 +9,16 @@ export default function Login() {
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
+  const handleForgotPassword = () => {
+    alert('연구개발팀에 문의해주세용용용')
+    // router.push('/forgot-password')
+  }
+
+  const handleRegister = () => {
+    alert('연구개발팀에 문의해주세용용용')
+    // router.push('/register')
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
@@ -96,7 +106,7 @@ export default function Login() {
                   비밀번호
                 </label>
                 <div className="text-sm">
-                  <a href="/forgot-password" className="font-medium text-indigo-600 hover:text-indigo-500">
+                  <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500 forget-password" onClick={handleForgotPassword}>
                     비밀번호를 잊으셨나요?
                   </a>
                 </div>
@@ -139,7 +149,7 @@ export default function Login() {
         {/* 회원가입 링크 */}
         <div className="text-center text-sm text-gray-600">
           계정이 없으신가요?{' '}
-          <a href="/register" className="font-medium text-indigo-600 hover:text-indigo-500">
+          <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500 register" onClick={handleRegister}>
             회원가입
           </a>
         </div>

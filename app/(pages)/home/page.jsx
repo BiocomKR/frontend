@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import DashboardCard from "@/components/Dashboard";
+import { DashboardCard } from "@/components/Dashboard";
 
 export default function Home() {
   const [stats, setStats] = useState({

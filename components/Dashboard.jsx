@@ -1,4 +1,4 @@
-export default function DashboardCard({ title, value, icon, trend, trendColor = "text-green-600" }) {
+export function DashboardCard({ title, value, icon, trend, trendColor = "text-green-600" }) {
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200">
       <div className="p-6">
@@ -51,3 +51,21 @@ export default function DashboardCard({ title, value, icon, trend, trendColor = 
     </div>
   )
 } 
+
+
+export function Dashcard({ title, icon}) {
+  return (<div className="bg-white rounded-lg shadow-sm border border-gray-200">
+        <div className="p-4 pb-1">
+          {/* Card Header */}
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-gray-500 text-sm font-medium">
+              {title}
+            </h3>
+            <div className="text-gray-400">
+              {icon}
+            </div>
+          </div>
+        </div>
+      </div>
+  )
+}

@@ -16,14 +16,14 @@ export default function Navbar() {
     const token = localStorage.getItem('token')
     const userId = localStorage.getItem('user_id')
     
-    console.log('토큰:', token);
-    console.log('사용자 ID:', userId);
+    // console.log('토큰:', token);
+    // console.log('사용자 ID:', userId);
     
     if (token && userId) {
       try {
         // jwt-decode 라이브러리 사용
         const decoded = jwtDecode(token);
-        console.log('디코딩된 토큰:', decoded);
+        // console.log('디코딩된 토큰:', decoded);
         
         setUser({
           name: `${decoded.name || ''} (${decoded.sub})`,

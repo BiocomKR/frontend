@@ -6,6 +6,7 @@ import Comments from '@/components/Comments'
 export default function QReport({selectedData}) {
     const [isLoading, setIsLoading] = useState(false);
     const [reportData, setReportData] = useState({});
+    const [isCommentsOpen, setIsCommentsOpen] = useState(true);
 
     useEffect(() => {
         const fetchData = async () =>{
@@ -55,7 +56,7 @@ export default function QReport({selectedData}) {
                     return obj;
                 }, {user: {}, basic: [], disease: []});
                 
-                console.log(reportData);
+                console.log('reportData', reportData);
                 setReportData(reportData);
                 setIsLoading(false);
             }catch (Error) {
@@ -84,6 +85,9 @@ export default function QReport({selectedData}) {
         49: '10. 신진대사',
         53: '11. 소변/생리'
     }
+
+
+    
 
     return (
         <div className="flex flex-col gap-6  p-4">
@@ -117,16 +121,21 @@ export default function QReport({selectedData}) {
                             <LoadingSkPage />
                         </div>
                     ) : Object.keys(reportData).length > 0 ? (
-                        <div className="grid grid-cols-[1.5fr_1fr] gap-6 h-screen-80 ">
-                            <div className="grid grid-rows-[1fr_1fr] gap-4">
-                                <div className='overflow-y-scroll'>
-                                    추후 여기에 리포트가 나옵니다 ㅎㅎ
+                        <div className="grid grid-cols-[1.5fr_1fr] gap-6 h-screen-80 overflow-hidden">
+                            <div className="grid grid-rows-[1fr_auto] gap-4 h-screen-80">
+                                <div className='overflow-y-scroll h-full'>
+                                    <LoadingSkPage />
                                 </div>
-                                <div className="overflow-y-scroll">
-                                    <Comments chartId={selectedData['검사ID']} />
+                                <div className="">
+                                    <div className="">
+                                        <div className="w-20 bg-bico-mt ml-2 p-1 text-white rounded-tl-lg rounded-tr-lg text-center cursor-pointer" onClick={() => setIsCommentsOpen(!isCommentsOpen)}>{isCommentsOpen ? '댓글 닫기' : '댓글 열기'}</div>
+                                        <div className={`${isCommentsOpen ? 'block' : 'hidden'}`}>
+                                            <Comments chartId={selectedData['검사ID']} />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div className="flex flex-col gap-6 overflow-y-scroll bg-white p-1">
+                            <div className="flex flex-col gap-6 overflow-y-scroll bg-white p-1  h-screen-80">
                                 <div>
                                     <div>
                                         <div className="text-lg font-medium text-white p-2 pl-3 mb-4 bg-bico-mt">고객정보</div>

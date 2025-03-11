@@ -118,53 +118,55 @@ export default function Comments({ chartId }) {
     }
 
     return (
-        <div className="mt-8 border rounded-lg p-4 bg-white shadow">
-        <h3 className="text-lg font-semibold mb-4">댓글</h3>
-        
-        {/* 댓글 목록 */}
-        <div className="space-y-4 mb-6 max-h-80 overflow-y-auto">
-            {isLoading && comments.length === 0 ? (
-            <p className="text-gray-500 text-center py-4">댓글을 불러오는 중...</p>
-            ) : comments.length > 0 ? (
-            comments.map((comment) => (
-                <div key={comment.comment_id} className="border-b pb-3">
-                <div className="flex justify-between items-start">
-                    <div className="font-medium">{comment.user_id}</div>
-                    <div className="text-xs text-gray-500">{formatDate(comment.created_at)}</div>
-                </div>
-                <p className="mt-1 text-gray-700">{comment.content}</p>
-                </div>
-            ))
-            ) : (
-            <p className="text-gray-500 text-center py-4">등록된 댓글이 없습니다</p>
-            )}
+        <div className="border rounded-lg p-4 bg-white shadow grid grid-rows-[28px_300px_100px] h-3/6">
+            <h3 className="text-lg font-semibold mb-4">댓글</h3>
             
-            {error && (
-            <div className="text-red-500 text-center py-2">{error}</div>
-            )}
-        </div>
-        
-        {/* 댓글 입력 폼 */}
-        <form onSubmit={handleSubmit} className="mt-4">
-            <div className="flex items-start">
-            <div className="flex-grow">
-                <textarea
-                    value={newComment}
-                    onChange={(e) => setNewComment(e.target.value)}
-                    placeholder="댓글을 입력하세요..."
-                    className="w-full border rounded-lg p-2 min-h-[80px] focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    disabled={isLoading}
-                />
+            {/* 댓글 목록 */}
+            <div className='overflow-hidden'>
+                <div className="space-y-4 mb-6 h-full overflow-y-auto">
+                    {isLoading && comments.length === 0 ? (
+                    <p className="text-gray-500 text-center py-4">댓글을 불러오는 중...</p>
+                    ) : comments.length > 0 ? (
+                    comments.map((comment) => (
+                        <div key={comment.comment_id} className="border-b pb-3">
+                        <div className="flex justify-between items-start">
+                            <div className="font-medium">{comment.user_id}</div>
+                            <div className="text-xs text-gray-500">{formatDate(comment.created_at)}</div>
+                        </div>
+                        <p className="mt-1 text-gray-700">{comment.content}</p>
+                        </div>
+                    ))
+                    ) : (
+                    <p className="text-gray-500 text-center py-4">등록된 댓글이 없습니다</p>
+                    )}
+                    
+                    {error && (
+                    <div className="text-red-500 text-center py-2">{error}</div>
+                    )}
+                </div>
             </div>
-            <button
-                type="submit"
-                className="ml-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
-                disabled={isLoading || !newComment.trim()}
-            >
-                {isLoading ? '등록 중...' : '등록'}
-            </button>
-            </div>
-        </form>
+            
+            {/* 댓글 입력 폼 */}
+            <form onSubmit={handleSubmit} className="mt-4">
+                <div className="flex items-start">
+                <div className="flex-grow">
+                    <textarea
+                        value={newComment}
+                        onChange={(e) => setNewComment(e.target.value)}
+                        placeholder="댓글을 입력하세요..."
+                        className="w-full border rounded-lg p-2 min-h-[80px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        disabled={isLoading}
+                    />
+                </div>
+                <button
+                    type="submit"
+                    className="ml-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
+                    disabled={isLoading || !newComment.trim()}
+                >
+                    {isLoading ? '등록 중...' : '등록'}
+                </button>
+                </div>
+            </form>
         </div>
     )
 }
