@@ -37,7 +37,7 @@ export default function Login() {
     const password = e.target.password.value
 
     try {
-      const response = await fetch('https://3.36.248.207:8000/api/auth/token', {
+      const response = await fetch('https://3.36.248.207/api/auth/token', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
