@@ -15,6 +15,7 @@ export async function fetchWithToken(endpoint, options = {}) {
     if (typeof window !== 'undefined') {
         token = localStorage.getItem('token');
     }
+    
     // 기본 헤더 설정
     const headers = {
         'Content-Type': 'application/json',
