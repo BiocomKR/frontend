@@ -55,6 +55,8 @@ export default function Comments({ chartId }) {
             setComments(data)
         } catch (error) {
             console.error('댓글 조회 오류:', error)
+            alert('로그인 세션이 만료되었습니다. 다시 로그인 해주세요.');
+            window.location.href = '/';
             setError(error.message)
         } finally {
             setIsLoading(false)

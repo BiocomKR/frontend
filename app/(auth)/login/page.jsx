@@ -2,12 +2,20 @@
 
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export default function Login() {
   const router = useRouter()
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+
+  // 토큰이 있는 경우 대시보드로 리다이렉트
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if (token) {
+      router.push('/dashboard')
+    }
+  }, [router])
 
   const handleForgotPassword = () => {
     alert('연구개발팀에 문의해주세용용용')
@@ -29,7 +37,7 @@ export default function Login() {
     const password = e.target.password.value
 
     try {
-      const response = await fetch('http://localhost:8000/api/auth/token', {
+      const response = await fetch('http://3.36.248.207:8000/api/auth/token', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',

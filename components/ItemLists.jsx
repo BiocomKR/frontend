@@ -13,7 +13,7 @@ export function FreeListWTitle({items}) {
         <div className="flex flex-col gap-4 mr-2">
             <div className="flex flex-col gap-2">
                 <div className="text-gray-500 text-xs border-l-4 pl-1">{items.title}</div>
-                <div className="font-medium">{items.value||'입력값 없음'}</div>
+                <div className="font-medium">{items.value||' - '}</div>
             </div>
         </div>
     )

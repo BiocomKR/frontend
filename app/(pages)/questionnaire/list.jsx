@@ -3,24 +3,36 @@
 import { useState } from "react";
 import { QuestionnaireList, LoadingSkList } from "@/components/ItemLists";
 import { useQuery } from "@tanstack/react-query"
-import { api } from "@/utils/authApi"
 
 export default function QLists({handleItemClick}) {
     const [search, setSearch] = useState("");
     const [searchParams, setSearchParams] = useState('')
 
     const {
-        data : stats = [],
+        data: stats = [],
         isLoading,
         error
     } = useQuery({
-        queryKey : ['sib', 'list', searchParams],
-        queryFn : () => api.get(`/api/sib/list?exam_id=${searchParams}`),
-        enabled : !!searchParams,
-        onError : (error) => {
-            console.error('검색중 오류 발생: ',)
+        queryKey: ['sib', 'list', searchParams],
+        queryFn: async () => {
+            try {
+                const response = await fetch(`https://sib.codns.com:3001/api/test/searchQuestionnaire?name=${searchParams}`);
+                if (!response.ok) {
+                    throw new Error('네트워크 응답이 올바르지 않습니다.');
+                }
+                const data = await response.json();
+                console.log('Fetched data:', data);
+                return data.results || []; // 기본값으로 빈 배열 반환
+            } catch (err) {
+                console.error('API 요청 중 오류 발생:', err);
+                return []; // 오류 발생 시 빈 배열 반환
+            }
+        },
+        enabled: searchParams !== null,
+        onError: (error) => {
+            console.error('검색중 오류 발생: ', error);
         }
-})
+    });
     
       // 검색어 입력 핸들러
     const handleInputChange = (e) => {
@@ -84,6 +96,7 @@ export default function QLists({handleItemClick}) {
                     <div className="flex flex-col gap-4">
                     {
                         stats.length > 0 ? (
+
                             stats.map((item, index) => (
                             <QuestionnaireList key={index} items={item} 
                                 handleItemClick={handleItemClick} // 함수만 전달.. 콜백함수처럼

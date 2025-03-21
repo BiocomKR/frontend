@@ -1,0 +1,16 @@
+version: "3"
+services:
+  nextjs:
+    build:
+      context: .
+      args:
+        NODE_ENV: development  # 개발 환경
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    stdin_open: true
+    tty: true

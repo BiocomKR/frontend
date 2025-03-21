@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import * as echarts from 'echarts';
 import ReactECharts from 'echarts-for-react';
+import { api } from "@/utils/authApi";
 
 export function RepurchaseRateReport() {
     const [data, setData] = useState(null);
@@ -36,7 +37,7 @@ export function RepurchaseRateReport() {
             tooltip: {
                 trigger: 'axis',
                 formatter: function(params) {
-                    // 툴팁 커스터마이징
+                    // 툴크 커스터마이징
                     let result = params[0].axisValue + '<br/>';
                     params.forEach((param, index) => {
                         result += `<span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:${param.color};"></span>`;
@@ -140,38 +141,15 @@ export function RepurchaseRateReport() {
             try {
                 setIsLoading(true);
                 
-                // 토큰 가져오기 (로컬 스토리지에 저장된 토큰)
-                const token = localStorage.getItem('token');
+                // 기존 fetch를 api.get으로 변경
+                const response = await api.get(`/api/dashboard/purchase-conversion-details`);
                 
-                // 요청 헤더 설정
-                const headers = {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                };
-                
-                // 토큰이 있으면 Authorization 헤더 추가
-                if (token) {
-                    headers['Authorization'] = `Bearer ${token}`;
-                }
-                
-                // 기존 코드를 새로운 FastAPI 엔드포인트로 변경
-                const response = await fetch(`http://localhost:8000/api/dashboard/purchase-conversion-details`, {
-                    method: 'GET',
-                    headers: headers,
-                    mode: 'cors'
-                });
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
-                const data = await response.json();
-                console.log(data.data);
+                const data = response.data;
+                console.log(data);
 
                 // 임시 데이터
                 const mockData = {
-                    // chartData: data.data,
-                    chartData: data.data,
+                    chartData: data,
                     tableData: [
                         { manager: '전체', user_name: '홍길동', user_phone: '010-1234-5678', test_type: '호르몬', consultation_timestamp: '2025-03-01 10:00:00', purchase_timestamp: '2025-02-25 10:00:00', purchase_list: '엔자임베네핏핏핏', purchase_price: 100000},
                         { manager: '경태', user_name: '홍길동', user_phone: '010-1234-5678', test_type: '호르몬', consultation_timestamp: '2025-03-01 10:00:00', purchase_timestamp: '2025-02-25 10:00:00', purchase_list: '엔자임베네핏핏핏', purchase_price: 100000},

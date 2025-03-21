@@ -28,7 +28,7 @@ export default function QReport({selectedData}) {
                 }
                 
                 // 기존 코드를 새로운 FastAPI 엔드포인트로 변경
-                const response = await fetch(`http://localhost:8000/api/sib/detail?exam_id=${selectedData['검사ID']}`, {
+                const response = await fetch(`https://sib.codns.com:3001/api/test/userQuestionnaire?id=${selectedData['검사ID']}`, {
                     method: 'GET',
                     headers: headers,
                     mode: 'cors'
@@ -40,11 +40,11 @@ export default function QReport({selectedData}) {
                 
                 const data = await response.json();
                 const jsonData = await jsonProvider();
-                console.log(data, jsonData)
+                // console.log(data, jsonData)
                 
-                const reportData = Object.entries(data).reduce((obj, [k,v]) => {
+                const reportData = Object.entries(data.results).reduce((obj, [k,v]) => {
                     const title = jsonData[k]?.title || k;
-                    const detail = jsonData[k]?.detail? jsonData[k].detail[(v-1)]||'입력없음': v;
+                    const detail = jsonData[k]?.detail? jsonData[k].detail[(v-1)]||'입력안함': v;
                     const no = jsonData[k]?.no||'-';
                     if(jsonData[k]){
                         k.includes('최근5년이내질환') ? 
@@ -71,7 +71,6 @@ export default function QReport({selectedData}) {
         };
     }, [selectedData]);
 
-    const userMap = ['검사종류', '업로드날짜', '성명', '성별', '휴대번호', '검사ID', '복용중','복용기타', '분석목적', '생년월일', '검사시점 만나이', '신장','체중','채취일자','채취경과일일']
     const basicGbn = {
         0: '1. 기본증상',
         11: '2. 피로/스트레스',
@@ -85,9 +84,6 @@ export default function QReport({selectedData}) {
         49: '10. 신진대사',
         53: '11. 소변/생리'
     }
-
-
-    
 
     return (
         <div className="flex flex-col gap-6  p-4">
@@ -135,29 +131,57 @@ export default function QReport({selectedData}) {
                                     </div>
                                 </div>
                             </div>
-                            <div className="flex flex-col gap-6 overflow-y-scroll bg-white p-1  h-screen-80">
+                            <div className="flex flex-col gap-6 overflow-y-scroll bg-white p-1  h-screen-80 rounded-lg">
                                 <div>
                                     <div>
-                                        <div className="text-lg font-medium text-white p-2 pl-3 mb-4 bg-bico-mt">고객정보</div>
+                                        <div className="text-lg font-medium text-white p-2 pl-3 mb-4 bg-bico-mt border rounded-lg">고객정보</div>
                                         <div className="pl-2 pb-2  grid grid-cols-[1fr_1fr]">
-                                            {userMap.map((item, idx) => (
-                                                <FreeListWTitle 
-                                                    key={idx} 
-                                                    items={{title: item, value: reportData.user[item]}} 
-                                                />
-                                            ))}
+                                            <FreeListWTitle items={{title: '검사종류 / 검사ID', value: `${reportData.user['검사종류']} / ${reportData.user['검사ID']}`}} />
+                                            <FreeListWTitle items={{title: '휴대번호', value: `${reportData.user['휴대번호']}`}} />
                                         </div>
+                                        <div className="text-lg font-medium  pl-3 mb-2 bg-gray-200 border rounded-lg">고객</div>
+                                        <div className="pl-2 pb-2  grid grid-cols-3">
+                                            <FreeListWTitle items={{title: '성명/ 성별 / 나이', value: `${reportData.user['성명']} / ${reportData.user['성별']=='F' ? '여자' : '남자'} / ${reportData.user['검사시점 만나이']} 세`}} />
+                                            <FreeListWTitle items={{title: '신장 / 체중', value: `${reportData.user['신장']}cm / ${reportData.user['체중']}kg`}} />
+                                            <FreeListWTitle items={{title: '생년월일', value: `${reportData.user['생년월일'].substring(0,10)}`}} />
+                                        </div>
+                                        <div className="text-lg font-medium   border rounded-lg pl-3 mb-2 bg-gray-200">복용정보</div>
+                                        <div className="pl-2 pb-2  grid grid-cols-1">
+                                            <FreeListWTitle items={{title: '복용중 약물', value: `${reportData.user['복용중']} , ${reportData.user['복용기타']}`}} />
+                                            <FreeListWTitle items={{title: '분석목적', value: `${reportData.user['분석목적']}`}} />
+                                            <FreeListWTitle items={{title: '유입경로', value: `${reportData.user['유입경로']}`}} />
+                                        </div>
+                                        <div className="pl-2 pb-2  grid grid-cols-3">
+                                            <FreeListWTitle items={{title: '업로드날짜', value: `${reportData.user['업로드날짜'].substring(0,10)}`}} />
+                                            <FreeListWTitle items={{title: '채취일자', value: `${reportData.user['채취일자'].substring(0,10)}`}} />
+                                            <FreeListWTitle items={{title: '채취경과일', value: `${reportData.user['채취경과일']}`}} />
+                                        </div>
+                                        {
+                                            reportData.user['기상직후'] != null ? (
+                                                <div>
+                                                    <div className="text-lg font-medium border rounded-lg pl-3 mb-2 bg-gray-200">검체 채취시간</div>
+                                                    <div className="pl-2 pb-2 grid grid-cols-4">
+                                                        <FreeListWTitle items={{title: '기상직후', value: `${reportData.user['기상직후']}`}} />
+                                                        <FreeListWTitle items={{title: '기상후 12시간', value: `${reportData.user['기상후12시간']}`}} />
+                                                        <FreeListWTitle items={{title: '기상후 30분', value: `${reportData.user['기상후30분']}`}} />
+                                                        <FreeListWTitle items={{title: '취침 직전', value: `${reportData.user['취침직전']}`}} />
+                                                    </div>
+                                                </div>
+                                            ) : (
+                                                null
+                                            )
+                                        }
                                     </div>
                                     <div>
-                                        <div className="text-lg font-medium text-white p-2 pl-3 bg-bico-mt">검사결과</div>
+                                        <div className="text-lg font-medium text-white p-2 pl-3 bg-bico-mt border rounded-lg">검사결과</div>
                                         <div>
-                                            <div className="text-lg font-medium  p-2 pl-3 mb-2 bg-gray-200">5년 이내 앓았던 질환정보</div>
+                                            <div className="text-lg font-medium border rounded-lg pl-3 mb-2 bg-gray-200">5년 이내 앓았던 질환정보</div>
                                             <div className="pl-2 pb-2 grid grid-cols-4">
                                                     {reportData.disease.filter(i=> i.detail).length > 0 ?
                                                         reportData.disease.filter(i=> i.detail).map((item, idx) => (
                                                         <FreeDiv  key={idx} items={{value: item.title}} />
                                                     ))
-                                                    : <div className="text-sm font-medium pl-3 p-1 bg-gray-100" colSpan={4}>
+                                                    : <div className="text-sm font-medium pl-3 p-1 bg-gray-100 border rounded-lg" colSpan={4}>
                                                         없음
                                                     </div>
                                                     }
@@ -165,7 +189,7 @@ export default function QReport({selectedData}) {
                                         </div>
                                         <div className="space-y-6">
                                             <div>
-                                                <div className="text-lg font-medium  p-1 pl-3 mb-2 bg-gray-200">기본정보</div>
+                                                <div className="text-lg font-medium border rounded-lg pl-3 mb-2 bg-gray-200">기본정보</div>
                                                 <div className="space-y-3 pl-2 pb-2">
                                                     <table>
                                                         <tbody>
@@ -182,6 +206,7 @@ export default function QReport({selectedData}) {
                                                                 />
                                                                 </React.Fragment>
                                                             ))}
+                                                            
                                                         </tbody>
                                                     </table>
                                                 </div>

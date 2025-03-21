@@ -78,7 +78,7 @@ export default function Sidebar() {
               </a>
             </li>
 
-            <li>
+            {/* <li>
               <a href="/settings" 
                 className="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors duration-200">
                 <span className="inline-flex items-center justify-center w-6 h-6 mr-3">
@@ -90,7 +90,7 @@ export default function Sidebar() {
                 </span>
                 <span className="font-medium">설정</span>
               </a>
-            </li>
+            </li> */}
           </ul>
         </nav>
       </div>
